@@ -5,7 +5,7 @@ function App() {
         <p>Gym progress app</p>
       </div>
     </>
-  );
+  )
 }
 
-export default App;
+export default App
