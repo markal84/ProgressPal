@@ -3,17 +3,15 @@ import Exercise from './Exercise'
 export default function Workout({ workout }) {
   return (
     <div>
-      Single workout:
-      <p>
-        <span>Day: {workout.day}</span> <span>Date: {workout.date}</span>
-      </p>
+      <h3>Day: {workout.day}</h3>
+      <p>Date: {workout.date}</p>
       <div>
-        <div>
+        <ul>
           Exercises:
           {workout.exercises.map((exercise) => {
             return <Exercise key={exercise.id} exercise={exercise} />
           })}
-        </div>
+        </ul>
       </div>
     </div>
   )

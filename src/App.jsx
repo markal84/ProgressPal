@@ -4,66 +4,55 @@ import Workout from './components/Workout'
 function App(props) {
   const [workouts, setWorkouts] = useState(props.workouts)
   const [day, setDay] = useState('')
-  const [date, setDate] = useState('')
-  // const [showAll, setShowAll] = useState(false)
+  const [date, setDate] = useState(new Date())
 
-  function handleAddWorkout(event) {
-    event.preventDefault()
+  function getDayName(dateStr, toLocale) {
+    const date = new Date(dateStr)
+    return date.toLocaleDateString(toLocale, { weekday: 'long' })
+  }
+
+  function handleAddWorkout(e) {
+    e.preventDefault()
 
     const newWorkout = {
-      id: workouts.length + 1,
-      day,
-      date,
+      id: workouts.length > 0 ? Math.max(...workouts.map((w) => w.id)) + 1 : 1,
+      day: getDayName(date, 'en-US'),
+      date: date.toLocaleDateString('en-US'),
       exercises: []
     }
 
-    console.log(newWorkout)
+    console.log(newWorkout.date)
 
     setWorkouts([...workouts, newWorkout])
-
     setDay('')
-    setDate('')
+    setDate(new Date())
   }
 
-  function handleDayChange(event) {
-    setDay(event.target.value)
-    console.log(event.target.value)
+  function handleDateChange(e) {
+    setDate(new Date(e.target.value))
+    setDay(day)
   }
-
-  function handleDateChange(event) {
-    setDate(event.target.value)
-  }
-
-  // const workoutsToShow = showAll ? workouts : workouts.filter((workout) => workout.important)
 
   return (
-    <>
-      <div>
-        <h1>Gym progress app</h1>
-        <div>
-          <button>This button will show hide some data</button>
-        </div>
-        <form onSubmit={handleAddWorkout}>
-          <label htmlFor="day">Day:</label>
-          <input type="text" id="day" value={day} onChange={handleDayChange} />
-
-          <label htmlFor="date">Date:</label>
+    <div>
+      <h1>Gym progress app</h1>
+      <form onSubmit={handleAddWorkout}>
+        <label>
+          Date:
           <input
-            type="text"
-            id="date"
-            value={date}
+            type="date"
+            value={date.toISOString().slice(0, 10)}
             onChange={handleDateChange}
           />
-
-          <button type="submit">Add Workout</button>
-        </form>
-        <div>
-          {workouts.map((workout) => (
-            <Workout key={workout.id} workout={workout} />
-          ))}
-        </div>
+        </label>
+        <button type="submit">Add Workout</button>
+      </form>
+      <div>
+        {workouts.map((workout) => (
+          <Workout key={workout.id} workout={workout} />
+        ))}
       </div>
-    </>
+    </div>
   )
 }
 

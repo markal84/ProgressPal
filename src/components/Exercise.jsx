@@ -1,8 +1,10 @@
 export default function Exercise({ exercise }) {
   return (
-    <div>
-      <span>{exercise.name}</span> <span>{exercise.weight}kg</span>{' '}
-      <span>{exercise.series}</span> <span>{exercise.repetitions}</span>{' '}
-    </div>
+    <li>
+      <p>Name: {exercise.name}</p>
+      <p>Weight: {exercise.weight}</p>
+      <p>Series: {exercise.series}</p>
+      <p>Repetitions: {exercise.repetitions}</p>
+    </li>
   )
 }
