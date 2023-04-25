@@ -25,7 +25,8 @@ export default function AddWorkoutForm({ onAddWorkout }) {
   }
 
   function handleDateChange(e) {
-    setDate(new Date(e.target.value))
+    const selectedDate = new Date(e.target.value)
+    setDate(selectedDate)
     setDay(day)
   }
 
@@ -36,6 +37,7 @@ export default function AddWorkoutForm({ onAddWorkout }) {
         <input
           type="date"
           value={date.toISOString().slice(0, 10)}
+          max={new Date().toISOString().slice(0, 10)}
           onChange={handleDateChange}
         />
       </label>
