@@ -19,8 +19,15 @@ async function update(id, newObject) {
   return res.data
 }
 
+async function remove(id) {
+  const req = axios.delete(`${API_URL}/${id}`)
+  const res = await req
+  return res.data
+}
+
 export default {
   getAll,
   create,
-  update
+  update,
+  remove
 }

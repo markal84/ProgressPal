@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import workoutService from '../../services/workouts'
 
 export default function AddWorkoutForm({ onAddWorkout }) {
   const [day, setDay] = useState('')
@@ -19,16 +18,9 @@ export default function AddWorkoutForm({ onAddWorkout }) {
       exercises: []
     }
 
-    workoutService
-      .create(newWorkout)
-      .then((returnedWorkout) => {
-        onAddWorkout(returnedWorkout)
-        setDay('')
-        setDate(new Date())
-      })
-      .catch((error) => {
-        console.log(error)
-      })
+    onAddWorkout(newWorkout)
+    setDay('')
+    setDate(new Date())
   }
 
   function handleDateChange(e) {

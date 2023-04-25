@@ -1,7 +1,11 @@
 import Workout from './Workout'
 import AddWorkoutForm from './forms/AddWorkoutForm'
 
-export default function WorkoutList({ workouts, onAddWorkout }) {
+export default function WorkoutList({
+  workouts,
+  onAddWorkout,
+  onDeleteWorkout
+}) {
   return (
     <>
       <div>
@@ -9,7 +13,11 @@ export default function WorkoutList({ workouts, onAddWorkout }) {
       </div>
       <div>
         {workouts.map((workout) => (
-          <Workout key={workout.id} workout={workout} />
+          <Workout
+            key={workout.id}
+            workout={workout}
+            onDeleteWorkout={onDeleteWorkout}
+          />
         ))}
       </div>
     </>

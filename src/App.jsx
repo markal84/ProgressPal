@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react'
 import workoutService from './services/workouts'
 import WorkoutList from './components/WorkoutList'
+import Notification from './components/Notification'
 
 function App() {
   const [workouts, setWorkouts] = useState([])
+  const [message, setMessage] = useState(null)
 
   useEffect(() => {
     workoutService.getAll().then((initialWorkoutss) => {
@@ -12,13 +14,42 @@ function App() {
   }, [])
 
   function handleAddWorkout(newWorkout) {
-    setWorkouts([...workouts, newWorkout])
+    workoutService
+      .create(newWorkout)
+      .then((returnedWorkout) => {
+        setWorkouts([...workouts, returnedWorkout])
+        setMessage('workout added')
+        setTimeout(() => {
+          setMessage(null)
+        }, 3500)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  }
+
+  function handleDeleteWorkout(id) {
+    workoutService
+      .remove(id)
+      .then(() => {
+        setWorkouts(workouts.filter((w) => w.id !== id))
+        setMessage('workout deleted')
+        setTimeout(() => {
+          setMessage(null)
+        }, 3500)
+      })
+      .catch((error) => console.log(error))
   }
 
   return (
     <div>
       <h1>Gym progress app</h1>
-      <WorkoutList workouts={workouts} onAddWorkout={handleAddWorkout} />
+      <Notification message={message} />
+      <WorkoutList
+        workouts={workouts}
+        onAddWorkout={handleAddWorkout}
+        onDeleteWorkout={handleDeleteWorkout}
+      />
     </div>
   )
 }
