@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import axios from 'axios'
+import workoutService from '../../services/workouts'
 
 export default function AddWorkoutForm({ onAddWorkout }) {
   const [day, setDay] = useState('')
@@ -19,10 +19,10 @@ export default function AddWorkoutForm({ onAddWorkout }) {
       exercises: []
     }
 
-    axios
-      .post('http://localhost:3001/workouts', newWorkout)
-      .then((res) => {
-        onAddWorkout(res.data)
+    workoutService
+      .create(newWorkout)
+      .then((returnedWorkout) => {
+        onAddWorkout(returnedWorkout)
         setDay('')
         setDate(new Date())
       })

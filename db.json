@@ -41,6 +41,12 @@
           "repetitions": 5
         }
       ]
+    },
+    {
+      "day": "Saturday",
+      "date": "4/22/2023",
+      "exercises": [],
+      "id": 3
     }
   ]
 }

@@ -6,8 +6,8 @@ function App() {
   const [workouts, setWorkouts] = useState([])
 
   useEffect(() => {
-    workoutService.getAll().then((res) => {
-      setWorkouts(res.data)
+    workoutService.getAll().then((initialWorkoutss) => {
+      setWorkouts(initialWorkoutss)
     })
   }, [])
 

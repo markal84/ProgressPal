@@ -1,16 +1,22 @@
 import axios from 'axios'
 const API_URL = 'http://localhost:3001/workouts' //change to api/workouts/ after switching to server
 
-function getAll() {
-  return axios.get(API_URL)
+async function getAll() {
+  const req = axios.get(API_URL)
+  const res = await req
+  return res.data
 }
 
-function create(newObject) {
-  return axios.post(API_URL, newObject)
+async function create(newObject) {
+  const req = axios.post(API_URL, newObject)
+  const res = await req
+  return res.data
 }
 
-function update(id, newObject) {
-  return axios.put(`${API_URL}/${id}`, newObject)
+async function update(id, newObject) {
+  const req = axios.put(`${API_URL}/${id}`, newObject)
+  const res = await req
+  return res.data
 }
 
 export default {
