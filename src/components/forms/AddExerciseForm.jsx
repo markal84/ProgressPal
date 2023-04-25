@@ -10,12 +10,12 @@ export default function AddExerciseForm({ onAddExercise }) {
   const handleSubmit = (e) => {
     e.preventDefault()
     const newExercise = {
-      id: Math.floor(Math.random() * 1000),
       name,
       weight,
       series,
       repetitions
     }
+
     onAddExercise(newExercise)
     setName('')
     setWeight(0)

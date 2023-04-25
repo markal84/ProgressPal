@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react'
-import axios from 'axios'
+import workoutService from './services/workouts'
 import WorkoutList from './components/WorkoutList'
 
 function App() {
   const [workouts, setWorkouts] = useState([])
 
   useEffect(() => {
-    axios.get('http://localhost:3001/workouts').then((res) => {
+    workoutService.getAll().then((res) => {
       setWorkouts(res.data)
     })
   }, [])

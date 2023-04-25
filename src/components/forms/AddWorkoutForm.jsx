@@ -14,7 +14,6 @@ export default function AddWorkoutForm({ onAddWorkout }) {
     e.preventDefault()
 
     const newWorkout = {
-      // id: Math.floor(Math.random() * 1000) + 1,
       day: getDayName(date, 'en-US'),
       date: date.toLocaleDateString('en-US'),
       exercises: []
