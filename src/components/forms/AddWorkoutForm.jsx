@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import axios from 'axios'
 
 export default function AddWorkoutForm({ onAddWorkout }) {
   const [day, setDay] = useState('')
@@ -13,15 +14,22 @@ export default function AddWorkoutForm({ onAddWorkout }) {
     e.preventDefault()
 
     const newWorkout = {
-      id: Math.floor(Math.random() * 1000) + 1,
+      // id: Math.floor(Math.random() * 1000) + 1,
       day: getDayName(date, 'en-US'),
       date: date.toLocaleDateString('en-US'),
       exercises: []
     }
 
-    onAddWorkout(newWorkout)
-    setDay('')
-    setDate(new Date())
+    axios
+      .post('http://localhost:3001/workouts', newWorkout)
+      .then((res) => {
+        onAddWorkout(res.data)
+        setDay('')
+        setDate(new Date())
+      })
+      .catch((error) => {
+        console.log(error)
+      })
   }
 
   function handleDateChange(e) {

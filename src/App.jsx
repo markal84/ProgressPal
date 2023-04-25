@@ -1,8 +1,15 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import axios from 'axios'
 import WorkoutList from './components/WorkoutList'
 
-function App(props) {
-  const [workouts, setWorkouts] = useState(props.workouts)
+function App() {
+  const [workouts, setWorkouts] = useState([])
+
+  useEffect(() => {
+    axios.get('http://localhost:3001/workouts').then((res) => {
+      setWorkouts(res.data)
+    })
+  }, [])
 
   function handleAddWorkout(newWorkout) {
     setWorkouts([...workouts, newWorkout])
