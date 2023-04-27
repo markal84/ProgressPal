@@ -4,7 +4,8 @@ import AddWorkoutForm from './forms/AddWorkoutForm'
 export default function WorkoutList({
   workouts,
   onAddWorkout,
-  onDeleteWorkout
+  onDeleteWorkout,
+  onUpdateWorkout
 }) {
   return (
     <>
@@ -17,6 +18,7 @@ export default function WorkoutList({
             key={workout.id}
             workout={workout}
             onDeleteWorkout={onDeleteWorkout}
+            onUpdateWorkout={onUpdateWorkout}
           />
         ))}
       </div>

@@ -1,32 +1,23 @@
 import { useState } from 'react'
 
 export default function AddWorkoutForm({ onAddWorkout }) {
-  const [day, setDay] = useState('')
   const [date, setDate] = useState(new Date())
-
-  function getDayName(dateStr, toLocale) {
-    const date = new Date(dateStr)
-    return date.toLocaleDateString(toLocale, { weekday: 'long' })
-  }
 
   function handleAddWorkout(e) {
     e.preventDefault()
 
     const newWorkout = {
-      day: getDayName(date, 'en-US'),
       date: date.toLocaleDateString('en-US'),
       exercises: []
     }
 
     onAddWorkout(newWorkout)
-    setDay('')
     setDate(new Date())
   }
 
   function handleDateChange(e) {
     const selectedDate = new Date(e.target.value)
     setDate(selectedDate)
-    setDay(day)
   }
 
   return (

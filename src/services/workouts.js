@@ -1,5 +1,5 @@
 import axios from 'axios'
-const API_URL = 'http://localhost:3001/workouts' //change to api/workouts/ after switching to server
+const API_URL = 'http://localhost:3001/api/workouts'
 
 async function getAll() {
   const req = axios.get(API_URL)

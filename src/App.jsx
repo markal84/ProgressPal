@@ -28,6 +28,19 @@ function App() {
       })
   }
 
+  function handleUpdateWorkout(id, updatedWorkout) {
+    workoutService
+      .update(id, updatedWorkout)
+      .then((returnedWorkout) => {
+        setWorkouts(workouts.map((w) => (w.id !== id ? w : returnedWorkout)))
+        setMessage('workout updated')
+        setTimeout(() => {
+          setMessage(null)
+        }, 3500)
+      })
+      .catch((error) => console.log(error))
+  }
+
   function handleDeleteWorkout(id) {
     workoutService
       .remove(id)
@@ -49,6 +62,7 @@ function App() {
         workouts={workouts}
         onAddWorkout={handleAddWorkout}
         onDeleteWorkout={handleDeleteWorkout}
+        onUpdateWorkout={handleUpdateWorkout}
       />
     </div>
   )
