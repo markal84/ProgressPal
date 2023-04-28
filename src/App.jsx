@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import workoutService from './services/workouts'
+// import exerciseService from './services/exercises'
 import WorkoutList from './components/WorkoutList'
 import Notification from './components/Notification'
 

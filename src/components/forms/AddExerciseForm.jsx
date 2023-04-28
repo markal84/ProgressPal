@@ -1,13 +1,14 @@
 import { useState } from 'react'
+import exerciseService from '../../services/exercises'
 
-export default function AddExerciseForm({ onAddExercise }) {
+export default function AddExerciseForm({ onAddExercise, workoutId }) {
   const [showForm, setShowForm] = useState(false)
   const [name, setName] = useState('')
   const [weight, setWeight] = useState(0)
   const [series, setSeries] = useState(0)
   const [repetitions, setRepetitions] = useState(0)
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
     const newExercise = {
       name,
@@ -16,12 +17,23 @@ export default function AddExerciseForm({ onAddExercise }) {
       repetitions
     }
 
-    onAddExercise(newExercise)
-    setName('')
-    setWeight(0)
-    setSeries(0)
-    setRepetitions(0)
-    setShowForm(false)
+    try {
+      const createdExercise = await exerciseService.create(
+        newExercise,
+        workoutId
+      )
+      console.log('created exercise', createdExercise)
+      console.log('for workout ', workoutId)
+
+      onAddExercise(createdExercise)
+      setName('')
+      setWeight(0)
+      setSeries(0)
+      setRepetitions(0)
+      setShowForm(false)
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   if (!showForm) {
