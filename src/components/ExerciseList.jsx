@@ -15,13 +15,26 @@ export default function ExerciseList({ workout }) {
       .catch((error) => console.log(error))
   }
 
+  function handleDeleteExercise(exerciseId) {
+    exerciseService.remove(workout.id, exerciseId).then(() => {
+      setExercises(exercises.filter((e) => e.id !== exerciseId))
+      console.log(`delete done`)
+    })
+  }
+
   return (
     <>
       <div>
         <ul>
           Exercises:
           {exercises.map((exercise) => {
-            return <Exercise key={exercise.id} exercise={exercise} />
+            return (
+              <Exercise
+                key={exercise.id}
+                exercise={exercise}
+                onDeleteExercise={handleDeleteExercise}
+              />
+            )
           })}
         </ul>
       </div>

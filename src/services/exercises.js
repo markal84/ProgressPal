@@ -7,6 +7,13 @@ async function create(newObject, workoutId) {
   return res.data
 }
 
+async function remove(workoutId, exerciseId) {
+  const req = axios.delete(`${API_URL}/${workoutId}/exercises/${exerciseId}`)
+  const res = await req
+  return res.data
+}
+
 export default {
-  create
+  create,
+  remove
 }
