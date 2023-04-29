@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import workoutService from './services/workouts'
-// import exerciseService from './services/exercises'
+import exerciseService from './services/exercises'
 import WorkoutList from './components/WorkoutList'
 import Notification from './components/Notification'
 
@@ -28,6 +28,28 @@ function App() {
         console.log(error)
       })
   }
+
+  /*
+  function handleAddExercise(newExercise, workoutId) {
+    exerciseService
+      .create(newExercise, workoutId)
+      .then((returnedExercise) => {
+        setExercises((workouts) =>
+          workouts.map((workout) => {
+            if (workout.workoutId === workoutId) {
+              return {
+                ...workout,
+                exercises: [...workout.exercises, returnedExercise]
+              }
+            } else {
+              return workout
+            }
+          })
+        )
+      })
+      .catch((error) => console.log(error))
+  }
+  */
 
   function handleUpdateWorkout(id, updatedWorkout) {
     workoutService

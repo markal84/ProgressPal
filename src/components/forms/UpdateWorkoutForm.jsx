@@ -4,10 +4,6 @@ export default function UpdateWorkoutForm({ workout, onUpdateWorkout }) {
   const [editMode, setEditMode] = useState(false)
   const [editedWorkout, setEditedWorkout] = useState(workout)
 
-  function handleEditClick() {
-    setEditMode(true)
-  }
-
   function handleUpdate(e) {
     e.preventDefault()
 
@@ -25,7 +21,9 @@ export default function UpdateWorkoutForm({ workout, onUpdateWorkout }) {
 
   return (
     <>
-      <button onClick={handleEditClick}>Edit</button>
+      <button onClick={() => setEditMode(!editMode)}>
+        {editMode ? 'Cancel' : 'Edit'}
+      </button>
       {editMode && (
         <div>
           <form>

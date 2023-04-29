@@ -1,14 +1,18 @@
 import { useState } from 'react'
+import exerciseService from '../services/exercises'
 import Exercise from './Exercise'
 import AddExerciseForm from './forms/AddExerciseForm'
 
 export default function ExerciseList({ workout }) {
   const [exercises, setExercises] = useState(workout.exercises)
-  console.log('exercises before add ', exercises)
 
   function handleAddExercise(newExercise) {
-    setExercises([...exercises, newExercise])
-    console.log('should update state now and reload component ', exercises)
+    exerciseService
+      .create(newExercise, workout.id)
+      .then((createdExercise) => {
+        setExercises([...exercises, createdExercise])
+      })
+      .catch((error) => console.log(error))
   }
 
   return (
