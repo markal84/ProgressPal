@@ -16,11 +16,9 @@ export default function ExerciseList({ workout }) {
   }
 
   function handleUpdateExercise(workoutId, exerciseId, updatedExercise) {
-    console.log('upddated exercise ', updatedExercise)
     exerciseService
       .update(workoutId, exerciseId, updatedExercise)
       .then((returnedExercise) => {
-        console.log('returned exercise ', returnedExercise)
         setExercises(
           exercises.map((e) => (e.id !== exerciseId ? e : returnedExercise))
         )
@@ -31,7 +29,6 @@ export default function ExerciseList({ workout }) {
   function handleDeleteExercise(exerciseId) {
     exerciseService.remove(workout.id, exerciseId).then(() => {
       setExercises(exercises.filter((e) => e.id !== exerciseId))
-      console.log(`delete done`)
     })
   }
 

@@ -13,7 +13,6 @@ async function update(workoutId, exerciseId, updatedExercise) {
     updatedExercise
   )
   const res = await req
-  console.log('exerciseService update returned object', res.data)
   return res.data
 }
 
