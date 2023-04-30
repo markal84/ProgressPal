@@ -7,6 +7,16 @@ async function create(newObject, workoutId) {
   return res.data
 }
 
+async function update(workoutId, exerciseId, updatedExercise) {
+  const req = axios.put(
+    `${API_URL}/${workoutId}/exercises/${exerciseId}`,
+    updatedExercise
+  )
+  const res = await req
+  console.log('exerciseService update returned object', res.data)
+  return res.data
+}
+
 async function remove(workoutId, exerciseId) {
   const req = axios.delete(`${API_URL}/${workoutId}/exercises/${exerciseId}`)
   const res = await req
@@ -15,5 +25,6 @@ async function remove(workoutId, exerciseId) {
 
 export default {
   create,
+  update,
   remove
 }

@@ -29,28 +29,6 @@ function App() {
       })
   }
 
-  /*
-  function handleAddExercise(newExercise, workoutId) {
-    exerciseService
-      .create(newExercise, workoutId)
-      .then((returnedExercise) => {
-        setExercises((workouts) =>
-          workouts.map((workout) => {
-            if (workout.workoutId === workoutId) {
-              return {
-                ...workout,
-                exercises: [...workout.exercises, returnedExercise]
-              }
-            } else {
-              return workout
-            }
-          })
-        )
-      })
-      .catch((error) => console.log(error))
-  }
-  */
-
   function handleUpdateWorkout(id, updatedWorkout) {
     workoutService
       .update(id, updatedWorkout)

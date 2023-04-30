@@ -15,6 +15,19 @@ export default function ExerciseList({ workout }) {
       .catch((error) => console.log(error))
   }
 
+  function handleUpdateExercise(workoutId, exerciseId, updatedExercise) {
+    console.log('upddated exercise ', updatedExercise)
+    exerciseService
+      .update(workoutId, exerciseId, updatedExercise)
+      .then((returnedExercise) => {
+        console.log('returned exercise ', returnedExercise)
+        setExercises(
+          exercises.map((e) => (e.id !== exerciseId ? e : returnedExercise))
+        )
+      })
+      .catch((error) => console.log(error))
+  }
+
   function handleDeleteExercise(exerciseId) {
     exerciseService.remove(workout.id, exerciseId).then(() => {
       setExercises(exercises.filter((e) => e.id !== exerciseId))
@@ -32,7 +45,9 @@ export default function ExerciseList({ workout }) {
               <Exercise
                 key={exercise.id}
                 exercise={exercise}
+                workout={workout}
                 onDeleteExercise={handleDeleteExercise}
+                onUpdateExercise={handleUpdateExercise}
               />
             )
           })}
