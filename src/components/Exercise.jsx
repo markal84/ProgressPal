@@ -14,7 +14,7 @@ export default function Exercise({
     <>
       <li>
         <p>Name: {exercise.name}</p>
-        <p>Weight: {exercise.weight}kg</p>
+        {exercise.weight && <p>Weight: {exercise.weight}kg</p>}
         <p>Series: {exercise.series}</p>
         <p>Repetitions: {exercise.repetitions}</p>
         <button onClick={deleteExercise}>Delete</button>
