@@ -5,8 +5,8 @@ export default function AddExerciseForm({ onAddExercise, workoutId }) {
   const [showForm, setShowForm] = useState(false)
   const [name, setName] = useState('')
   const [weight, setWeight] = useState(0)
-  const [series, setSeries] = useState(0)
-  const [repetitions, setRepetitions] = useState(0)
+  const [series, setSeries] = useState(1)
+  const [repetitions, setRepetitions] = useState(1)
 
   async function handleSubmit(e) {
     e.preventDefault()
@@ -18,11 +18,10 @@ export default function AddExerciseForm({ onAddExercise, workoutId }) {
     }
 
     onAddExercise(newExercise, workoutId)
-    console.log('create exercise form ', newExercise)
     setName('')
     setWeight(0)
-    setSeries(0)
-    setRepetitions(0)
+    setSeries(1)
+    setRepetitions(1)
     setShowForm(false)
   }
 
