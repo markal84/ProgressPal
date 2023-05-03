@@ -7,12 +7,16 @@ export default function ExerciseList({ workout }) {
   const [exercises, setExercises] = useState(workout.exercises)
 
   function handleAddExercise(newExercise) {
+    if (newExercise.weight === undefined || newExercise.weight === 0) {
+      delete newExercise.weight
+    }
     exerciseService
       .create(newExercise, workout.id)
       .then((createdExercise) => {
         setExercises([...exercises, createdExercise])
       })
       .catch((error) => console.log(error))
+    console.log(exercises)
   }
 
   function handleUpdateExercise(workoutId, exerciseId, updatedExercise) {

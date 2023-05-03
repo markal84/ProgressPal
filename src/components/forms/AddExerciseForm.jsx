@@ -18,7 +18,7 @@ export default function AddExerciseForm({ onAddExercise, workoutId }) {
     }
 
     onAddExercise(newExercise, workoutId)
-    // onAddExercise(createdExercise)
+    console.log('create exercise form ', newExercise)
     setName('')
     setWeight(0)
     setSeries(0)
