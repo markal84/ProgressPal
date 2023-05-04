@@ -16,8 +16,6 @@ export default function Exercise({
     } and undefined: ${exercise.weight === undefined}`
   )
   */
-  console.log(exercise.weight)
-
   return (
     <>
       <li>
