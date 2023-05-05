@@ -8,7 +8,6 @@ const Togglable = (props) => {
 
   const toggleVisibility = () => {
     setVisible(!visible)
-    console.log('visible state is now ', visible)
   }
 
   return (

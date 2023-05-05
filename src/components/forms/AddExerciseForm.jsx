@@ -29,12 +29,6 @@ export default function AddExerciseForm({
     setVisible(false)
   }
 
-  /*
-  if (!showForm) {
-    return <button onClick={() => setShowForm(true)}>Add Exercise</button>
-  }
-  */
-
   return (
     <form onSubmit={handleSubmit}>
       <label>

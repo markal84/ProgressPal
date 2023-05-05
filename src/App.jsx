@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
 import workoutService from './services/workouts'
 import loginService from './services/login'
-// import exerciseService from './services/exercises'
 import WorkoutList from './components/WorkoutList'
 import AddWorkoutForm from './components/forms/AddWorkoutForm'
 import Notification from './components/Notification'
@@ -11,8 +10,6 @@ import Togglable from './components/Togglable'
 function App() {
   const [workouts, setWorkouts] = useState([])
   const [message, setMessage] = useState(null)
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
 
   useEffect(() => {
@@ -30,9 +27,7 @@ function App() {
     }
   }, [])
 
-  async function handleLogin(e) {
-    e.preventDefault()
-
+  async function handleLogin(username, password) {
     try {
       const user = await loginService.login({
         username,
@@ -43,8 +38,6 @@ function App() {
 
       workoutService.setToken(user.token)
       setUser(user)
-      setUsername('')
-      setPassword('')
     } catch (error) {
       setMessage('Wrong credentials')
       setTimeout(() => {
@@ -57,8 +50,6 @@ function App() {
     try {
       window.localStorage.removeItem('loggedWorkoutAppUser')
       setUser(null)
-      setUsername('')
-      setPassword('')
     } catch (error) {
       setMessage('Error during logout')
       setTimeout(() => {
@@ -111,13 +102,7 @@ function App() {
   const loginForm = () => {
     return (
       <Togglable buttonLabel="log in">
-        <LoginForm
-          username={username}
-          password={password}
-          handleUsernameChange={({ target }) => setUsername(target.value)}
-          handlePasswordChange={({ target }) => setPassword(target.value)}
-          handleSubmit={handleLogin}
-        />
+        <LoginForm handleLogin={handleLogin} />
       </Togglable>
     )
   }
