@@ -1,8 +1,12 @@
 import { useState } from 'react'
 // import exerciseService from '../../services/exercises'
 
-export default function AddExerciseForm({ onAddExercise, workoutId }) {
-  const [showForm, setShowForm] = useState(false)
+export default function AddExerciseForm({
+  onAddExercise,
+  workoutId,
+  setVisible
+}) {
+  //const [showForm, setShowForm] = useState(false)
   const [name, setName] = useState('')
   const [weight, setWeight] = useState(0)
   const [series, setSeries] = useState(1)
@@ -22,12 +26,14 @@ export default function AddExerciseForm({ onAddExercise, workoutId }) {
     setWeight(0)
     setSeries(1)
     setRepetitions(1)
-    setShowForm(false)
+    setVisible(false)
   }
 
+  /*
   if (!showForm) {
     return <button onClick={() => setShowForm(true)}>Add Exercise</button>
   }
+  */
 
   return (
     <form onSubmit={handleSubmit}>
@@ -64,9 +70,6 @@ export default function AddExerciseForm({ onAddExercise, workoutId }) {
         />
       </label>
       <button type="submit">Save</button>
-      <button type="button" onClick={() => setShowForm(false)}>
-        Cancel
-      </button>
     </form>
   )
 }

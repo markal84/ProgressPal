@@ -6,6 +6,7 @@ import WorkoutList from './components/WorkoutList'
 import AddWorkoutForm from './components/forms/AddWorkoutForm'
 import Notification from './components/Notification'
 import LoginForm from './components/forms/LoginForm'
+import Togglable from './components/Togglable'
 
 function App() {
   const [workouts, setWorkouts] = useState([])
@@ -13,7 +14,6 @@ function App() {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
-  const [loginVisible, setLoginVisible] = useState(false)
 
   useEffect(() => {
     workoutService.getAll().then((initialWorkoutss) => {
@@ -109,25 +109,16 @@ function App() {
   }
 
   const loginForm = () => {
-    const hideWhenVisible = { display: loginVisible ? 'none' : '' }
-    const showWhenVisible = { display: loginVisible ? '' : 'none' }
-
     return (
-      <div>
-        <div style={hideWhenVisible}>
-          <button onClick={() => setLoginVisible(true)}>log in</button>
-        </div>
-        <div style={showWhenVisible}>
-          <LoginForm
-            username={username}
-            password={password}
-            handleUsernameChange={({ target }) => setUsername(target.value)}
-            handlePasswordChange={({ target }) => setPassword(target.value)}
-            handleSubmit={handleLogin}
-          />
-          <button onClick={() => setLoginVisible(false)}>cancel</button>
-        </div>
-      </div>
+      <Togglable buttonLabel="log in">
+        <LoginForm
+          username={username}
+          password={password}
+          handleUsernameChange={({ target }) => setUsername(target.value)}
+          handlePasswordChange={({ target }) => setPassword(target.value)}
+          handleSubmit={handleLogin}
+        />
+      </Togglable>
     )
   }
 

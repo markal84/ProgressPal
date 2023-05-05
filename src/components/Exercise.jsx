@@ -9,13 +9,7 @@ export default function Exercise({
   function deleteExercise() {
     onDeleteExercise(exercise.id)
   }
-  /*
-  console.log(
-    `Exercise weight is: ${exercise.weight} so exercise.weight === 0 is ${
-      exercise.weight === 0
-    } and undefined: ${exercise.weight === undefined}`
-  )
-  */
+
   return (
     <>
       <li>

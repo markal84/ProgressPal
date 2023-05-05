@@ -2,9 +2,11 @@ import { useState } from 'react'
 import exerciseService from '../services/exercises'
 import Exercise from './Exercise'
 import AddExerciseForm from './forms/AddExerciseForm'
+import Togglable from './Togglable'
 
 export default function ExerciseList({ workout }) {
   const [exercises, setExercises] = useState(workout.exercises)
+  const [visible, setVisible] = useState(false)
 
   function handleAddExercise(newExercise) {
     exerciseService
@@ -50,10 +52,13 @@ export default function ExerciseList({ workout }) {
           })}
         </ul>
       </div>
-      <AddExerciseForm
-        onAddExercise={handleAddExercise}
-        workoutId={workout.id}
-      />
+      <Togglable buttonLabel="add exercise">
+        <AddExerciseForm
+          onAddExercise={handleAddExercise}
+          workoutId={workout.id}
+          setVisible={setVisible}
+        />
+      </Togglable>
     </>
   )
 }
