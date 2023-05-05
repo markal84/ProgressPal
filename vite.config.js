@@ -4,5 +4,21 @@ import eslint from 'vite-plugin-eslint'
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  server: {
+    proxy: {
+      '/api/workouts': {
+        target: 'http://localhost:3001',
+        secure: false
+      },
+      '/api/login': {
+        target: 'http://localhost:3001',
+        secure: false
+      },
+      '/api/users': {
+        target: 'http://localhost:3001',
+        secure: false
+      }
+    }
+  },
   plugins: [react(), eslint()]
 })

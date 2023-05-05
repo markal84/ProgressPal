@@ -1,5 +1,11 @@
 import axios from 'axios'
-const API_URL = 'http://localhost:3001/api/workouts'
+const API_URL = 'api/workouts'
+
+let token = null
+
+function setToken(newToken) {
+  token = `Bearer ${newToken}`
+}
 
 async function getAll() {
   const req = axios.get(API_URL)
@@ -8,7 +14,11 @@ async function getAll() {
 }
 
 async function create(newObject) {
-  const req = axios.post(API_URL, newObject)
+  const config = {
+    headers: { Authorization: token }
+  }
+
+  const req = axios.post(API_URL, newObject, config)
   const res = await req
   return res.data
 }
@@ -29,5 +39,6 @@ export default {
   getAll,
   create,
   update,
-  remove
+  remove,
+  setToken
 }
