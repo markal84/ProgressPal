@@ -1,11 +1,7 @@
 import { useState } from 'react'
 // import exerciseService from '../../services/exercises'
 
-export default function AddExerciseForm({
-  onAddExercise,
-  workoutId,
-  setVisible
-}) {
+export default function AddExerciseForm({ onAddExercise, workoutId }) {
   //const [showForm, setShowForm] = useState(false)
   const [name, setName] = useState('')
   const [weight, setWeight] = useState(0)
@@ -26,7 +22,6 @@ export default function AddExerciseForm({
     setWeight(0)
     setSeries(1)
     setRepetitions(1)
-    setVisible(false)
   }
 
   return (

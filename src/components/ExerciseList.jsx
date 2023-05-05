@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import exerciseService from '../services/exercises'
 import Exercise from './Exercise'
 import AddExerciseForm from './forms/AddExerciseForm'
@@ -6,9 +6,11 @@ import Togglable from './Togglable'
 
 export default function ExerciseList({ workout }) {
   const [exercises, setExercises] = useState(workout.exercises)
-  const [setVisible] = useState(false)
+
+  const exerciseFormRef = useRef()
 
   function handleAddExercise(newExercise) {
+    exerciseFormRef.current.toggleVisibility()
     exerciseService
       .create(newExercise, workout.id)
       .then((createdExercise) => {
@@ -36,11 +38,10 @@ export default function ExerciseList({ workout }) {
 
   const addWorkoutForm = () => {
     return (
-      <Togglable buttonLabel="add exercise">
+      <Togglable buttonLabel="add exercise" ref={exerciseFormRef}>
         <AddExerciseForm
           onAddExercise={handleAddExercise}
           workoutId={workout.id}
-          setVisible={setVisible}
         />
       </Togglable>
     )
