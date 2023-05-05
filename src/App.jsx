@@ -50,11 +50,12 @@ function App() {
     try {
       window.localStorage.removeItem('loggedWorkoutAppUser')
       setUser(null)
-    } catch (error) {
-      setMessage('Error during logout')
+      setMessage('Logged out')
       setTimeout(() => {
         setMessage(null)
-      }, 5000)
+      }, 2000)
+    } catch (error) {
+      console.log(error)
     }
   }
 
@@ -107,26 +108,29 @@ function App() {
     )
   }
 
+  const loggedUser = () => {
+    return (
+      <div>
+        <p>{user.name}: logged</p>
+        <button
+          type="button"
+          onClick={() => handleLogout()}
+          style={{ marginBottom: '2rem' }}
+        >
+          Logout
+        </button>
+        <AddWorkoutForm onAddWorkout={handleAddWorkout} />
+      </div>
+    )
+  }
+
   return (
     <div>
       <h1>Gym progress app</h1>
       <Notification message={message} />
 
       {!user && loginForm()}
-      {user && (
-        <div>
-          <p>{user.name}: logged</p>
-          <button
-            type="button"
-            onClick={() => handleLogout()}
-            style={{ marginBottom: '2rem' }}
-          >
-            Logout
-          </button>
-          <AddWorkoutForm onAddWorkout={handleAddWorkout} />
-        </div>
-      )}
-
+      {user && loggedUser()}
       <WorkoutList
         workouts={workouts}
         onDeleteWorkout={handleDeleteWorkout}

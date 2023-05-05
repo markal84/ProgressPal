@@ -22,6 +22,7 @@ export default function AddWorkoutForm({ onAddWorkout }) {
 
   return (
     <form onSubmit={handleAddWorkout}>
+      <p>Create a new workout</p>
       <label>
         Date:
         <input
