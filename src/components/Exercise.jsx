@@ -1,4 +1,5 @@
 import UpdateExerciseForm from './forms/UpdateExerciseForm'
+import { PropTypes } from 'prop-types'
 
 export default function Exercise({
   workout,
@@ -28,4 +29,11 @@ export default function Exercise({
       </li>
     </>
   )
+}
+
+Exercise.propTypes = {
+  workout: PropTypes.object.isRequired,
+  exercise: PropTypes.object.isRequired,
+  onDeleteExercise: PropTypes.func.isRequired,
+  onUpdateExercise: PropTypes.func.isRequired
 }

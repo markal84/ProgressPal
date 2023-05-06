@@ -3,6 +3,7 @@ import exerciseService from '../services/exercises'
 import Exercise from './Exercise'
 import AddExerciseForm from './forms/AddExerciseForm'
 import Togglable from './Togglable'
+import { PropTypes } from 'prop-types'
 
 export default function ExerciseList({ workout }) {
   const [exercises, setExercises] = useState(workout.exercises)
@@ -68,4 +69,8 @@ export default function ExerciseList({ workout }) {
       {addWorkoutForm()}
     </>
   )
+}
+
+ExerciseList.propTypes = {
+  workout: PropTypes.object.isRequired
 }

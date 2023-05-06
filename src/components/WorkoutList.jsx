@@ -1,4 +1,5 @@
 import Workout from './Workout'
+import { PropTypes } from 'prop-types'
 
 export default function WorkoutList({
   workouts,
@@ -20,4 +21,10 @@ export default function WorkoutList({
       </div>
     </>
   )
+}
+
+WorkoutList.propTypes = {
+  workouts: PropTypes.array.isRequired,
+  onDeleteWorkout: PropTypes.func.isRequired,
+  onUpdateWorkout: PropTypes.func.isRequired
 }

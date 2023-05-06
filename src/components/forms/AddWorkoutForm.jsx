@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { PropTypes } from 'prop-types'
 
 export default function AddWorkoutForm({ onAddWorkout }) {
   const [date, setDate] = useState(new Date())
@@ -35,4 +36,8 @@ export default function AddWorkoutForm({ onAddWorkout }) {
       <button type="submit">Add Workout</button>
     </form>
   )
+}
+
+AddWorkoutForm.propTypes = {
+  onAddWorkout: PropTypes.func.isRequired
 }

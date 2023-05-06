@@ -1,6 +1,7 @@
 import ExerciseList from './ExerciseList'
 import UpdateWorkoutForm from './forms/UpdateWorkoutForm'
 import formatDate from '../utilis/dateFormat'
+import { PropTypes } from 'prop-types'
 
 export default function Workout({ workout, onDeleteWorkout, onUpdateWorkout }) {
   const formattedDate = formatDate(workout.date)
@@ -19,4 +20,10 @@ export default function Workout({ workout, onDeleteWorkout, onUpdateWorkout }) {
       <ExerciseList workout={workout} />
     </div>
   )
+}
+
+Workout.propTypes = {
+  workout: PropTypes.object.isRequired,
+  onDeleteWorkout: PropTypes.func.isRequired,
+  onUpdateWorkout: PropTypes.func.isRequired
 }

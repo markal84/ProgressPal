@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { PropTypes } from 'prop-types'
 
 export default function UpdateWorkoutForm({ workout, onUpdateWorkout }) {
   const [editMode, setEditMode] = useState(false)
@@ -45,4 +46,9 @@ export default function UpdateWorkoutForm({ workout, onUpdateWorkout }) {
       )}
     </>
   )
+}
+
+UpdateWorkoutForm.propTypes = {
+  workout: PropTypes.object.isRequired,
+  onUpdateWorkout: PropTypes.func.isRequired
 }

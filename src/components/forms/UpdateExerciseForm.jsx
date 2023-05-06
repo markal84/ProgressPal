@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { PropTypes } from 'prop-types'
 
 export default function UpdateExerciseForm({
   workout,
@@ -74,4 +75,10 @@ export default function UpdateExerciseForm({
       )}
     </>
   )
+}
+
+UpdateExerciseForm.propTypes = {
+  workout: PropTypes.object.isRequired,
+  exercise: PropTypes.object.isRequired,
+  onUpdateExercise: PropTypes.func.isRequired
 }

@@ -1,8 +1,7 @@
 import { useState } from 'react'
-// import exerciseService from '../../services/exercises'
+import { PropTypes } from 'prop-types'
 
 export default function AddExerciseForm({ onAddExercise, workoutId }) {
-  //const [showForm, setShowForm] = useState(false)
   const [name, setName] = useState('')
   const [weight, setWeight] = useState(0)
   const [series, setSeries] = useState(1)
@@ -61,4 +60,9 @@ export default function AddExerciseForm({ onAddExercise, workoutId }) {
       <button type="submit">Save</button>
     </form>
   )
+}
+
+AddExerciseForm.propTypes = {
+  onAddExercise: PropTypes.func.isRequired,
+  workoutId: PropTypes.string.isRequired
 }
