@@ -72,6 +72,11 @@ function App() {
           setMessage(null)
         }, 3500)
       })
+      .then(() => {
+        workoutService.getAll().then((updatedWorkouts) => {
+          setWorkouts(updatedWorkouts)
+        })
+      })
       .catch((error) => {
         console.log(error)
       })
