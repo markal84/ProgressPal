@@ -1,18 +1,21 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { PropTypes } from 'prop-types'
+import Togglable from '../Togglable'
+import { Box, Button, TextField } from '@mui/material'
 
 export default function UpdateExerciseForm({
   workout,
   exercise,
   onUpdateExercise
 }) {
-  const [editMode, setEditMode] = useState(false)
   const [editedExercise, setEditedExercise] = useState(exercise)
 
+  const updateExerciseFormRef = useRef()
+
   function handleUpdate(e) {
+    updateExerciseFormRef.current.toggleVisibility()
     e.preventDefault()
     onUpdateExercise(workout.id, exercise.id, editedExercise)
-    setEditMode(false)
   }
 
   function handleUpdateInputChange(e) {
@@ -23,58 +26,54 @@ export default function UpdateExerciseForm({
     }))
   }
 
-  return (
-    <>
-      <button onClick={() => setEditMode(!editMode)}>
-        {editMode ? 'Cancel' : 'Edit'}
-      </button>
-      {editMode && (
-        <div>
-          <form>
-            <label htmlFor="name">
-              Name:
-              <input
-                type="text"
-                name="name"
-                defaultValue={editedExercise.name}
-                onChange={handleUpdateInputChange}
-              />
-            </label>
-            <label htmlFor="weight">
-              Weight:
-              <input
-                type="number"
-                name="weight"
-                defaultValue={editedExercise.weight}
-                onChange={handleUpdateInputChange}
-              />
-            </label>
-            <label htmlFor="series">
-              Series
-              <input
-                type="number"
-                name="series"
-                defaultValue={editedExercise.series}
-                onChange={handleUpdateInputChange}
-              />
-            </label>
-            <label htmlFor="repetitions">
-              Repetitions
-              <input
-                type="number"
-                name="repetitions"
-                defaultValue={editedExercise.repetitions}
-                onChange={handleUpdateInputChange}
-              />
-            </label>
-            <button type="submit" onClick={handleUpdate}>
-              Update
-            </button>
-          </form>
-        </div>
-      )}
-    </>
-  )
+  const updateExerciseForm = () => {
+    return (
+      <Togglable buttonLabel="Edit Exercise" ref={updateExerciseFormRef}>
+        <Box component="form" onSubmit={handleUpdate}>
+          <TextField
+            label="Name"
+            name="name"
+            value={editedExercise.name}
+            onChange={handleUpdateInputChange}
+            fullWidth
+            margin="normal"
+          />
+          <TextField
+            label="Weight"
+            name="weight"
+            type="number"
+            value={editedExercise.weight}
+            onChange={handleUpdateInputChange}
+            fullWidth
+            margin="normal"
+          />
+          <TextField
+            label="Series"
+            name="series"
+            type="number"
+            value={editedExercise.series}
+            onChange={handleUpdateInputChange}
+            fullWidth
+            margin="normal"
+          />
+          <TextField
+            label="Repetitions"
+            name="repetitions"
+            type="number"
+            value={editedExercise.repetitions}
+            onChange={handleUpdateInputChange}
+            fullWidth
+            margin="normal"
+          />
+          <Button type="submit" variant="contained">
+            Update
+          </Button>
+        </Box>
+      </Togglable>
+    )
+  }
+
+  return <>{updateExerciseForm()}</>
 }
 
 UpdateExerciseForm.propTypes = {

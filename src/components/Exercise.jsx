@@ -1,4 +1,6 @@
+/* eslint-disable indent */
 import UpdateExerciseForm from './forms/UpdateExerciseForm'
+import { Box, Button, Typography, useMediaQuery, useTheme } from '@mui/material'
 import { PropTypes } from 'prop-types'
 
 export default function Exercise({
@@ -11,23 +13,46 @@ export default function Exercise({
     onDeleteExercise(exercise.id)
   }
 
+  const theme = useTheme()
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
+
   return (
-    <>
-      <li>
-        <p>Name: {exercise.name}</p>
-        {exercise.weight !== undefined &&
-          exercise.weight !== 0 &&
-          exercise.weight !== null && <p>Weight: {exercise.weight}kg</p>}
-        <p>Series: {exercise.series}</p>
-        <p>Repetitions: {exercise.repetitions}</p>
-        <button onClick={deleteExercise}>Delete</button>
-        <UpdateExerciseForm
-          onUpdateExercise={onUpdateExercise}
-          exercise={exercise}
-          workout={workout}
-        />
-      </li>
-    </>
+    <Box
+      component="li"
+      sx={{
+        display: 'flex',
+        flexDirection: isMobile ? 'column' : 'row',
+        alignItems: 'flex-start',
+        padding: 2,
+        backgroundColor: '#f5f5f5',
+        marginBottom: 2
+      }}
+    >
+      <Typography variant="body1" component="p" gutterBottom>
+        Name: {exercise.name}
+      </Typography>
+      {exercise.weight !== undefined &&
+        exercise.weight !== 0 &&
+        exercise.weight !== null && (
+          <Typography variant="body1" component="p" gutterBottom>
+            Weight: {exercise.weight}kg
+          </Typography>
+        )}
+      <Typography variant="body1" component="p" gutterBottom>
+        Series: {exercise.series}
+      </Typography>
+      <Typography variant="body1" component="p" gutterBottom>
+        Repetitions: {exercise.repetitions}
+      </Typography>
+      <Button onClick={deleteExercise} variant="contained" color="secondary">
+        Delete
+      </Button>
+      <UpdateExerciseForm
+        onUpdateExercise={onUpdateExercise}
+        exercise={exercise}
+        workout={workout}
+      />
+    </Box>
   )
 }
 

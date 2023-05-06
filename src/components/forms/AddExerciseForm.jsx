@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { PropTypes } from 'prop-types'
+import { Box, Button, TextField } from '@mui/material'
 
 export default function AddExerciseForm({ onAddExercise, workoutId }) {
   const [name, setName] = useState('')
@@ -24,41 +25,46 @@ export default function AddExerciseForm({ onAddExercise, workoutId }) {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label>
-        Name:
-        <input
-          type="text"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
-      </label>
-      <label>
-        Weight:
-        <input
-          type="number"
-          value={weight}
-          onChange={(e) => setWeight(e.target.value)}
-        />
-      </label>
-      <label>
-        Series:
-        <input
-          type="number"
-          value={series}
-          onChange={(e) => setSeries(e.target.value)}
-        />
-      </label>
-      <label>
-        Repetitions:
-        <input
-          type="number"
-          value={repetitions}
-          onChange={(e) => setRepetitions(e.target.value)}
-        />
-      </label>
-      <button type="submit">Save</button>
-    </form>
+    <Box component="form" onSubmit={handleSubmit} sx={{ marginTop: 2 }}>
+      <TextField
+        label="Name"
+        type="text"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+        fullWidth
+        required
+        sx={{ marginBottom: 2 }}
+      />
+      <TextField
+        label="Weight (kg)"
+        type="number"
+        value={weight}
+        onChange={(e) => setWeight(e.target.value)}
+        fullWidth
+        sx={{ marginBottom: 2 }}
+      />
+      <TextField
+        label="Series"
+        type="number"
+        value={series}
+        onChange={(e) => setSeries(e.target.value)}
+        fullWidth
+        required
+        sx={{ marginBottom: 2 }}
+      />
+      <TextField
+        label="Repetitions"
+        type="number"
+        value={repetitions}
+        onChange={(e) => setRepetitions(e.target.value)}
+        fullWidth
+        required
+        sx={{ marginBottom: 2 }}
+      />
+      <Button type="submit" variant="contained" color="primary">
+        Save
+      </Button>
+    </Box>
   )
 }
 
