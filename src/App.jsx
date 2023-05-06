@@ -9,12 +9,15 @@ import Togglable from './components/Togglable'
 
 function App() {
   const [workouts, setWorkouts] = useState([])
+  const [isLoading, setIsLoading] = useState(false)
   const [message, setMessage] = useState(null)
   const [user, setUser] = useState(null)
 
   useEffect(() => {
+    setIsLoading(true)
     workoutService.getAll().then((initialWorkoutss) => {
       setWorkouts(initialWorkoutss)
+      setIsLoading(false)
     })
   }, [])
 
@@ -131,11 +134,15 @@ function App() {
 
       {!user && loginForm()}
       {user && loggedUser()}
-      <WorkoutList
-        workouts={workouts}
-        onDeleteWorkout={handleDeleteWorkout}
-        onUpdateWorkout={handleUpdateWorkout}
-      />
+
+      {isLoading && <p>Loading data...</p>}
+      {!isLoading && (
+        <WorkoutList
+          workouts={workouts}
+          onDeleteWorkout={handleDeleteWorkout}
+          onUpdateWorkout={handleUpdateWorkout}
+        />
+      )}
     </div>
   )
 }
