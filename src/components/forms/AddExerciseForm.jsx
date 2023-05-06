@@ -64,5 +64,5 @@ export default function AddExerciseForm({ onAddExercise, workoutId }) {
 
 AddExerciseForm.propTypes = {
   onAddExercise: PropTypes.func.isRequired,
-  workoutId: PropTypes.string.isRequired
+  workoutId: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
 }

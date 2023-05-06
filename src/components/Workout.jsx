@@ -11,7 +11,7 @@ export default function Workout({ workout, onDeleteWorkout, onUpdateWorkout }) {
   }
 
   return (
-    <div>
+    <div className="workout">
       <h2>
         Day: {workout.day} - {formattedDate}
       </h2>

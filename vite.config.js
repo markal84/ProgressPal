@@ -20,5 +20,14 @@ export default defineConfig({
       }
     }
   },
-  plugins: [react(), eslint()]
+  plugins: [react(), eslint()],
+  test: {
+    coverage: {
+      provider: 'c8'
+    },
+    environment: 'jsdom',
+    setupFiles: ['./src/tests/setup.js'],
+    testMatch: ['./src/tests/**/*.test.jsx'],
+    globals: true
+  }
 })
