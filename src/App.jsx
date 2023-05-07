@@ -6,12 +6,16 @@ import AddWorkoutForm from './components/forms/AddWorkoutForm'
 import Notification from './components/Notification'
 import LoginForm from './components/forms/LoginForm'
 import Togglable from './components/Togglable'
+import { Box, Button, Typography, useMediaQuery, useTheme } from '@mui/material'
 
 function App() {
   const [workouts, setWorkouts] = useState([])
   const [isLoading, setIsLoading] = useState(false)
   const [message, setMessage] = useState(null)
   const [user, setUser] = useState(null)
+
+  const theme = useTheme()
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
 
   useEffect(() => {
     setIsLoading(true)
@@ -118,37 +122,46 @@ function App() {
 
   const loggedUser = () => {
     return (
-      <div>
-        <p>{user.name}: logged</p>
-        <button
+      <Box sx={{ marginTop: theme.spacing(3) }}>
+        <Typography variant="body1" gutterBottom>
+          {user.name}: logged
+        </Typography>
+        <Button
           type="button"
-          onClick={() => handleLogout()}
-          style={{ marginBottom: '2rem' }}
+          onClick={handleLogout}
+          variant="contained"
+          color="secondary"
+          sx={{ marginBottom: theme.spacing(3) }}
         >
           Logout
-        </button>
+        </Button>
         <AddWorkoutForm onAddWorkout={handleAddWorkout} />
-      </div>
+      </Box>
     )
   }
 
   return (
-    <div>
-      <h1>Gym progress app</h1>
+    <Box sx={{ padding: theme.spacing(2) }}>
+      <Typography variant={isMobile ? 'h3' : 'h1'} gutterBottom>
+        Gym progress
+      </Typography>
       <Notification message={message} />
 
       {!user && loginForm()}
       {user && loggedUser()}
 
-      {isLoading && <p>Loading data...</p>}
-      {!isLoading && (
+      {isLoading ? (
+        <Typography variant="body1" gutterBottom>
+          Loading data...
+        </Typography>
+      ) : (
         <WorkoutList
           workouts={workouts}
           onDeleteWorkout={handleDeleteWorkout}
           onUpdateWorkout={handleUpdateWorkout}
         />
       )}
-    </div>
+    </Box>
   )
 }
 
