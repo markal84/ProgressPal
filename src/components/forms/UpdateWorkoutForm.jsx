@@ -12,9 +12,6 @@ export default function UpdateWorkoutForm({ workout, onUpdateWorkout }) {
   const maxDate = addDays(new Date(), 0)
   const parsedDate = parseISO(editedWorkout.date)
 
-  console.log('date received by update ', editedWorkout.date)
-  console.log('received date parsed by parseISO ', parsedDate)
-
   const updateWorkoutFormRef = useRef()
 
   function handleUpdate(e) {
