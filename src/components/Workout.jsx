@@ -11,6 +11,8 @@ export default function Workout({ workout, onDeleteWorkout, onUpdateWorkout }) {
     onDeleteWorkout(workout.id)
   }
 
+  console.log('formatted date in workout component', formattedDate)
+
   return (
     <Box sx={{ marginBottom: 4, padding: 2, backgroundColor: '#f5f5f5' }}>
       <Typography variant="h5" component="h2" gutterBottom>

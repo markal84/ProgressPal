@@ -15,9 +15,11 @@ export default function AddWorkoutForm({ onAddWorkout }) {
     e.preventDefault()
 
     const newWorkout = {
-      date: date.toLocaleDateString('en-US'),
+      date: date.toLocaleDateString('en-GB'),
       exercises: []
     }
+
+    console.log('workout date added addworkoutform ', newWorkout.date)
 
     onAddWorkout(newWorkout)
     setDate(new Date())
