@@ -17,7 +17,7 @@ export default function Workout({ workout, onDeleteWorkout, onUpdateWorkout }) {
         Day: {workout.day} - {formattedDate}
       </Typography>
       <Button variant="contained" color="secondary" onClick={handleDeleteClick}>
-        Delete
+        Delete Workout
       </Button>
       <UpdateWorkoutForm workout={workout} onUpdateWorkout={onUpdateWorkout} />
       <ExerciseList workout={workout} />

@@ -2,6 +2,7 @@
 import UpdateExerciseForm from './forms/UpdateExerciseForm'
 import { Box, Button, Typography } from '@mui/material'
 import { styled } from '@mui/system'
+import { Delete as DeleteIcon } from '@mui/icons-material'
 import { PropTypes } from 'prop-types'
 
 const ExerciseContainer = styled(Box)(({ theme }) => ({
@@ -49,12 +50,8 @@ export default function Exercise({
       <Typography variant="body1" gutterBottom>
         Repetitions: {exercise.repetitions}
       </Typography>
-      <DeleteButton
-        onClick={deleteExercise}
-        variant="contained"
-        color="secondary"
-      >
-        Delete
+      <DeleteButton onClick={deleteExercise} color="secondary">
+        <DeleteIcon />
       </DeleteButton>
       <UpdateExerciseForm
         onUpdateExercise={onUpdateExercise}
