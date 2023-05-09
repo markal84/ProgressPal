@@ -46,7 +46,7 @@ function App() {
       workoutService.setToken(user.token)
       setUser(user)
     } catch (error) {
-      setMessage('Wrong credentials')
+      setMessage('Wrong username or password')
       setTimeout(() => {
         setMessage(null)
       }, 5000)

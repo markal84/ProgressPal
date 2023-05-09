@@ -1,16 +1,16 @@
-import { useState } from 'react'
+import { useForm } from 'react-hook-form'
 import { PropTypes } from 'prop-types'
 import { Box, Button, TextField, Typography } from '@mui/material'
 
 const LoginForm = ({ handleLogin }) => {
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
+  const {
+    register,
+    handleSubmit,
+    formState: { errors }
+  } = useForm()
 
-  async function handleSubmit(e) {
-    e.preventDefault()
-    await handleLogin(username, password)
-    setUsername('')
-    setPassword('')
+  async function onSubmit(data) {
+    await handleLogin(data.username, data.password)
   }
 
   return (
@@ -26,27 +26,28 @@ const LoginForm = ({ handleLogin }) => {
         Login
       </Typography>
 
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <TextField
           label="Username"
           type="text"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
+          {...register('username', { required: 'Username is required' })}
           fullWidth
           margin="normal"
           variant="outlined"
+          error={!!errors.username}
+          helperText={errors.username ? errors.username.message : ''}
         />
 
         <TextField
           label="Password"
           type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          {...register('password', { required: 'Password is required' })}
           fullWidth
           margin="normal"
           variant="outlined"
+          error={!!errors.password}
+          helperText={errors.password ? errors.password.message : ''}
         />
-
         <Button type="submit" variant="contained" color="primary" fullWidth>
           Login
         </Button>
