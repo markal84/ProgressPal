@@ -5,7 +5,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 import { addDays } from 'date-fns'
-import enGB from 'date-fns/esm/locale/en-GB/index.js'
+import { formatISO } from 'date-fns'
 
 export default function AddWorkoutForm({ onAddWorkout }) {
   const [date, setDate] = useState(new Date())
@@ -15,11 +15,9 @@ export default function AddWorkoutForm({ onAddWorkout }) {
     e.preventDefault()
 
     const newWorkout = {
-      date: date.toLocaleDateString('en-GB'),
+      date: formatISO(date, { representation: 'date' }),
       exercises: []
     }
-
-    console.log('workout date added addworkoutform ', newWorkout.date)
 
     onAddWorkout(newWorkout)
     setDate(new Date())
@@ -35,10 +33,11 @@ export default function AddWorkoutForm({ onAddWorkout }) {
         <Typography variant="h5" component="p" gutterBottom>
           Create a new workout
         </Typography>
-        <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={enGB}>
+        <LocalizationProvider dateAdapter={AdapterDateFns}>
           <DatePicker
             label="Date"
             value={date}
+            inputFormat="dd.MM.yyyy"
             maxDate={maxDate}
             onChange={handleDateChange}
           />

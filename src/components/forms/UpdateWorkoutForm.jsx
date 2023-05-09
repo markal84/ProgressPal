@@ -5,13 +5,15 @@ import { LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 import { addDays, parseISO, formatISO } from 'date-fns'
-import enGB from 'date-fns/esm/locale/en-GB/index.js'
 import { Button, FormGroup, Typography } from '@mui/material'
 
 export default function UpdateWorkoutForm({ workout, onUpdateWorkout }) {
   const [editedWorkout, setEditedWorkout] = useState(workout)
   const maxDate = addDays(new Date(), 0)
   const parsedDate = parseISO(editedWorkout.date)
+
+  console.log('date received by update ', editedWorkout.date)
+  console.log('received date parsed by parseISO ', parsedDate)
 
   const updateWorkoutFormRef = useRef()
 
@@ -23,9 +25,10 @@ export default function UpdateWorkoutForm({ workout, onUpdateWorkout }) {
   }
 
   function handleUpdateDateChange(newDate) {
+    const formattedDate = formatISO(newDate, { representation: 'date' })
     setEditedWorkout((prevState) => ({
       ...prevState,
-      date: formatISO(newDate, { representation: 'date' })
+      date: formattedDate
     }))
   }
 
@@ -37,10 +40,7 @@ export default function UpdateWorkoutForm({ workout, onUpdateWorkout }) {
             Edit Workout
           </Typography>
           <FormGroup>
-            <LocalizationProvider
-              dateAdapter={AdapterDateFns}
-              adapterLocale={enGB}
-            >
+            <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DatePicker
                 label="Date"
                 value={parsedDate}
