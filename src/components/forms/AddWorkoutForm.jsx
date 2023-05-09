@@ -37,7 +37,7 @@ export default function AddWorkoutForm({ onAddWorkout }) {
           <DatePicker
             label="Date"
             value={date}
-            inputFormat="dd.MM.yyyy"
+            format="dd.MM.yyyy"
             maxDate={maxDate}
             onChange={handleDateChange}
           />
