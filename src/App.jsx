@@ -1,4 +1,8 @@
 import { useState, useEffect } from 'react'
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
+import Home from './pages/home'
+import User from './pages/user'
+import Workouts from './pages/workouts'
 import workoutService from './services/workouts'
 import loginService from './services/login'
 import WorkoutList from './components/WorkoutList'
@@ -27,8 +31,8 @@ function App() {
 
   useEffect(() => {
     setIsLoading(true)
-    workoutService.getAll().then((initialWorkoutss) => {
-      setWorkouts(initialWorkoutss)
+    workoutService.getAll().then((initialWorkouts) => {
+      setWorkouts(initialWorkouts)
       setIsLoading(false)
     })
   }, [])
@@ -149,28 +153,47 @@ function App() {
   }
 
   return (
-    <Paper sx={{ padding: theme.spacing(2) }}>
-      <Typography variant={isMobile ? 'h3' : 'h1'} gutterBottom>
-        Gym progress
-      </Typography>
-      <Notification message={message} />
-      <ThemeSwitch />
+    <Router>
+      <Paper sx={{ padding: theme.spacing(2) }}>
+        <div>
+          <Link style={{ padding: 5 }} to="/">
+            home
+          </Link>
+          <Link style={{ padding: 5 }} to="/workouts">
+            workouts
+          </Link>
+          <Link style={{ padding: 5 }} to="/users">
+            user
+          </Link>
+        </div>
 
-      {!user && loginForm()}
-      {user && loggedUser()}
-
-      {isLoading ? (
-        <Typography variant="body1" gutterBottom>
-          Loading data...
+        <Routes>
+          <Route path="/workouts" element={<Workouts />} />
+          <Route path="/users" element={<User />} />
+          <Route path="/" element={<Home />} />
+        </Routes>
+        <Typography variant={isMobile ? 'h3' : 'h1'} gutterBottom>
+          Gym progress
         </Typography>
-      ) : (
-        <WorkoutList
-          workouts={workouts}
-          onDeleteWorkout={handleDeleteWorkout}
-          onUpdateWorkout={handleUpdateWorkout}
-        />
-      )}
-    </Paper>
+        <Notification message={message} />
+        <ThemeSwitch />
+
+        {!user && loginForm()}
+        {user && loggedUser()}
+
+        {isLoading ? (
+          <Typography variant="body1" gutterBottom>
+            Loading data...
+          </Typography>
+        ) : (
+          <WorkoutList
+            workouts={workouts}
+            onDeleteWorkout={handleDeleteWorkout}
+            onUpdateWorkout={handleUpdateWorkout}
+          />
+        )}
+      </Paper>
+    </Router>
   )
 }
 
