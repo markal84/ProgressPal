@@ -1,4 +1,4 @@
-import { Box, Button, Typography } from '@mui/material'
+import { Paper, Button, Typography } from '@mui/material'
 import ExerciseList from './ExerciseList'
 import UpdateWorkoutForm from './forms/UpdateWorkoutForm'
 import formatDate from '../utilis/dateFormat'
@@ -12,16 +12,16 @@ export default function Workout({ workout, onDeleteWorkout, onUpdateWorkout }) {
   }
 
   return (
-    <Box sx={{ marginBottom: 4, padding: 2, backgroundColor: '#f5f5f5' }}>
+    <Paper sx={{ marginBottom: 4, padding: 2 }}>
       <Typography variant="h5" component="h2" gutterBottom>
-        Day: {workout.day} - {formattedDate}
+        {workout.day} - {formattedDate}
       </Typography>
       <Button variant="contained" color="secondary" onClick={handleDeleteClick}>
         Delete Workout
       </Button>
       <UpdateWorkoutForm workout={workout} onUpdateWorkout={onUpdateWorkout} />
       <ExerciseList workout={workout} />
-    </Box>
+    </Paper>
   )
 }
 

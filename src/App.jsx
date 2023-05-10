@@ -6,7 +6,15 @@ import AddWorkoutForm from './components/forms/AddWorkoutForm'
 import Notification from './components/Notification'
 import LoginForm from './components/forms/LoginForm'
 import Togglable from './components/Togglable'
-import { Box, Button, Typography, useMediaQuery, useTheme } from '@mui/material'
+import {
+  Box,
+  Button,
+  Typography,
+  useMediaQuery,
+  Paper,
+  useTheme
+} from '@mui/material'
+import ThemeSwitch from './components/ThemeSwitch'
 
 function App() {
   const [workouts, setWorkouts] = useState([])
@@ -141,11 +149,12 @@ function App() {
   }
 
   return (
-    <Box sx={{ padding: theme.spacing(2) }}>
+    <Paper sx={{ padding: theme.spacing(2) }}>
       <Typography variant={isMobile ? 'h3' : 'h1'} gutterBottom>
         Gym progress
       </Typography>
       <Notification message={message} />
+      <ThemeSwitch />
 
       {!user && loginForm()}
       {user && loggedUser()}
@@ -161,7 +170,7 @@ function App() {
           onUpdateWorkout={handleUpdateWorkout}
         />
       )}
-    </Box>
+    </Paper>
   )
 }
 
