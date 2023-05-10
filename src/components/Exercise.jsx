@@ -1,6 +1,6 @@
 /* eslint-disable indent */
 import UpdateExerciseForm from './forms/UpdateExerciseForm'
-import { Box, Button, Typography } from '@mui/material'
+import { Box, Button, Typography, Paper } from '@mui/material'
 import { styled } from '@mui/system'
 import { Delete as DeleteIcon } from '@mui/icons-material'
 import { PropTypes } from 'prop-types'
@@ -10,9 +10,7 @@ const ExerciseContainer = styled(Box)(({ theme }) => ({
   flexDirection: 'column',
   alignItems: 'flex-start',
   padding: theme.spacing(2),
-  backgroundColor: '#f5f5f5',
   marginBottom: theme.spacing(2),
-  borderBottom: '2px solid #ccc',
   [theme.breakpoints.down('sm')]: {
     flexDirection: 'column',
     alignItems: 'center'
@@ -36,28 +34,30 @@ export default function Exercise({
 
   return (
     <ExerciseContainer>
-      <Typography variant="body1" gutterBottom>
-        Name: {exercise.name}
-      </Typography>
-      {exercise.weight && (
+      <Paper>
         <Typography variant="body1" gutterBottom>
-          Weight: {exercise.weight}kg
+          Name: {exercise.name}
         </Typography>
-      )}
-      <Typography variant="body1" gutterBottom>
-        Series: {exercise.series}
-      </Typography>
-      <Typography variant="body1" gutterBottom>
-        Repetitions: {exercise.repetitions}
-      </Typography>
-      <DeleteButton onClick={deleteExercise} color="secondary">
-        <DeleteIcon />
-      </DeleteButton>
-      <UpdateExerciseForm
-        onUpdateExercise={onUpdateExercise}
-        exercise={exercise}
-        workout={workout}
-      />
+        {exercise.weight && (
+          <Typography variant="body1" gutterBottom>
+            Weight: {exercise.weight}kg
+          </Typography>
+        )}
+        <Typography variant="body1" gutterBottom>
+          Series: {exercise.series}
+        </Typography>
+        <Typography variant="body1" gutterBottom>
+          Repetitions: {exercise.repetitions}
+        </Typography>
+        <DeleteButton onClick={deleteExercise} color="secondary">
+          <DeleteIcon />
+        </DeleteButton>
+        <UpdateExerciseForm
+          onUpdateExercise={onUpdateExercise}
+          exercise={exercise}
+          workout={workout}
+        />
+      </Paper>
     </ExerciseContainer>
   )
 }
