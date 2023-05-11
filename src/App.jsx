@@ -35,6 +35,15 @@ function App() {
     })
   }, [])
 
+  useEffect(() => {
+    const loggedUserData = window.localStorage.getItem('loggedWorkoutAppUser')
+    if (loggedUserData) {
+      const user = JSON.parse(loggedUserData)
+      setUser(user)
+      workoutService.setToken(user.token)
+    }
+  }, [])
+
   function handleLogout() {
     try {
       window.localStorage.removeItem('loggedWorkoutAppUser')

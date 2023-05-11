@@ -32,15 +32,6 @@ export default function Login({ setUser, user, setMessage }) {
     return <LoginForm handleLogin={handleLogin} />
   }
 
-  useEffect(() => {
-    const loggedUserData = window.localStorage.getItem('loggedWorkoutAppUser')
-    if (loggedUserData) {
-      const user = JSON.parse(loggedUserData)
-      setUser(user)
-      workoutService.setToken(user.token)
-    }
-  }, [setUser])
-
   return <div>{user ? 'already log in' : loginForm()}</div>
 }
 
