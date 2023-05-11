@@ -69,7 +69,7 @@ function App() {
     try {
       window.localStorage.removeItem('loggedWorkoutAppUser')
       setUser(null)
-      setMessage('Logged out')
+      setMessage('You successfully logged out')
       setTimeout(() => {
         setMessage(null)
       }, 2000)
