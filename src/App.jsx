@@ -65,7 +65,7 @@ function App() {
             workouts
           </Link>
           <Link style={{ padding: 5 }} to="/account">
-            my account
+            {user ? 'my account' : ''}
           </Link>
           {user ? (
             <>
@@ -88,42 +88,39 @@ function App() {
             </Link>
           )}
         </nav>
+        <ThemeSwitch />
+        <Notification message={message} />
 
-        <Routes>
-          <Route
-            path="/workouts"
-            element={
-              <Workouts
-                workouts={workouts}
-                user={user}
-                setMessage={setMessage}
-                setWorkouts={setWorkouts}
-              />
-            }
-          />
-          <Route path="/account" element={<User />} />
-          <Route path="/" element={<Home />} />
-          <Route
-            path="/login"
-            element={
-              <Login setUser={setUser} user={user} setMessage={setMessage} />
-            }
-          />
-        </Routes>
         <Typography variant={isMobile ? 'h3' : 'h1'} gutterBottom>
           Gym progress
         </Typography>
-        <Notification message={message} />
-        <ThemeSwitch />
 
         {isLoading ? (
           <Typography variant="body1" gutterBottom>
             Loading data...
           </Typography>
         ) : (
-          <Typography variant="body1" gutterBottom>
-            Data loaded - info about workouts
-          </Typography>
+          <Routes>
+            <Route
+              path="/workouts"
+              element={
+                <Workouts
+                  workouts={workouts}
+                  user={user}
+                  setMessage={setMessage}
+                  setWorkouts={setWorkouts}
+                />
+              }
+            />
+            <Route path="/account" element={<User user={user} />} />
+            <Route path="/" element={<Home workouts={workouts} />} />
+            <Route
+              path="/login"
+              element={
+                <Login setUser={setUser} user={user} setMessage={setMessage} />
+              }
+            />
+          </Routes>
         )}
       </Paper>
     </Router>
