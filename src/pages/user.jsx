@@ -1,3 +1,3 @@
 export default function User() {
-  return <div>user page</div>
+  return <div>user account page</div>
 }

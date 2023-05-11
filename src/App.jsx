@@ -3,13 +3,11 @@ import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
 import Home from './pages/home'
 import User from './pages/user'
 import Workouts from './pages/workouts'
+import Login from './pages/login'
 import workoutService from './services/workouts'
-import loginService from './services/login'
 import WorkoutList from './components/WorkoutList'
 import AddWorkoutForm from './components/forms/AddWorkoutForm'
 import Notification from './components/Notification'
-import LoginForm from './components/forms/LoginForm'
-import Togglable from './components/Togglable'
 import {
   Box,
   Button,
@@ -36,34 +34,6 @@ function App() {
       setIsLoading(false)
     })
   }, [])
-
-  useEffect(() => {
-    const loggedUserData = window.localStorage.getItem('loggedWorkoutAppUser')
-    if (loggedUserData) {
-      const user = JSON.parse(loggedUserData)
-      setUser(user)
-      workoutService.setToken(user.token)
-    }
-  }, [])
-
-  async function handleLogin(username, password) {
-    try {
-      const user = await loginService.login({
-        username,
-        password
-      })
-
-      window.localStorage.setItem('loggedWorkoutAppUser', JSON.stringify(user))
-
-      workoutService.setToken(user.token)
-      setUser(user)
-    } catch (error) {
-      setMessage('Wrong username or password')
-      setTimeout(() => {
-        setMessage(null)
-      }, 5000)
-    }
-  }
 
   function handleLogout() {
     try {
@@ -124,20 +94,9 @@ function App() {
       .catch((error) => console.log(error))
   }
 
-  const loginForm = () => {
-    return (
-      <Togglable buttonLabel="log in">
-        <LoginForm handleLogin={handleLogin} />
-      </Togglable>
-    )
-  }
-
   const loggedUser = () => {
     return (
       <Box sx={{ marginTop: theme.spacing(3) }}>
-        <Typography variant="body1" gutterBottom>
-          {user.name}: logged
-        </Typography>
         <Button
           type="button"
           onClick={handleLogout}
@@ -162,15 +121,30 @@ function App() {
           <Link style={{ padding: 5 }} to="/workouts">
             workouts
           </Link>
-          <Link style={{ padding: 5 }} to="/users">
-            user
+          <Link style={{ padding: 5 }} to="/account">
+            my account
           </Link>
+          {user ? (
+            <Typography variant="body1" gutterBottom>
+              {user.name} logged in
+            </Typography>
+          ) : (
+            <Link style={{ padding: 5 }} to="/login">
+              login
+            </Link>
+          )}
         </div>
 
         <Routes>
           <Route path="/workouts" element={<Workouts />} />
-          <Route path="/users" element={<User />} />
+          <Route path="/account" element={<User />} />
           <Route path="/" element={<Home />} />
+          <Route
+            path="/login"
+            element={
+              <Login setUser={setUser} user={user} setMessage={setMessage} />
+            }
+          />
         </Routes>
         <Typography variant={isMobile ? 'h3' : 'h1'} gutterBottom>
           Gym progress
@@ -178,7 +152,6 @@ function App() {
         <Notification message={message} />
         <ThemeSwitch />
 
-        {!user && loginForm()}
         {user && loggedUser()}
 
         {isLoading ? (
