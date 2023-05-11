@@ -114,7 +114,7 @@ function App() {
   return (
     <Router>
       <Paper sx={{ padding: theme.spacing(2) }}>
-        <div>
+        <nav>
           <Link style={{ padding: 5 }} to="/">
             home
           </Link>
@@ -133,7 +133,7 @@ function App() {
               login
             </Link>
           )}
-        </div>
+        </nav>
 
         <Routes>
           <Route path="/workouts" element={<Workouts />} />
