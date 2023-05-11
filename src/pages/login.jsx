@@ -1,5 +1,4 @@
 import { PropTypes } from 'prop-types'
-import { useEffect } from 'react'
 import { useNavigate } from 'react-router'
 import LoginForm from '../components/forms/LoginForm'
 import loginService from '../services/login'
