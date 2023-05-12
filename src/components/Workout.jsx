@@ -1,4 +1,5 @@
-import { Paper, Button, Typography } from '@mui/material'
+import { Paper, IconButton, Typography } from '@mui/material'
+import { Delete } from '@mui/icons-material'
 import ExerciseList from './ExerciseList'
 import UpdateWorkoutForm from './forms/UpdateWorkoutForm'
 import formatDate from '../utilis/dateFormat'
@@ -21,9 +22,9 @@ export default function Workout({
       <Typography variant="h5" component="h2" gutterBottom>
         {workout.day} - {formattedDate}
       </Typography>
-      <Button variant="contained" color="secondary" onClick={handleDeleteClick}>
-        Delete Workout
-      </Button>
+      <IconButton color="secondary" onClick={handleDeleteClick}>
+        <Delete />
+      </IconButton>
       <UpdateWorkoutForm workout={workout} onUpdateWorkout={onUpdateWorkout} />
       <ExerciseList workout={workout} setWorkouts={setWorkouts} />
     </Paper>

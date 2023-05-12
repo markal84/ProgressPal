@@ -26,7 +26,7 @@ export default function UpdateExerciseForm({
 
   const updateExerciseForm = () => {
     return (
-      <Togglable buttonLabel="Edit Exercise" ref={updateExerciseFormRef}>
+      <Togglable mode="edit" ref={updateExerciseFormRef}>
         <Box component="form" onSubmit={handleSubmit(handleUpdate)}>
           <TextField
             label="Name"

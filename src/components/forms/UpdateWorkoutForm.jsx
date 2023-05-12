@@ -31,7 +31,7 @@ export default function UpdateWorkoutForm({ workout, onUpdateWorkout }) {
 
   const updateWorkoutForm = () => {
     return (
-      <Togglable buttonLabel="Edit workout" ref={updateWorkoutFormRef}>
+      <Togglable mode="edit" ref={updateWorkoutFormRef}>
         <form onSubmit={handleUpdate}>
           <Typography variant="h5" component="p" gutterBottom>
             Edit Workout

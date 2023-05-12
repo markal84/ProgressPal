@@ -29,10 +29,6 @@ export default function Nav({ user, setUser, setMessage }) {
           <Link style={{ padding: 5 }} to="/account">
             my account
           </Link>
-        </>
-      )}
-      {user ? (
-        <>
           <Typography variant="body1" gutterBottom>
             {user.name} logged in
           </Typography>
@@ -46,7 +42,8 @@ export default function Nav({ user, setUser, setMessage }) {
             Logout
           </Button>
         </>
-      ) : (
+      )}
+      {!user && (
         <Link style={{ padding: 5 }} to="/login">
           login
         </Link>
