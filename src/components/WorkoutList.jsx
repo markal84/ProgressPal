@@ -9,18 +9,18 @@ export default function WorkoutList({
 }) {
   return (
     <>
-      <div></div>
-      <div>
+      <ul>
         {workouts.map((workout) => (
-          <Workout
-            key={workout.id}
-            workout={workout}
-            onDeleteWorkout={onDeleteWorkout}
-            onUpdateWorkout={onUpdateWorkout}
-            setWorkouts={setWorkouts}
-          />
+          <li style={{ listStyle: 'none' }} key={workout.id}>
+            <Workout
+              workout={workout}
+              onDeleteWorkout={onDeleteWorkout}
+              onUpdateWorkout={onUpdateWorkout}
+              setWorkouts={setWorkouts}
+            />
+          </li>
         ))}
-      </div>
+      </ul>
     </>
   )
 }

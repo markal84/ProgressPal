@@ -1,4 +1,7 @@
-import { Paper, IconButton, Typography } from '@mui/material'
+import { useState } from 'react'
+import { Paper, IconButton, Typography, Collapse } from '@mui/material'
+import ExpandLessIcon from '@mui/icons-material/ExpandLess'
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import { Delete } from '@mui/icons-material'
 import ExerciseList from './ExerciseList'
 import UpdateWorkoutForm from './forms/UpdateWorkoutForm'
@@ -11,10 +14,21 @@ export default function Workout({
   onUpdateWorkout,
   setWorkouts
 }) {
+  const [showExerciseList, setShowExerciseList] = useState(false)
+
   const formattedDate = formatDate(workout.date)
+  const totalExercises = workout.exercises.length
 
   function handleDeleteClick() {
     onDeleteWorkout(workout.id)
+  }
+
+  function handleToggleExerciseList() {
+    setShowExerciseList(!showExerciseList)
+  }
+
+  function handleCollapseClose() {
+    setShowExerciseList(false)
   }
 
   return (
@@ -26,7 +40,19 @@ export default function Workout({
         <Delete />
       </IconButton>
       <UpdateWorkoutForm workout={workout} onUpdateWorkout={onUpdateWorkout} />
-      <ExerciseList workout={workout} setWorkouts={setWorkouts} />
+      <Typography variant="body1">
+        Number of exercises: {totalExercises}
+      </Typography>
+      <Typography variant="body1" onClick={handleToggleExerciseList}>
+        <ExpandMoreIcon /> Click to {showExerciseList ? 'hide' : 'show'}{' '}
+        exercises
+      </Typography>
+      <Collapse in={showExerciseList}>
+        <ExerciseList workout={workout} setWorkouts={setWorkouts} />
+        <Typography variant="body1" onClick={handleCollapseClose}>
+          <ExpandLessIcon /> Close
+        </Typography>
+      </Collapse>
     </Paper>
   )
 }

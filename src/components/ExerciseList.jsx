@@ -56,7 +56,7 @@ export default function ExerciseList({ workout, setWorkouts }) {
       .catch((error) => console.log(error))
   }
 
-  const addWorkoutForm = () => {
+  const addExerciseForm = () => {
     return (
       <Togglable buttonLabel="add exercise" ref={exerciseFormRef}>
         <AddExerciseForm
@@ -69,23 +69,21 @@ export default function ExerciseList({ workout, setWorkouts }) {
 
   return (
     <>
-      <div>
-        <ul>
-          Exercises:
-          {exercises.map((exercise) => {
-            return (
+      <ul>
+        {addExerciseForm()}
+        {exercises.map((exercise) => {
+          return (
+            <li key={exercise.id} style={{ listStyle: 'none' }}>
               <Exercise
-                key={exercise.id}
                 exercise={exercise}
                 workout={workout}
                 onDeleteExercise={handleDeleteExercise}
                 onUpdateExercise={handleUpdateExercise}
               />
-            )
-          })}
-        </ul>
-      </div>
-      {addWorkoutForm()}
+            </li>
+          )
+        })}
+      </ul>
     </>
   )
 }
