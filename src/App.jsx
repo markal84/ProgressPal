@@ -1,18 +1,13 @@
 import { useState, useEffect } from 'react'
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Home from './pages/home'
 import User from './pages/user'
 import Workouts from './pages/workouts'
 import Login from './pages/login'
+import Nav from './components/Navigation'
 import workoutService from './services/workouts'
 import Notification from './components/Notification'
-import {
-  Button,
-  Typography,
-  useMediaQuery,
-  Paper,
-  useTheme
-} from '@mui/material'
+import { Typography, useMediaQuery, Paper, useTheme } from '@mui/material'
 import ThemeSwitch from './components/ThemeSwitch'
 
 function App() {
@@ -41,53 +36,10 @@ function App() {
     }
   }, [])
 
-  function handleLogout() {
-    try {
-      window.localStorage.removeItem('loggedWorkoutAppUser')
-      setUser(null)
-      setMessage('You successfully logged out')
-      setTimeout(() => {
-        setMessage(null)
-      }, 2000)
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
   return (
     <Router>
       <Paper sx={{ padding: theme.spacing(2) }}>
-        <nav>
-          <Link style={{ padding: 5 }} to="/">
-            home
-          </Link>
-          <Link style={{ padding: 5 }} to="/workouts">
-            workouts
-          </Link>
-          <Link style={{ padding: 5 }} to="/account">
-            {user ? 'my account' : ''}
-          </Link>
-          {user ? (
-            <>
-              <Typography variant="body1" gutterBottom>
-                {user.name} logged in
-              </Typography>
-              <Button
-                type="button"
-                onClick={handleLogout}
-                variant="contained"
-                color="secondary"
-                sx={{ marginBottom: theme.spacing(3) }}
-              >
-                Logout
-              </Button>
-            </>
-          ) : (
-            <Link style={{ padding: 5 }} to="/login">
-              login
-            </Link>
-          )}
-        </nav>
+        <Nav user={user} setMessage={setMessage} setUser={setUser} />
         <ThemeSwitch />
         <Notification message={message} />
 
