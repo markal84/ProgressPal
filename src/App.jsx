@@ -65,7 +65,10 @@ function App() {
               }
             />
             <Route path="/account" element={<User user={user} />} />
-            <Route path="/" element={<Home workouts={workouts} />} />
+            <Route
+              path="/"
+              element={<Home workouts={workouts} user={user} />}
+            />
             <Route
               path="/login"
               element={

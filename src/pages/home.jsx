@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { PropTypes } from 'prop-types'
 import { totalWeight } from '../utilis/workoutInfo'
 
-export default function Home({ workouts }) {
+export default function Home({ workouts, user }) {
   const [exerciseArray, setExerciseArray] = useState([])
   const [totalExercises, setTotalExercises] = useState(0)
 
@@ -25,13 +25,19 @@ export default function Home({ workouts }) {
 
   return (
     <div>
-      <p>Total number of workouts: {workouts.length}</p>
-      <p>Total number of exercises: {totalExercises}</p>
-      <p>Total weight lifted: {totalWeight(exerciseArray)}kg</p>
+      {user && (
+        <>
+          <p>Total number of workouts: {workouts.length}</p>
+          <p>Total number of exercises: {totalExercises}</p>
+          <p>Total weight lifted: {totalWeight(exerciseArray)}kg</p>
+        </>
+      )}
+      {!user && <p>Welcome to gym app, please login - placeholder message</p>}
     </div>
   )
 }
 
 Home.propTypes = {
-  workouts: PropTypes.array
+  workouts: PropTypes.array,
+  user: PropTypes.object
 }

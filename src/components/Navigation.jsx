@@ -21,12 +21,16 @@ export default function Nav({ user, setUser, setMessage }) {
       <Link style={{ padding: 5 }} to="/">
         home
       </Link>
-      <Link style={{ padding: 5 }} to="/workouts">
-        workouts
-      </Link>
-      <Link style={{ padding: 5 }} to="/account">
-        {user ? 'my account' : ''}
-      </Link>
+      {user && (
+        <>
+          <Link style={{ padding: 5 }} to="/workouts">
+            workouts
+          </Link>
+          <Link style={{ padding: 5 }} to="/account">
+            my account
+          </Link>
+        </>
+      )}
       {user ? (
         <>
           <Typography variant="body1" gutterBottom>

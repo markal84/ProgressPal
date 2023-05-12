@@ -4,7 +4,8 @@ import { PropTypes } from 'prop-types'
 export default function WorkoutList({
   workouts,
   onDeleteWorkout,
-  onUpdateWorkout
+  onUpdateWorkout,
+  setWorkouts
 }) {
   return (
     <>
@@ -16,6 +17,7 @@ export default function WorkoutList({
             workout={workout}
             onDeleteWorkout={onDeleteWorkout}
             onUpdateWorkout={onUpdateWorkout}
+            setWorkouts={setWorkouts}
           />
         ))}
       </div>
@@ -26,5 +28,6 @@ export default function WorkoutList({
 WorkoutList.propTypes = {
   workouts: PropTypes.array.isRequired,
   onDeleteWorkout: PropTypes.func.isRequired,
-  onUpdateWorkout: PropTypes.func.isRequired
+  onUpdateWorkout: PropTypes.func.isRequired,
+  setWorkouts: PropTypes.func.isRequired
 }

@@ -1,11 +1,12 @@
 import { useState, useRef } from 'react'
 import exerciseService from '../services/exercises'
+import workoutService from '../services/workouts'
 import Exercise from './Exercise'
 import AddExerciseForm from './forms/AddExerciseForm'
 import Togglable from './Togglable'
 import { PropTypes } from 'prop-types'
 
-export default function ExerciseList({ workout }) {
+export default function ExerciseList({ workout, setWorkouts }) {
   const [exercises, setExercises] = useState(workout.exercises)
 
   const exerciseFormRef = useRef()
@@ -16,6 +17,11 @@ export default function ExerciseList({ workout }) {
       .create(newExercise, workout.id)
       .then((createdExercise) => {
         setExercises([...exercises, createdExercise])
+      })
+      .then(() => {
+        workoutService.getAll().then((updatedWorkouts) => {
+          setWorkouts(updatedWorkouts)
+        })
       })
       .catch((error) => console.log(error))
   }
@@ -28,13 +34,26 @@ export default function ExerciseList({ workout }) {
           exercises.map((e) => (e.id !== exerciseId ? e : returnedExercise))
         )
       })
+      .then(() => {
+        workoutService.getAll().then((updatedWorkouts) => {
+          setWorkouts(updatedWorkouts)
+        })
+      })
       .catch((error) => console.log(error))
   }
 
   function handleDeleteExercise(exerciseId) {
-    exerciseService.remove(workout.id, exerciseId).then(() => {
-      setExercises(exercises.filter((e) => e.id !== exerciseId))
-    })
+    exerciseService
+      .remove(workout.id, exerciseId)
+      .then(() => {
+        setExercises(exercises.filter((e) => e.id !== exerciseId))
+      })
+      .then(() => {
+        workoutService.getAll().then((updatedWorkouts) => {
+          setWorkouts(updatedWorkouts)
+        })
+      })
+      .catch((error) => console.log(error))
   }
 
   const addWorkoutForm = () => {
@@ -72,5 +91,6 @@ export default function ExerciseList({ workout }) {
 }
 
 ExerciseList.propTypes = {
-  workout: PropTypes.object.isRequired
+  workout: PropTypes.object.isRequired,
+  setWorkouts: PropTypes.func
 }
