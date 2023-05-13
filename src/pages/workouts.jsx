@@ -48,15 +48,20 @@ export default function Workouts({ workouts, setWorkouts, setMessage, user }) {
       })
       .catch((error) => console.log(error))
   }
+
   return (
     <>
-      {user ? <AddWorkoutForm onAddWorkout={handleAddWorkout} /> : ''}
-      <WorkoutList
-        workouts={workouts}
-        onDeleteWorkout={handleDeleteWorkout}
-        onUpdateWorkout={handleUpdateWorkout}
-        setWorkouts={setWorkouts}
-      />
+      {user && (
+        <>
+          <AddWorkoutForm onAddWorkout={handleAddWorkout} />
+          <WorkoutList
+            workouts={workouts}
+            onDeleteWorkout={handleDeleteWorkout}
+            onUpdateWorkout={handleUpdateWorkout}
+            setWorkouts={setWorkouts}
+          />
+        </>
+      )}
     </>
   )
 }

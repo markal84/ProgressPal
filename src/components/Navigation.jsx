@@ -1,8 +1,18 @@
-import { Link } from 'react-router-dom'
+import { useEffect } from 'react'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { Typography, Button } from '@mui/material'
 import { PropTypes } from 'prop-types'
 
 export default function Nav({ user, setUser, setMessage }) {
+  const location = useLocation()
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    if (!user && location.pathname !== '/login') {
+      navigate('/')
+    }
+  }, [user, location.pathname, navigate])
+
   function handleLogout() {
     try {
       window.localStorage.removeItem('loggedWorkoutAppUser')
