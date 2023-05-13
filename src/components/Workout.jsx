@@ -6,6 +6,7 @@ import { Delete } from '@mui/icons-material'
 import ExerciseList from './ExerciseList'
 import UpdateWorkoutForm from './forms/UpdateWorkoutForm'
 import formatDate from '../utilis/dateFormat'
+import PromptDialog from './PromptDialog'
 import { PropTypes } from 'prop-types'
 
 export default function Workout({
@@ -15,12 +16,22 @@ export default function Workout({
   setWorkouts
 }) {
   const [showExerciseList, setShowExerciseList] = useState(false)
+  const [deleteConfirmationOpen, setDeleteConfirmationOpen] = useState(false)
 
   const formattedDate = formatDate(workout.date)
   const totalExercises = workout.exercises.length
 
   function handleDeleteClick() {
+    setDeleteConfirmationOpen(true)
+  }
+
+  function handleDeleteConfirmation() {
     onDeleteWorkout(workout.id)
+    setDeleteConfirmationOpen(false)
+  }
+
+  function handleDeleteCancel() {
+    setDeleteConfirmationOpen(false)
   }
 
   function handleToggleExerciseList() {
@@ -53,6 +64,13 @@ export default function Workout({
           <ExpandLessIcon /> Close
         </Typography>
       </Collapse>
+      <PromptDialog
+        open={deleteConfirmationOpen}
+        title="Confirm Delete"
+        message="Are you sure you want to delete this workout?"
+        onCancel={handleDeleteCancel}
+        onConfirm={handleDeleteConfirmation}
+      />
     </Paper>
   )
 }
