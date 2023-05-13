@@ -22,9 +22,11 @@ export default function PromptDialog({
         <Typography variant="body1">{message}</Typography>
       </DialogContent>
       <DialogActions>
-        <Button onClick={onCancel}>Cancel</Button>
-        <Button onClick={onConfirm} autoFocus>
-          Confirm
+        <Button onClick={onCancel} color="primary" variant="contained">
+          No
+        </Button>
+        <Button onClick={onConfirm} autoFocus color="error" variant="contained">
+          Yes
         </Button>
       </DialogActions>
     </Dialog>

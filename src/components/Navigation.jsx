@@ -8,7 +8,14 @@ export default function Nav({ user, setUser, setMessage }) {
   const navigate = useNavigate()
 
   useEffect(() => {
-    if (!user) {
+    if (!user && location.pathname !== '/login') {
+      navigate('/')
+    }
+  }, [user, location.pathname, navigate])
+
+  /*
+  useEffect(() => {
+    if (user) {
       const lastVisitedPage = window.localStorage.getItem('lastVisitedPage')
       if (lastVisitedPage) {
         navigate(lastVisitedPage)
@@ -19,6 +26,7 @@ export default function Nav({ user, setUser, setMessage }) {
       window.localStorage.setItem('lastVisitedPage', location.pathname)
     }
   }, [user, location.pathname, navigate])
+  */
 
   function handleLogout() {
     try {
