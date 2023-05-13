@@ -1,9 +1,9 @@
 import {
+  Button,
   Dialog,
   DialogTitle,
   DialogContent,
   DialogActions,
-  Button,
   Typography
 } from '@mui/material'
 import { PropTypes } from 'prop-types'

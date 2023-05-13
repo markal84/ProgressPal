@@ -1,5 +1,7 @@
 /* eslint-disable indent */
+import { useState } from 'react'
 import UpdateExerciseForm from './forms/UpdateExerciseForm'
+import PromptDialog from './PromptDialog'
 import { Box, Button, Typography, Paper } from '@mui/material'
 import { styled } from '@mui/system'
 import { Delete as DeleteIcon } from '@mui/icons-material'
@@ -28,8 +30,19 @@ export default function Exercise({
   onDeleteExercise,
   onUpdateExercise
 }) {
-  function deleteExercise() {
+  const [deleteConfirmationOpen, setDeleteConfirmationOpen] = useState(false)
+
+  function handleDeleteExercise() {
+    setDeleteConfirmationOpen(true)
+  }
+
+  function handleDeleteConfirmation() {
     onDeleteExercise(exercise.id)
+    setDeleteConfirmationOpen(false)
+  }
+
+  function handleDeleteCancel() {
+    setDeleteConfirmationOpen(false)
   }
 
   return (
@@ -49,7 +62,7 @@ export default function Exercise({
         <Typography variant="body1" gutterBottom>
           Repetitions: {exercise.repetitions}
         </Typography>
-        <DeleteButton onClick={deleteExercise} color="secondary">
+        <DeleteButton onClick={handleDeleteExercise} color="secondary">
           <DeleteIcon />
         </DeleteButton>
         <UpdateExerciseForm
@@ -58,6 +71,13 @@ export default function Exercise({
           workout={workout}
         />
       </Paper>
+      <PromptDialog
+        open={deleteConfirmationOpen}
+        title="Confirm Delete"
+        message="Are you sure you want to delete this exercise?"
+        onCancel={handleDeleteCancel}
+        onConfirm={handleDeleteConfirmation}
+      />
     </ExerciseContainer>
   )
 }
