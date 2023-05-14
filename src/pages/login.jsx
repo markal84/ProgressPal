@@ -31,7 +31,7 @@ export default function Login({ setUser, user, setMessage }) {
     return <LoginForm handleLogin={handleLogin} />
   }
 
-  return <div>{user ? 'already log in' : loginForm()}</div>
+  return <div>{user ? 'already logged in' : loginForm()}</div>
 }
 
 Login.propTypes = {

@@ -15,7 +15,7 @@ export default function Nav({ user, setUser, setMessage }) {
 
   /*
   useEffect(() => {
-    if (user) {
+    if (!user) {
       const lastVisitedPage = window.localStorage.getItem('lastVisitedPage')
       if (lastVisitedPage) {
         navigate(lastVisitedPage)

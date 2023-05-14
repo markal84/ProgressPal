@@ -1,8 +1,8 @@
 import { useForm } from 'react-hook-form'
-import { PropTypes } from 'prop-types'
 import { Box, Button, TextField, Typography } from '@mui/material'
+import { PropTypes } from 'prop-types'
 
-const LoginForm = ({ handleLogin }) => {
+const UserRegisterForm = ({ handleRegister }) => {
   const {
     register,
     handleSubmit,
@@ -10,7 +10,7 @@ const LoginForm = ({ handleLogin }) => {
   } = useForm()
 
   async function onSubmit(data) {
-    await handleLogin(data.username, data.password)
+    await handleRegister(data.username, data.name, data.password)
   }
 
   return (
@@ -23,7 +23,7 @@ const LoginForm = ({ handleLogin }) => {
       }}
     >
       <Typography variant="h5" component="h2" gutterBottom>
-        Login
+        Register
       </Typography>
 
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -39,6 +39,17 @@ const LoginForm = ({ handleLogin }) => {
         />
 
         <TextField
+          label="Name"
+          type="text"
+          {...register('name', { required: 'Name is required' })}
+          fullWidth
+          margin="normal"
+          variant="outlined"
+          error={!!errors.name}
+          helperText={errors.name ? errors.name.message : ''}
+        />
+
+        <TextField
           label="Password"
           type="password"
           {...register('password', { required: 'Password is required' })}
@@ -48,19 +59,17 @@ const LoginForm = ({ handleLogin }) => {
           error={!!errors.password}
           helperText={errors.password ? errors.password.message : ''}
         />
+
         <Button type="submit" variant="contained" color="primary" fullWidth>
-          Login
+          Register
         </Button>
-        <Typography variant="body2" gutterBottom>
-          Dont have an account? (Register here) link to registration
-        </Typography>
       </form>
     </Box>
   )
 }
 
-LoginForm.propTypes = {
-  handleLogin: PropTypes.func.isRequired
+UserRegisterForm.propTypes = {
+  handleRegister: PropTypes.func.isRequired
 }
 
-export default LoginForm
+export default UserRegisterForm
