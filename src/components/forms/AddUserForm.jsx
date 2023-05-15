@@ -1,8 +1,9 @@
 import { useForm } from 'react-hook-form'
 import { Box, Button, TextField, Typography } from '@mui/material'
 import { PropTypes } from 'prop-types'
+import validatePassword from '../../utilis/passValidator'
 
-const UserRegisterForm = ({ handleRegister }) => {
+const UserRegisterForm = ({ handleRegister, backendError }) => {
   const {
     register,
     handleSubmit,
@@ -26,11 +27,27 @@ const UserRegisterForm = ({ handleRegister }) => {
         Register
       </Typography>
 
+      {backendError && (
+        <Typography variant="body2" color="error" gutterBottom>
+          {backendError}
+        </Typography>
+      )}
+
       <form onSubmit={handleSubmit(onSubmit)}>
         <TextField
           label="Username"
           type="text"
-          {...register('username', { required: 'Username is required' })}
+          {...register('username', {
+            required: 'Username is required',
+            minLength: {
+              value: 4,
+              message: 'Username must be at least 4 characters long'
+            },
+            pattern: {
+              value: /^[a-zA-Z0-9]+(_[a-zA-Z0-9]+)*$/,
+              message: 'Username must contain only letters, numbers'
+            }
+          })}
           fullWidth
           margin="normal"
           variant="outlined"
@@ -41,7 +58,16 @@ const UserRegisterForm = ({ handleRegister }) => {
         <TextField
           label="Name"
           type="text"
-          {...register('name', { required: 'Name is required' })}
+          {...register('name', {
+            minLength: {
+              value: 2,
+              message: 'Name must be at least 2 characters long'
+            },
+            pattern: {
+              value: /^[A-Za-z]+(?: [A-Za-z]+)?$/,
+              message: 'Name must contain letters only'
+            }
+          })}
           fullWidth
           margin="normal"
           variant="outlined"
@@ -52,7 +78,11 @@ const UserRegisterForm = ({ handleRegister }) => {
         <TextField
           label="Password"
           type="password"
-          {...register('password', { required: 'Password is required' })}
+          {...register('password', {
+            required: 'Password is required',
+            validate: (value) =>
+              validatePassword(value) === 'Valid' || validatePassword(value)
+          })}
           fullWidth
           margin="normal"
           variant="outlined"
@@ -69,7 +99,8 @@ const UserRegisterForm = ({ handleRegister }) => {
 }
 
 UserRegisterForm.propTypes = {
-  handleRegister: PropTypes.func.isRequired
+  handleRegister: PropTypes.func.isRequired,
+  backendError: PropTypes.string
 }
 
 export default UserRegisterForm

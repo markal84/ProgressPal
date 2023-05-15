@@ -8,7 +8,11 @@ export default function Nav({ user, setUser, setMessage }) {
   const navigate = useNavigate()
 
   useEffect(() => {
-    if (!user && location.pathname !== '/login') {
+    if (
+      !user &&
+      location.pathname !== '/login' &&
+      location.pathname !== '/register'
+    ) {
       navigate('/')
     }
   }, [user, location.pathname, navigate])
@@ -69,9 +73,14 @@ export default function Nav({ user, setUser, setMessage }) {
         </>
       )}
       {!user && (
-        <Link style={{ padding: 5 }} to="/login">
-          login
-        </Link>
+        <>
+          <Link style={{ padding: 5 }} to="/login">
+            login
+          </Link>
+          <Link style={{ padding: 5 }} to="/register">
+            register
+          </Link>
+        </>
       )}
     </nav>
   )

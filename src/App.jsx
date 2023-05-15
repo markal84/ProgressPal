@@ -4,6 +4,7 @@ import Home from './pages/home'
 import User from './pages/user'
 import Workouts from './pages/workouts'
 import Login from './pages/login'
+import Register from './pages/register'
 import Nav from './components/Navigation'
 import workoutService from './services/workouts'
 import Notification from './components/Notification'
@@ -74,6 +75,10 @@ function App() {
               element={
                 <Login setUser={setUser} user={user} setMessage={setMessage} />
               }
+            />
+            <Route
+              path="/register"
+              element={<Register setMessage={setMessage} />}
             />
           </Routes>
         )}
