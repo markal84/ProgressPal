@@ -22,18 +22,25 @@ function App() {
 
   useEffect(() => {
     setIsLoading(true)
-    let userWorkouts = []
 
-    workoutService.getAll().then((initialWorkouts) => {
-      if (user) {
-        userWorkouts = initialWorkouts.filter((workout) => {
-          return workout.user.id === user.id
+    if (user) {
+      workoutService
+        .getAll(user)
+        .then((initialWorkouts) => {
+          setWorkouts(initialWorkouts)
+          setIsLoading(false)
         })
-      }
+        .catch((error) => {
+          console.error(
+            'Error retrieving workouts:(set error message by setMessage)',
+            error
+          )
 
-      setWorkouts(userWorkouts)
-      setIsLoading(false)
-    })
+          setIsLoading(false)
+        })
+    }
+
+    setIsLoading(false)
   }, [user])
 
   useEffect(() => {

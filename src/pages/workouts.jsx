@@ -15,7 +15,7 @@ export default function Workouts({ workouts, setWorkouts, setMessage, user }) {
         }, 3500)
       })
       .then(() => {
-        workoutService.getAll().then((updatedWorkouts) => {
+        workoutService.getAll(user).then((updatedWorkouts) => {
           setWorkouts(updatedWorkouts)
         })
       })
