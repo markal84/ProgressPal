@@ -22,11 +22,19 @@ function App() {
 
   useEffect(() => {
     setIsLoading(true)
+    let userWorkouts = []
+
     workoutService.getAll().then((initialWorkouts) => {
-      setWorkouts(initialWorkouts)
+      if (user) {
+        userWorkouts = initialWorkouts.filter((workout) => {
+          return workout.user.id === user.id
+        })
+      }
+
+      setWorkouts(userWorkouts)
       setIsLoading(false)
     })
-  }, [])
+  }, [user])
 
   useEffect(() => {
     const loggedUserData = window.localStorage.getItem('loggedWorkoutAppUser')
