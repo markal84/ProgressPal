@@ -48,7 +48,11 @@ export default function Workout({
       <Typography variant="h5" component="h2" gutterBottom>
         {workout.day} - {formattedDate}
       </Typography>
-      <IconButton color="secondary" onClick={handleDeleteClick}>
+      <IconButton
+        color="secondary"
+        onClick={handleDeleteClick}
+        aria-label="delete workout"
+      >
         <Delete />
       </IconButton>
       <UpdateWorkoutForm workout={workout} onUpdateWorkout={onUpdateWorkout} />
@@ -80,6 +84,6 @@ Workout.propTypes = {
   workout: PropTypes.object.isRequired,
   onDeleteWorkout: PropTypes.func.isRequired,
   onUpdateWorkout: PropTypes.func.isRequired,
-  setWorkouts: PropTypes.func.isRequired,
+  setWorkouts: PropTypes.func,
   user: PropTypes.object
 }

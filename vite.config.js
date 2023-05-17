@@ -23,7 +23,8 @@ export default defineConfig({
   plugins: [react(), eslint()],
   test: {
     coverage: {
-      provider: 'c8'
+      reporter: ['text', 'html'],
+      exclude: ['node_modules/', './src/tests']
     },
     environment: 'jsdom',
     setupFiles: ['./src/tests/setup.js'],
