@@ -59,6 +59,7 @@ export default function Workouts({ workouts, setWorkouts, setMessage, user }) {
             onDeleteWorkout={handleDeleteWorkout}
             onUpdateWorkout={handleUpdateWorkout}
             setWorkouts={setWorkouts}
+            user={user}
           />
         </>
       )}

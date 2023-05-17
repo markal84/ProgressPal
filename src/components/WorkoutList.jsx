@@ -5,7 +5,8 @@ export default function WorkoutList({
   workouts,
   onDeleteWorkout,
   onUpdateWorkout,
-  setWorkouts
+  setWorkouts,
+  user
 }) {
   return (
     <>
@@ -17,6 +18,7 @@ export default function WorkoutList({
               onDeleteWorkout={onDeleteWorkout}
               onUpdateWorkout={onUpdateWorkout}
               setWorkouts={setWorkouts}
+              user={user}
             />
           </li>
         ))}
@@ -29,5 +31,6 @@ WorkoutList.propTypes = {
   workouts: PropTypes.array.isRequired,
   onDeleteWorkout: PropTypes.func.isRequired,
   onUpdateWorkout: PropTypes.func.isRequired,
-  setWorkouts: PropTypes.func.isRequired
+  setWorkouts: PropTypes.func.isRequired,
+  user: PropTypes.object
 }

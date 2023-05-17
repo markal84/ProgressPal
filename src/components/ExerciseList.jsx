@@ -6,7 +6,7 @@ import AddExerciseForm from './forms/AddExerciseForm'
 import Togglable from './Togglable'
 import { PropTypes } from 'prop-types'
 
-export default function ExerciseList({ workout, setWorkouts }) {
+export default function ExerciseList({ workout, setWorkouts, user }) {
   const [exercises, setExercises] = useState(workout.exercises)
 
   const exerciseFormRef = useRef()
@@ -19,7 +19,7 @@ export default function ExerciseList({ workout, setWorkouts }) {
         setExercises([...exercises, createdExercise])
       })
       .then(() => {
-        workoutService.getAll().then((updatedWorkouts) => {
+        workoutService.getAll(user).then((updatedWorkouts) => {
           setWorkouts(updatedWorkouts)
         })
       })
@@ -35,7 +35,7 @@ export default function ExerciseList({ workout, setWorkouts }) {
         )
       })
       .then(() => {
-        workoutService.getAll().then((updatedWorkouts) => {
+        workoutService.getAll(user).then((updatedWorkouts) => {
           setWorkouts(updatedWorkouts)
         })
       })
@@ -49,7 +49,7 @@ export default function ExerciseList({ workout, setWorkouts }) {
         setExercises(exercises.filter((e) => e.id !== exerciseId))
       })
       .then(() => {
-        workoutService.getAll().then((updatedWorkouts) => {
+        workoutService.getAll(user).then((updatedWorkouts) => {
           setWorkouts(updatedWorkouts)
         })
       })
@@ -90,5 +90,6 @@ export default function ExerciseList({ workout, setWorkouts }) {
 
 ExerciseList.propTypes = {
   workout: PropTypes.object.isRequired,
-  setWorkouts: PropTypes.func
+  setWorkouts: PropTypes.func,
+  user: PropTypes.object
 }

@@ -13,7 +13,8 @@ export default function Workout({
   workout,
   onDeleteWorkout,
   onUpdateWorkout,
-  setWorkouts
+  setWorkouts,
+  user
 }) {
   const [showExerciseList, setShowExerciseList] = useState(false)
   const [deleteConfirmationOpen, setDeleteConfirmationOpen] = useState(false)
@@ -59,7 +60,7 @@ export default function Workout({
         exercises
       </Typography>
       <Collapse in={showExerciseList}>
-        <ExerciseList workout={workout} setWorkouts={setWorkouts} />
+        <ExerciseList workout={workout} setWorkouts={setWorkouts} user={user} />
         <Typography variant="body1" onClick={handleCollapseClose}>
           <ExpandLessIcon /> Close
         </Typography>
@@ -79,5 +80,6 @@ Workout.propTypes = {
   workout: PropTypes.object.isRequired,
   onDeleteWorkout: PropTypes.func.isRequired,
   onUpdateWorkout: PropTypes.func.isRequired,
-  setWorkouts: PropTypes.func.isRequired
+  setWorkouts: PropTypes.func.isRequired,
+  user: PropTypes.object
 }

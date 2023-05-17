@@ -80,7 +80,10 @@ function App() {
                 />
               }
             />
-            <Route path="/account" element={<User user={user} />} />
+            <Route
+              path="/account"
+              element={<User user={user} setUser={setUser} />}
+            />
             <Route
               path="/"
               element={<Home workouts={workouts} user={user} />}

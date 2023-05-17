@@ -17,21 +17,6 @@ export default function Nav({ user, setUser, setMessage }) {
     }
   }, [user, location.pathname, navigate])
 
-  /*
-  useEffect(() => {
-    if (!user) {
-      const lastVisitedPage = window.localStorage.getItem('lastVisitedPage')
-      if (lastVisitedPage) {
-        navigate(lastVisitedPage)
-      } else {
-        navigate('/')
-      }
-    } else {
-      window.localStorage.setItem('lastVisitedPage', location.pathname)
-    }
-  }, [user, location.pathname, navigate])
-  */
-
   function handleLogout() {
     try {
       window.localStorage.removeItem('loggedWorkoutAppUser')

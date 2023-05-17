@@ -7,6 +7,13 @@ async function create(newUser) {
   return res.data
 }
 
+async function remove(id) {
+  const req = axios.delete(`${USERS_URL}/${id}`)
+  const res = await req
+  return res.data
+}
+
 export default {
-  create
+  create,
+  remove
 }
