@@ -8,15 +8,10 @@ function setToken(newToken) {
 }
 
 async function getAll(user) {
-  const req = axios.get(API_URL)
+  const params = { id: user.id }
+  const req = axios.get(API_URL, { params })
   const res = await req
-  let filteredData = []
-
-  filteredData = res.data.filter((workout) => {
-    return workout.user.id === user.id
-  })
-
-  return filteredData
+  return res.data
 }
 
 async function create(newObject) {
