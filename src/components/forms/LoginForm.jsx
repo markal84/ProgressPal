@@ -2,7 +2,7 @@ import { useForm } from 'react-hook-form'
 import { PropTypes } from 'prop-types'
 import { Box, Button, TextField, Typography } from '@mui/material'
 
-const LoginForm = ({ handleLogin }) => {
+const LoginForm = ({ handleLogin, handleDemoLogin }) => {
   const {
     register,
     handleSubmit,
@@ -11,6 +11,10 @@ const LoginForm = ({ handleLogin }) => {
 
   async function onSubmit(data) {
     await handleLogin(data.username, data.password)
+  }
+
+  async function handleDemoClick() {
+    await handleDemoLogin()
   }
 
   return (
@@ -33,7 +37,7 @@ const LoginForm = ({ handleLogin }) => {
           {...register('username', { required: 'Username is required' })}
           fullWidth
           margin="normal"
-          variant="outlined"
+          variant="standard"
           error={!!errors.username}
           helperText={errors.username ? errors.username.message : ''}
         />
@@ -44,23 +48,29 @@ const LoginForm = ({ handleLogin }) => {
           {...register('password', { required: 'Password is required' })}
           fullWidth
           margin="normal"
-          variant="outlined"
+          variant="standard"
           error={!!errors.password}
           helperText={errors.password ? errors.password.message : ''}
         />
         <Button type="submit" variant="contained" color="primary" fullWidth>
           Login
         </Button>
-        <Typography variant="body2" gutterBottom>
-          Dont have an account? (Register here) link to registration
-        </Typography>
       </form>
+      <Button
+        type="submit"
+        variant="contained"
+        color="primary"
+        onClick={() => handleDemoClick()}
+      >
+        Demo User Login
+      </Button>
     </Box>
   )
 }
 
 LoginForm.propTypes = {
-  handleLogin: PropTypes.func.isRequired
+  handleLogin: PropTypes.func.isRequired,
+  handleDemoLogin: PropTypes.func
 }
 
 export default LoginForm

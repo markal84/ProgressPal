@@ -1,6 +1,6 @@
 // eslint-disable-next-line no-undef
 module.exports = {
-  env: { browser: true, es2020: true, 'jest/globals': true },
+  env: { browser: true, es2020: true, node: true, 'jest/globals': true },
   extends: [
     'eslint:recommended',
     'plugin:react/recommended',
@@ -14,6 +14,7 @@ module.exports = {
     'react-refresh/only-export-components': 'warn',
     'react/prop-types': 'warn',
     'no-unused-vars': 'warn',
+    'node/no-unsupported-features/es-syntax': 'off',
     quotes: ['error', 'single'],
     semi: ['error', 'never'],
     eqeqeq: 'error',
