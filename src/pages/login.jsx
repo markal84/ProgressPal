@@ -28,24 +28,7 @@ export default function Login({ setUser, user, setMessage }) {
   }
 
   async function handleDemoLogin() {
-    try {
-      console.log('demo login')
-      const user = await loginService.login({
-        username: 'DemoUser',
-        password: 'changeThis81'
-      })
-
-      window.localStorage.setItem('loggedWorkoutAppUser', JSON.stringify(user))
-
-      workoutService.setToken(user.token)
-      setUser(user)
-      navigate('/workouts')
-    } catch (error) {
-      setMessage('Wrong username or password')
-      setTimeout(() => {
-        setMessage(null)
-      }, 5000)
-    }
+    await handleLogin('DemoUser', 'changeThis81')
   }
 
   const loginForm = () => {
