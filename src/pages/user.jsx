@@ -31,21 +31,27 @@ export default function User({ user, setUser }) {
       <div>
         <h2>User Account Page</h2>
         <p>User Name: {user.name}</p>
-        <p>Change user data will be here</p>
-        <p>Any other info will be here</p>
-        <Button variant="contained" color="error" onClick={handleOpenDialog}>
-          Remove User
-        </Button>
-        <PromptDialog
-          open={dialogOpen}
-          title="Delete User"
-          message="Are you sure you want to delete your account?"
-          onCancel={handleCloseDialog}
-          onConfirm={() => {
-            onRemove(user)
-            handleCloseDialog()
-          }}
-        />
+        {user.username !== 'DemoUser' && (
+          <>
+            <Button
+              variant="contained"
+              color="error"
+              onClick={handleOpenDialog}
+            >
+              Remove User
+            </Button>
+            <PromptDialog
+              open={dialogOpen}
+              title="Delete User"
+              message="Are you sure you want to delete your account?"
+              onCancel={handleCloseDialog}
+              onConfirm={() => {
+                onRemove(user)
+                handleCloseDialog()
+              }}
+            />
+          </>
+        )}
       </div>
     )
   }

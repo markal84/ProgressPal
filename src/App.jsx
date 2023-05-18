@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import Home from './pages/home'
+//import Home from './pages/home_old'
 import User from './pages/user'
 import Workouts from './pages/workouts'
 import Login from './pages/login'
@@ -54,53 +54,53 @@ function App() {
 
   return (
     <Router>
-      <Paper sx={{ padding: theme.spacing(2) }}>
-        <Nav user={user} setMessage={setMessage} setUser={setUser} />
-        <ThemeSwitch />
-        <Notification message={message} />
+      <Nav user={user} setMessage={setMessage} setUser={setUser} />
+      <ThemeSwitch />
+      <Notification message={message} />
 
-        <Typography variant={isMobile ? 'h3' : 'h1'} gutterBottom>
-          Gym progress
+      <Typography align="center" variant={isMobile ? 'h3' : 'h1'} gutterBottom>
+        ProgressPal
+      </Typography>
+
+      {isLoading ? (
+        <Typography variant="body1" gutterBottom>
+          Loading data...
         </Typography>
-
-        {isLoading ? (
-          <Typography variant="body1" gutterBottom>
-            Loading data...
-          </Typography>
-        ) : (
-          <Routes>
-            <Route
-              path="/workouts"
-              element={
-                <Workouts
-                  workouts={workouts}
-                  user={user}
-                  setMessage={setMessage}
-                  setWorkouts={setWorkouts}
-                />
-              }
-            />
-            <Route
-              path="/account"
-              element={<User user={user} setUser={setUser} />}
-            />
-            <Route
-              path="/"
-              element={<Home workouts={workouts} user={user} />}
-            />
-            <Route
-              path="/login"
-              element={
-                <Login setUser={setUser} user={user} setMessage={setMessage} />
-              }
-            />
-            <Route
-              path="/register"
-              element={<Register setMessage={setMessage} />}
-            />
-          </Routes>
-        )}
-      </Paper>
+      ) : (
+        <Routes>
+          <Route
+            path="/workouts"
+            element={
+              <Workouts
+                workouts={workouts}
+                user={user}
+                setMessage={setMessage}
+                setWorkouts={setWorkouts}
+              />
+            }
+          />
+          <Route
+            path="/account"
+            element={<User user={user} setUser={setUser} />}
+          />
+          <Route
+            path="/"
+            element={
+              <Login setUser={setUser} user={user} setMessage={setMessage} />
+            }
+          />
+          <Route
+            path="/login"
+            element={
+              <Login setUser={setUser} user={user} setMessage={setMessage} />
+            }
+          />
+          <Route
+            path="/register"
+            element={<Register setMessage={setMessage} />}
+          />
+        </Routes>
+      )}
     </Router>
   )
 }

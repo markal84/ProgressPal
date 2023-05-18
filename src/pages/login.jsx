@@ -18,7 +18,28 @@ export default function Login({ setUser, user, setMessage }) {
 
       workoutService.setToken(user.token)
       setUser(user)
-      navigate('/')
+      navigate('/workouts')
+    } catch (error) {
+      setMessage('Wrong username or password')
+      setTimeout(() => {
+        setMessage(null)
+      }, 5000)
+    }
+  }
+
+  async function handleDemoLogin() {
+    try {
+      console.log('demo login')
+      const user = await loginService.login({
+        username: 'DemoUser',
+        password: 'changeThis81'
+      })
+
+      window.localStorage.setItem('loggedWorkoutAppUser', JSON.stringify(user))
+
+      workoutService.setToken(user.token)
+      setUser(user)
+      navigate('/workouts')
     } catch (error) {
       setMessage('Wrong username or password')
       setTimeout(() => {
@@ -28,7 +49,9 @@ export default function Login({ setUser, user, setMessage }) {
   }
 
   const loginForm = () => {
-    return <LoginForm handleLogin={handleLogin} />
+    return (
+      <LoginForm handleLogin={handleLogin} handleDemoLogin={handleDemoLogin} />
+    )
   }
 
   return <div>{user ? 'already logged in' : loginForm()}</div>
