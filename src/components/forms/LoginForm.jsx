@@ -37,7 +37,7 @@ const LoginForm = ({ handleLogin, handleDemoLogin }) => {
           {...register('username', { required: 'Username is required' })}
           fullWidth
           margin="normal"
-          variant="outlined"
+          variant="standard"
           error={!!errors.username}
           helperText={errors.username ? errors.username.message : ''}
         />
@@ -48,7 +48,7 @@ const LoginForm = ({ handleLogin, handleDemoLogin }) => {
           {...register('password', { required: 'Password is required' })}
           fullWidth
           margin="normal"
-          variant="outlined"
+          variant="standard"
           error={!!errors.password}
           helperText={errors.password ? errors.password.message : ''}
         />

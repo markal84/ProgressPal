@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router'
 import LoginForm from '../components/forms/LoginForm'
 import loginService from '../services/login'
 import workoutService from '../services/workouts'
+import { DEMO_PASSWORD } from '../config'
 
 export default function Login({ setUser, user, setMessage }) {
   const navigate = useNavigate()
@@ -28,7 +29,7 @@ export default function Login({ setUser, user, setMessage }) {
   }
 
   async function handleDemoLogin() {
-    await handleLogin('DemoUser', 'changeThis81')
+    await handleLogin('DemoUser', DEMO_PASSWORD)
   }
 
   const loginForm = () => {
