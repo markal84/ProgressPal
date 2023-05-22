@@ -5,7 +5,7 @@ export default function Header() {
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
 
   return (
-    <Box>
+    <Box mt={4} mb={4}>
       <Typography align="center" variant={isMobile ? 'h3' : 'h1'} gutterBottom>
         ProgressPal
       </Typography>

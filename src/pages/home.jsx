@@ -1,15 +1,19 @@
+import { useState } from 'react'
 import { PropTypes } from 'prop-types'
 import { useNavigate } from 'react-router-dom'
 import { Box } from '@mui/material'
 import LoginForm from '../components/forms/LoginForm'
+import UserRegisterForm from '../components/forms/AddUserForm'
 import NavHomePage from '../components/NavHomePage'
 import Header from '../components/Header'
 import loginService from '../services/login'
+import userService from '../services/users'
 import workoutService from '../services/workouts'
 import { DEMO_PASSWORD } from '../config'
 
-export default function Login({ setUser, setMessage }) {
+export default function Home({ setUser, setMessage }) {
   const navigate = useNavigate()
+  const [activeForm, setActiveForm] = useState('login')
 
   async function handleLogin(username, password) {
     try {
@@ -39,22 +43,56 @@ export default function Login({ setUser, setMessage }) {
     await handleLogin('DemoUser', DEMO_PASSWORD)
   }
 
+  async function handleRegister(username, name, password) {
+    const newUser = {
+      username,
+      name,
+      password
+    }
+    userService
+      .create(newUser)
+      .then(() => {
+        setMessage('user created, you can log in')
+        setTimeout(() => {
+          setMessage(null)
+          navigate('/')
+        }, 3000)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  }
+
   const loginForm = () => {
     return (
-      <LoginForm handleLogin={handleLogin} handleDemoLogin={handleDemoLogin} />
+      <LoginForm
+        handleLogin={handleLogin}
+        handleDemoLogin={handleDemoLogin}
+        visible={activeForm === 'login'}
+      />
+    )
+  }
+
+  const registerForm = () => {
+    return (
+      <UserRegisterForm
+        handleRegister={handleRegister}
+        visible={activeForm === 'register'}
+      />
     )
   }
 
   return (
     <Box>
       <Header />
-      <NavHomePage />
-      {loginForm()}
+      <NavHomePage activeForm={activeForm} setActiveForm={setActiveForm} />
+      {activeForm === 'login' && loginForm()}
+      {activeForm === 'register' && registerForm()}
     </Box>
   )
 }
 
-Login.propTypes = {
+Home.propTypes = {
   setUser: PropTypes.func.isRequired,
   setMessage: PropTypes.func.isRequired,
   user: PropTypes.object

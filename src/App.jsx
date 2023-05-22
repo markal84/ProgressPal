@@ -1,9 +1,8 @@
 import { useState, useEffect } from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-//import Home from './pages/home_old'
 import User from './pages/user'
 import Workouts from './pages/workouts'
-import Login from './pages/login'
+import Home from './pages/home'
 import Register from './pages/register'
 import Nav from './components/Navigation'
 import workoutService from './services/workouts'
@@ -50,13 +49,12 @@ function App() {
 
   return (
     <Container maxWidth="lg">
+      <ThemeSwitch />
       <Box>
         <Router>
           {user && (
             <Nav user={user} setMessage={setMessage} setUser={setUser} />
           )}
-
-          <ThemeSwitch />
           <Notification message={message} />
 
           {isLoading ? (
@@ -83,16 +81,12 @@ function App() {
               <Route
                 path="/"
                 element={
-                  <Login
-                    setUser={setUser}
-                    user={user}
-                    setMessage={setMessage}
-                  />
+                  <Home setUser={setUser} user={user} setMessage={setMessage} />
                 }
               />
               <Route
                 path="/login"
-                element={<Login setUser={setUser} setMessage={setMessage} />}
+                element={<Home setUser={setUser} setMessage={setMessage} />}
               />
               <Route
                 path="/register"

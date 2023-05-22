@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from 'react'
-import { Switch } from '@mui/material'
+import { Switch, Box, FormGroup, FormControlLabel } from '@mui/material'
 import { ThemeContext } from './ThemeContext'
 
 export default function ThemeSwitch() {
@@ -24,13 +24,20 @@ export default function ThemeSwitch() {
   }, [theme])
 
   return (
-    <>
-      <Switch
-        checked={isDarkMode}
-        onChange={handleSwitchChange}
-        color="primary"
-      />
-      <span>{isDarkMode ? 'Dark Mode' : 'Light Mode'}</span>
-    </>
+    <Box display="flex" alignItems="center" justifyContent="flex-end">
+      <FormGroup>
+        <FormControlLabel
+          control={
+            <Switch
+              checked={isDarkMode}
+              onChange={handleSwitchChange}
+              color="primary"
+              aria-label="theme switch"
+            />
+          }
+          label={isDarkMode ? 'Dark mode' : 'Light mode'}
+        />
+      </FormGroup>
+    </Box>
   )
 }

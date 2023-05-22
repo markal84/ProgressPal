@@ -1,5 +1,5 @@
 import { useForm } from 'react-hook-form'
-import { Box, Button, TextField, Typography } from '@mui/material'
+import { Box, Button, Paper, TextField, Typography } from '@mui/material'
 import { PropTypes } from 'prop-types'
 import validatePassword from '../../utilis/passValidator'
 
@@ -7,22 +7,18 @@ const UserRegisterForm = ({ handleRegister }) => {
   const {
     register,
     handleSubmit,
-    formState: { errors }
+    formState: { errors },
+    reset
   } = useForm()
 
   async function onSubmit(data) {
     await handleRegister(data.username, data.name, data.password)
+    reset()
   }
 
   return (
-    <Box
-      sx={{
-        maxWidth: 320,
-        margin: '0 auto',
-        padding: 2
-      }}
-    >
-      <Typography variant="h5" component="h2" gutterBottom>
+    <Paper sx={{ margin: '0 auto', padding: 2 }} elevation={0}>
+      <Typography variant="h4" gutterBottom>
         Register
       </Typography>
 
@@ -83,11 +79,13 @@ const UserRegisterForm = ({ handleRegister }) => {
           helperText={errors.password ? errors.password.message : ''}
         />
 
-        <Button type="submit" variant="contained" color="primary" fullWidth>
-          Register
-        </Button>
+        <Box sx={{ marginTop: 4 }}>
+          <Button type="submit" variant="contained" color="primary" fullWidth>
+            Register
+          </Button>
+        </Box>
       </form>
-    </Box>
+    </Paper>
   )
 }
 
