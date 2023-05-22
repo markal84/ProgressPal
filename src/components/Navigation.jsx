@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { Link as RouterLink, useLocation, useNavigate } from 'react-router-dom'
 import { Typography, Button, Box } from '@mui/material'
 import { PropTypes } from 'prop-types'
 
@@ -21,6 +21,7 @@ export default function Nav({ user, setUser, setMessage }) {
     try {
       window.localStorage.removeItem('loggedWorkoutAppUser')
       setUser(null)
+      navigate('/')
       setMessage('You successfully logged out')
       setTimeout(() => {
         setMessage(null)
@@ -39,15 +40,17 @@ export default function Nav({ user, setUser, setMessage }) {
           alignItems: 'center',
           gap: '1rem',
           flexWrap: 'wrap',
-          padding: '1rem',
-          backgroundColor: '#f0f0f0'
+          padding: '1rem'
         }}
       >
-        <Link to="/">Home</Link>
-        {user ? (
+        {user && (
           <>
-            <Link to="/workouts">Workouts</Link>
-            <Link to="/account">My Account</Link>
+            <Button component={RouterLink} to="/workouts">
+              Workouts
+            </Button>
+            <Button component={RouterLink} to="/account">
+              My account
+            </Button>
             <Typography variant="body1">{user.name} logged in</Typography>
             <Button
               type="button"
@@ -57,11 +60,6 @@ export default function Nav({ user, setUser, setMessage }) {
             >
               Logout
             </Button>
-          </>
-        ) : (
-          <>
-            <Link to="/login">Login</Link>
-            <Link to="/register">Register</Link>
           </>
         )}
       </Box>

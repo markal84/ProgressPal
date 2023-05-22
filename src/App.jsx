@@ -8,7 +8,7 @@ import Register from './pages/register'
 import Nav from './components/Navigation'
 import workoutService from './services/workouts'
 import Notification from './components/Notification'
-import { Typography, useMediaQuery, Paper, useTheme } from '@mui/material'
+import { Typography, Container, Box } from '@mui/material'
 import ThemeSwitch from './components/ThemeSwitch'
 
 function App() {
@@ -16,9 +16,6 @@ function App() {
   const [isLoading, setIsLoading] = useState(false)
   const [message, setMessage] = useState(null)
   const [user, setUser] = useState(null)
-
-  const theme = useTheme()
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
 
   useEffect(() => {
     setIsLoading(true)
@@ -30,12 +27,11 @@ function App() {
           setWorkouts(initialWorkouts)
           setIsLoading(false)
         })
-        .catch((error) => {
-          console.error(
-            'Error retrieving workouts:(set error message by setMessage)',
-            error
-          )
-
+        .catch(() => {
+          setMessage('Can not load workouts')
+          setTimeout(() => {
+            setMessage(null)
+          }, 3000)
           setIsLoading(false)
         })
     }
@@ -53,55 +49,60 @@ function App() {
   }, [])
 
   return (
-    <Router>
-      <Nav user={user} setMessage={setMessage} setUser={setUser} />
-      <ThemeSwitch />
-      <Notification message={message} />
+    <Container maxWidth="lg">
+      <Box>
+        <Router>
+          {user && (
+            <Nav user={user} setMessage={setMessage} setUser={setUser} />
+          )}
 
-      <Typography align="center" variant={isMobile ? 'h3' : 'h1'} gutterBottom>
-        ProgressPal
-      </Typography>
+          <ThemeSwitch />
+          <Notification message={message} />
 
-      {isLoading ? (
-        <Typography variant="body1" gutterBottom>
-          Loading data...
-        </Typography>
-      ) : (
-        <Routes>
-          <Route
-            path="/workouts"
-            element={
-              <Workouts
-                workouts={workouts}
-                user={user}
-                setMessage={setMessage}
-                setWorkouts={setWorkouts}
+          {isLoading ? (
+            <Typography variant="body1" gutterBottom>
+              Loading data...
+            </Typography>
+          ) : (
+            <Routes>
+              <Route
+                path="/workouts"
+                element={
+                  <Workouts
+                    workouts={workouts}
+                    user={user}
+                    setMessage={setMessage}
+                    setWorkouts={setWorkouts}
+                  />
+                }
               />
-            }
-          />
-          <Route
-            path="/account"
-            element={<User user={user} setUser={setUser} />}
-          />
-          <Route
-            path="/"
-            element={
-              <Login setUser={setUser} user={user} setMessage={setMessage} />
-            }
-          />
-          <Route
-            path="/login"
-            element={
-              <Login setUser={setUser} user={user} setMessage={setMessage} />
-            }
-          />
-          <Route
-            path="/register"
-            element={<Register setMessage={setMessage} />}
-          />
-        </Routes>
-      )}
-    </Router>
+              <Route
+                path="/account"
+                element={<User user={user} setUser={setUser} />}
+              />
+              <Route
+                path="/"
+                element={
+                  <Login
+                    setUser={setUser}
+                    user={user}
+                    setMessage={setMessage}
+                  />
+                }
+              />
+              <Route
+                path="/login"
+                element={<Login setUser={setUser} setMessage={setMessage} />}
+              />
+              <Route
+                path="/register"
+                element={<Register setMessage={setMessage} />}
+              />
+            </Routes>
+          )}
+        </Router>
+      </Box>
+    </Container>
   )
 }
 

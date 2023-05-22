@@ -1,6 +1,7 @@
 import { PropTypes } from 'prop-types'
+import NavHomePage from '../components/NavHomePage'
 import userService from '../services/users'
-import { useNavigate } from 'react-router'
+import { useNavigate } from 'react-router-dom'
 import UserRegisterForm from '../components/forms/AddUserForm'
 
 export default function Register({ setMessage }) {
@@ -30,7 +31,12 @@ export default function Register({ setMessage }) {
     return <UserRegisterForm handleRegister={handleRegister} />
   }
 
-  return <div>{registerForm()}</div>
+  return (
+    <div>
+      <NavHomePage />
+      {registerForm()}
+    </div>
+  )
 }
 
 Register.propTypes = {

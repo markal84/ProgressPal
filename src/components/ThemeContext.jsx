@@ -29,7 +29,7 @@ const darkTheme = createTheme({
 })
 
 const ThemeProviderWrapper = ({ children }) => {
-  const [theme, setTheme] = useState(lightTheme)
+  const [theme, setTheme] = useState(darkTheme)
 
   useEffect(() => {
     const storedTheme = localStorage.getItem('theme')

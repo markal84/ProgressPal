@@ -3,7 +3,7 @@ import { Box, Button, TextField, Typography } from '@mui/material'
 import { PropTypes } from 'prop-types'
 import validatePassword from '../../utilis/passValidator'
 
-const UserRegisterForm = ({ handleRegister, backendError }) => {
+const UserRegisterForm = ({ handleRegister }) => {
   const {
     register,
     handleSubmit,
@@ -19,19 +19,12 @@ const UserRegisterForm = ({ handleRegister, backendError }) => {
       sx={{
         maxWidth: 320,
         margin: '0 auto',
-        padding: 2,
-        backgroundColor: '#f5f5f5'
+        padding: 2
       }}
     >
       <Typography variant="h5" component="h2" gutterBottom>
         Register
       </Typography>
-
-      {backendError && (
-        <Typography variant="body2" color="error" gutterBottom>
-          {backendError}
-        </Typography>
-      )}
 
       <form onSubmit={handleSubmit(onSubmit)}>
         <TextField
@@ -50,7 +43,7 @@ const UserRegisterForm = ({ handleRegister, backendError }) => {
           })}
           fullWidth
           margin="normal"
-          variant="outlined"
+          variant="standard"
           error={!!errors.username}
           helperText={errors.username ? errors.username.message : ''}
         />
@@ -70,7 +63,7 @@ const UserRegisterForm = ({ handleRegister, backendError }) => {
           })}
           fullWidth
           margin="normal"
-          variant="outlined"
+          variant="standard"
           error={!!errors.name}
           helperText={errors.name ? errors.name.message : ''}
         />
@@ -85,7 +78,7 @@ const UserRegisterForm = ({ handleRegister, backendError }) => {
           })}
           fullWidth
           margin="normal"
-          variant="outlined"
+          variant="standard"
           error={!!errors.password}
           helperText={errors.password ? errors.password.message : ''}
         />
@@ -99,8 +92,7 @@ const UserRegisterForm = ({ handleRegister, backendError }) => {
 }
 
 UserRegisterForm.propTypes = {
-  handleRegister: PropTypes.func.isRequired,
-  backendError: PropTypes.string
+  handleRegister: PropTypes.func.isRequired
 }
 
 export default UserRegisterForm

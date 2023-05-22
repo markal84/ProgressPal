@@ -10,11 +10,9 @@ export default function User({ user, setUser }) {
   const [dialogOpen, setDialogOpen] = useState(false)
 
   function onRemove(user) {
-    console.log('user to delete ', user.id)
     userServices.remove(user.id)
     window.localStorage.removeItem('loggedWorkoutAppUser')
     setUser(null)
-    console.log('user deleted')
     navigate('/')
   }
 
@@ -31,27 +29,24 @@ export default function User({ user, setUser }) {
       <div>
         <h2>User Account Page</h2>
         <p>User Name: {user.name}</p>
-        {user.username !== 'DemoUser' && (
-          <>
-            <Button
-              variant="contained"
-              color="error"
-              onClick={handleOpenDialog}
-            >
-              Remove User
-            </Button>
-            <PromptDialog
-              open={dialogOpen}
-              title="Delete User"
-              message="Are you sure you want to delete your account?"
-              onCancel={handleCloseDialog}
-              onConfirm={() => {
-                onRemove(user)
-                handleCloseDialog()
-              }}
-            />
-          </>
-        )}
+        <Button
+          variant="contained"
+          color="error"
+          onClick={handleOpenDialog}
+          disabled={user.username === 'DemoUser'}
+        >
+          Remove User
+        </Button>
+        <PromptDialog
+          open={dialogOpen}
+          title="Delete User"
+          message="Are you sure you want to delete your account?"
+          onCancel={handleCloseDialog}
+          onConfirm={() => {
+            onRemove(user)
+            handleCloseDialog()
+          }}
+        />
       </div>
     )
   }

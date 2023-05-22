@@ -1,8 +1,11 @@
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { PropTypes } from 'prop-types'
-import { Box, Button, TextField, Typography } from '@mui/material'
+import { Box, Paper, Button, TextField, Typography } from '@mui/material'
 
 const LoginForm = ({ handleLogin, handleDemoLogin }) => {
+  const [errorMessage, setErrorMessage] = useState('')
+
   const {
     register,
     handleSubmit,
@@ -10,25 +13,38 @@ const LoginForm = ({ handleLogin, handleDemoLogin }) => {
   } = useForm()
 
   async function onSubmit(data) {
-    await handleLogin(data.username, data.password)
+    try {
+      await handleLogin(data.username, data.password)
+    } catch (error) {
+      setErrorMessage(error.message)
+    }
   }
 
   async function handleDemoClick() {
-    await handleDemoLogin()
+    try {
+      await handleDemoLogin()
+    } catch (error) {
+      setErrorMessage(error.message)
+    }
   }
 
   return (
-    <Box
+    <Paper
       sx={{
-        maxWidth: 320,
         margin: '0 auto',
-        padding: 2,
-        backgroundColor: '#f5f5f5'
+        padding: 2
       }}
+      elevation={0}
     >
-      <Typography variant="h5" component="h2" gutterBottom>
+      <Typography variant="h4" gutterBottom>
         Login
       </Typography>
+
+      {errorMessage && (
+        <Typography variant="body2" color="error" gutterBottom>
+          {errorMessage}
+        </Typography>
+      )}
 
       <form onSubmit={handleSubmit(onSubmit)}>
         <TextField
@@ -52,19 +68,24 @@ const LoginForm = ({ handleLogin, handleDemoLogin }) => {
           error={!!errors.password}
           helperText={errors.password ? errors.password.message : ''}
         />
-        <Button type="submit" variant="contained" color="primary" fullWidth>
-          Login
-        </Button>
+        <Box sx={{ marginTop: 4 }}>
+          <Button type="submit" variant="contained" color="primary" fullWidth>
+            Login
+          </Button>
+        </Box>
       </form>
-      <Button
-        type="submit"
-        variant="contained"
-        color="primary"
-        onClick={() => handleDemoClick()}
-      >
-        Demo User Login
-      </Button>
-    </Box>
+      <Box sx={{ marginTop: 2 }}>
+        <Button
+          type="submit"
+          variant="contained"
+          color="primary"
+          fullWidth
+          onClick={handleDemoClick}
+        >
+          Demo User Login
+        </Button>
+      </Box>
+    </Paper>
   )
 }
 

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Paper, IconButton, Typography, Collapse } from '@mui/material'
+import { Paper, Box, IconButton, Typography, Collapse } from '@mui/material'
 import ExpandLessIcon from '@mui/icons-material/ExpandLess'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import { Delete } from '@mui/icons-material'
@@ -48,27 +48,54 @@ export default function Workout({
       <Typography variant="h5" component="h2" gutterBottom>
         {workout.day} - {formattedDate}
       </Typography>
-      <IconButton
-        color="secondary"
-        onClick={handleDeleteClick}
-        aria-label="delete workout"
+
+      <Box
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between'
+        }}
       >
-        <Delete />
-      </IconButton>
-      <UpdateWorkoutForm workout={workout} onUpdateWorkout={onUpdateWorkout} />
+        <div>
+          <IconButton
+            color="secondary"
+            onClick={handleDeleteClick}
+            aria-label="delete workout"
+          >
+            <Delete />
+          </IconButton>
+        </div>
+
+        <UpdateWorkoutForm
+          workout={workout}
+          onUpdateWorkout={onUpdateWorkout}
+        />
+      </Box>
+
       <Typography variant="body1">
         Number of exercises: {totalExercises}
       </Typography>
-      <Typography variant="body1" onClick={handleToggleExerciseList}>
-        <ExpandMoreIcon /> Click to {showExerciseList ? 'hide' : 'show'}{' '}
-        exercises
+
+      <Typography
+        variant="body1"
+        onClick={handleToggleExerciseList}
+        sx={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}
+      >
+        {showExerciseList ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+        Click to {showExerciseList ? 'hide' : 'show'} exercises
       </Typography>
+
       <Collapse in={showExerciseList}>
         <ExerciseList workout={workout} setWorkouts={setWorkouts} user={user} />
-        <Typography variant="body1" onClick={handleCollapseClose}>
+        <Typography
+          variant="body1"
+          onClick={handleCollapseClose}
+          sx={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}
+        >
           <ExpandLessIcon /> Close
         </Typography>
       </Collapse>
+
       <PromptDialog
         open={deleteConfirmationOpen}
         title="Confirm Delete"
