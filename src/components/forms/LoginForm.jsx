@@ -32,7 +32,8 @@ const LoginForm = ({ handleLogin, handleDemoLogin }) => {
     <Paper
       sx={{
         margin: '0 auto',
-        padding: 2
+        padding: 2,
+        maxWidth: '480px'
       }}
       elevation={0}
     >

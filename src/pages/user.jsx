@@ -2,10 +2,11 @@ import { useState } from 'react'
 import { PropTypes } from 'prop-types'
 import userServices from '../services/users'
 import PromptDialog from '../components/PromptDialog'
+import Nav from '../components/Navigation'
 import { useNavigate } from 'react-router-dom'
 import { Button } from '@mui/material'
 
-export default function User({ user, setUser }) {
+export default function User({ user, setUser, setMessage }) {
   const navigate = useNavigate()
   const [dialogOpen, setDialogOpen] = useState(false)
 
@@ -27,26 +28,29 @@ export default function User({ user, setUser }) {
   if (user) {
     return (
       <div>
-        <h2>User Account Page</h2>
-        <p>User Name: {user.name}</p>
-        <Button
-          variant="contained"
-          color="error"
-          onClick={handleOpenDialog}
-          disabled={user.username === 'DemoUser'}
-        >
-          Remove User
-        </Button>
-        <PromptDialog
-          open={dialogOpen}
-          title="Delete User"
-          message="Are you sure you want to delete your account?"
-          onCancel={handleCloseDialog}
-          onConfirm={() => {
-            onRemove(user)
-            handleCloseDialog()
-          }}
-        />
+        <Nav user={user} setMessage={setMessage} setUser={setUser} />
+        <div>
+          <h2>User Account Page</h2>
+          <p>User Name: {user.name}</p>
+          <Button
+            variant="contained"
+            color="error"
+            onClick={handleOpenDialog}
+            disabled={user.username === 'DemoUser'}
+          >
+            Remove User
+          </Button>
+          <PromptDialog
+            open={dialogOpen}
+            title="Delete User"
+            message="Are you sure you want to delete your account?"
+            onCancel={handleCloseDialog}
+            onConfirm={() => {
+              onRemove(user)
+              handleCloseDialog()
+            }}
+          />
+        </div>
       </div>
     )
   }
@@ -56,5 +60,6 @@ export default function User({ user, setUser }) {
 
 User.propTypes = {
   user: PropTypes.object,
-  setUser: PropTypes.func.isRequired
+  setUser: PropTypes.func.isRequired,
+  setMessage: PropTypes.func.isRequired
 }

@@ -1,11 +1,25 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { Link as RouterLink, useLocation, useNavigate } from 'react-router-dom'
-import { Typography, Button, Box } from '@mui/material'
+import {
+  Typography,
+  Button,
+  Box,
+  AppBar,
+  Toolbar,
+  IconButton,
+  Menu,
+  MenuItem
+} from '@mui/material'
+import { useTheme } from '@mui/material'
+import AccountCircle from '@mui/icons-material/AccountCircle'
 import { PropTypes } from 'prop-types'
 
 export default function Nav({ user, setUser, setMessage }) {
+  const [anchorEl, setAnchorEl] = useState(null)
+
   const location = useLocation()
   const navigate = useNavigate()
+  const theme = useTheme()
 
   useEffect(() => {
     if (
@@ -16,6 +30,14 @@ export default function Nav({ user, setUser, setMessage }) {
       navigate('/')
     }
   }, [user, location.pathname, navigate])
+
+  function handleMenu(event) {
+    setAnchorEl(event.currentTarget)
+  }
+
+  function handleClose() {
+    setAnchorEl(null)
+  }
 
   function handleLogout() {
     try {
@@ -40,26 +62,58 @@ export default function Nav({ user, setUser, setMessage }) {
           alignItems: 'center',
           gap: '1rem',
           flexWrap: 'wrap',
-          padding: '1rem'
+          marginBottom: '1rem'
         }}
       >
         {user && (
           <>
-            <Button component={RouterLink} to="/workouts">
-              Workouts
-            </Button>
-            <Button component={RouterLink} to="/account">
-              My account
-            </Button>
-            <Typography variant="body1">{user.name} logged in</Typography>
-            <Button
-              type="button"
-              onClick={handleLogout}
-              variant="contained"
-              color="secondary"
-            >
-              Logout
-            </Button>
+            <AppBar position="static">
+              <Toolbar>
+                <Button
+                  component={RouterLink}
+                  to="/workouts"
+                  variant="text"
+                  sx={{
+                    color:
+                      theme.palette.mode === 'light' ? '#ffffff' : '#90caf9'
+                  }}
+                >
+                  Workouts
+                </Button>
+                <div>
+                  <IconButton
+                    size="large"
+                    aria-label="account of current user"
+                    aria-controls="menu-appbar"
+                    aria-haspopup="true"
+                    onClick={handleMenu}
+                    color="inherit"
+                  >
+                    <AccountCircle />
+                  </IconButton>
+                  <Menu
+                    id="menu-appbar"
+                    anchorEl={anchorEl}
+                    anchorOrigin={{
+                      vertical: 'top',
+                      horizontal: 'right'
+                    }}
+                    keepMounted
+                    transformOrigin={{
+                      vertical: 'top',
+                      horizontal: 'right'
+                    }}
+                    open={Boolean(anchorEl)}
+                    onClose={handleClose}
+                  >
+                    <MenuItem component={RouterLink} to="/account">
+                      Account
+                    </MenuItem>
+                    <MenuItem onClick={handleLogout}>Logout</MenuItem>
+                  </Menu>
+                </div>
+              </Toolbar>
+            </AppBar>
           </>
         )}
       </Box>

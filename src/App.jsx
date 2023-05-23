@@ -4,7 +4,6 @@ import User from './pages/user'
 import Workouts from './pages/workouts'
 import Home from './pages/home'
 import Register from './pages/register'
-import Nav from './components/Navigation'
 import workoutService from './services/workouts'
 import Notification from './components/Notification'
 import { Typography, Container, Box } from '@mui/material'
@@ -48,13 +47,10 @@ function App() {
   }, [])
 
   return (
-    <Container maxWidth="lg">
+    <>
       <ThemeSwitch />
       <Box>
         <Router>
-          {user && (
-            <Nav user={user} setMessage={setMessage} setUser={setUser} />
-          )}
           <Notification message={message} />
 
           {isLoading ? (
@@ -71,12 +67,15 @@ function App() {
                     user={user}
                     setMessage={setMessage}
                     setWorkouts={setWorkouts}
+                    setUser={setUser}
                   />
                 }
               />
               <Route
                 path="/account"
-                element={<User user={user} setUser={setUser} />}
+                element={
+                  <User user={user} setUser={setUser} setMessage={setMessage} />
+                }
               />
               <Route
                 path="/"
@@ -96,7 +95,7 @@ function App() {
           )}
         </Router>
       </Box>
-    </Container>
+    </>
   )
 }
 

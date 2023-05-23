@@ -1,9 +1,17 @@
 import workoutService from '../services/workouts'
 import WorkoutList from '../components/WorkoutList'
 import AddWorkoutForm from '../components/forms/AddWorkoutForm'
+import { Box } from '@mui/material'
+import Nav from '../components/Navigation'
 import { PropTypes } from 'prop-types'
 
-export default function Workouts({ workouts, setWorkouts, setMessage, user }) {
+export default function Workouts({
+  workouts,
+  setWorkouts,
+  setMessage,
+  user,
+  setUser
+}) {
   function handleAddWorkout(newWorkout) {
     workoutService
       .create(newWorkout)
@@ -50,20 +58,23 @@ export default function Workouts({ workouts, setWorkouts, setMessage, user }) {
   }
 
   return (
-    <>
+    <Box>
       {user && (
-        <>
-          <AddWorkoutForm onAddWorkout={handleAddWorkout} />
-          <WorkoutList
-            workouts={workouts}
-            onDeleteWorkout={handleDeleteWorkout}
-            onUpdateWorkout={handleUpdateWorkout}
-            setWorkouts={setWorkouts}
-            user={user}
-          />
-        </>
+        <Box>
+          <Nav user={user} setMessage={setMessage} setUser={setUser} />
+          <Box>
+            <AddWorkoutForm onAddWorkout={handleAddWorkout} />
+            <WorkoutList
+              workouts={workouts}
+              onDeleteWorkout={handleDeleteWorkout}
+              onUpdateWorkout={handleUpdateWorkout}
+              setWorkouts={setWorkouts}
+              user={user}
+            />
+          </Box>
+        </Box>
       )}
-    </>
+    </Box>
   )
 }
 
@@ -71,5 +82,6 @@ Workouts.propTypes = {
   workouts: PropTypes.array,
   user: PropTypes.object,
   setWorkouts: PropTypes.func.isRequired,
-  setMessage: PropTypes.func.isRequired
+  setMessage: PropTypes.func.isRequired,
+  setUser: PropTypes.func.isRequired
 }

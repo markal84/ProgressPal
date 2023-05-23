@@ -17,7 +17,10 @@ const UserRegisterForm = ({ handleRegister }) => {
   }
 
   return (
-    <Paper sx={{ margin: '0 auto', padding: 2 }} elevation={0}>
+    <Paper
+      sx={{ margin: '0 auto', padding: 2, maxWidth: '480px' }}
+      elevation={0}
+    >
       <Typography variant="h4" gutterBottom>
         Register
       </Typography>
