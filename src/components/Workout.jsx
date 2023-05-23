@@ -1,12 +1,5 @@
 import { useState } from 'react'
-import {
-  Paper,
-  Box,
-  IconButton,
-  Typography,
-  Collapse,
-  Container
-} from '@mui/material'
+import { Paper, Box, IconButton, Typography, Collapse } from '@mui/material'
 import ExpandLessIcon from '@mui/icons-material/ExpandLess'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import { Delete } from '@mui/icons-material'
@@ -51,11 +44,22 @@ export default function Workout({
   }
 
   return (
-    <Paper elevation={1}>
-      <Box>
+    <Paper elevation={1} sx={{ padding: '1.25rem' }}>
+      <Box
+        sx={{
+          display: 'flex',
+          alignItems: 'baseline',
+          justifyContent: 'space-between',
+          marginBottom: '1rem'
+        }}
+      >
         <Typography variant="h6" gutterBottom>
           {workout.day} - {formattedDate}
         </Typography>
+        <UpdateWorkoutForm
+          workout={workout}
+          onUpdateWorkout={onUpdateWorkout}
+        />
         <IconButton
           color="secondary"
           onClick={handleDeleteClick}
@@ -63,23 +67,14 @@ export default function Workout({
         >
           <Delete />
         </IconButton>
-        <UpdateWorkoutForm
-          workout={workout}
-          onUpdateWorkout={onUpdateWorkout}
-        />
       </Box>
-
-      <Typography variant="body1">
-        Number of exercises: {totalExercises}
-      </Typography>
-
       <Typography
         variant="body1"
         onClick={handleToggleExerciseList}
         sx={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}
       >
         {showExerciseList ? <ExpandLessIcon /> : <ExpandMoreIcon />}
-        Click to {showExerciseList ? 'hide' : 'show'} exercises
+        Number of exercises: {totalExercises}
       </Typography>
 
       <Collapse in={showExerciseList}>
@@ -89,7 +84,7 @@ export default function Workout({
           onClick={handleCollapseClose}
           sx={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}
         >
-          <ExpandLessIcon /> Close
+          <ExpandLessIcon />
         </Typography>
       </Collapse>
 

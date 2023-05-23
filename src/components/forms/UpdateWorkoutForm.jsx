@@ -5,7 +5,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 import { addDays, parseISO, formatISO } from 'date-fns'
-import { Button, FormGroup, Typography } from '@mui/material'
+import { Button, FormGroup, Typography, Box } from '@mui/material'
 
 export default function UpdateWorkoutForm({ workout, onUpdateWorkout }) {
   const [editedWorkout, setEditedWorkout] = useState(workout)
@@ -16,7 +16,7 @@ export default function UpdateWorkoutForm({ workout, onUpdateWorkout }) {
 
   function handleUpdate(e) {
     e.preventDefault()
-    updateWorkoutFormRef.current.toggleVisibility()
+    updateWorkoutFormRef.current.open()
 
     onUpdateWorkout(workout.id, editedWorkout)
   }
@@ -27,6 +27,10 @@ export default function UpdateWorkoutForm({ workout, onUpdateWorkout }) {
       ...prevState,
       date: formattedDate
     }))
+  }
+
+  const toggleOpen = () => {
+    updateWorkoutFormRef.current.open()
   }
 
   const updateWorkoutForm = () => {
@@ -46,9 +50,19 @@ export default function UpdateWorkoutForm({ workout, onUpdateWorkout }) {
               />
             </LocalizationProvider>
           </FormGroup>
-          <Button variant="contained" type="submit" sx={{ mt: 2 }}>
-            Update
-          </Button>
+          <Box
+            display="flex"
+            alignItems="center"
+            justifyContent="space-between"
+            mt={2}
+          >
+            <Button variant="contained" type="submit">
+              Update
+            </Button>
+            <Button variant="outlined" onClick={toggleOpen}>
+              Cancel
+            </Button>
+          </Box>
         </form>
       </Togglable>
     )
