@@ -24,7 +24,7 @@ export default function ThemeSwitch() {
   }, [theme])
 
   return (
-    <Box display="flex" alignItems="center" justifyContent="flex-end">
+    <Box display="flex" justifyContent="flex-end">
       <FormGroup>
         <FormControlLabel
           control={

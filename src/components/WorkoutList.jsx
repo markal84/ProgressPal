@@ -1,4 +1,5 @@
 import Workout from './Workout'
+import { Container, Grid, List, ListItem } from '@mui/material'
 import { PropTypes } from 'prop-types'
 
 export default function WorkoutList({
@@ -9,10 +10,14 @@ export default function WorkoutList({
   user
 }) {
   return (
-    <>
-      <ul>
+    <Container maxWidth="xl">
+      <Grid
+        container
+        spacing={{ xs: 2, md: 3 }}
+        columns={{ xs: 4, sm: 8, md: 12 }}
+      >
         {workouts.map((workout) => (
-          <li style={{ listStyle: 'none' }} key={workout.id}>
+          <Grid item xs={12} sm={8} md={6} key={workout.id}>
             <Workout
               workout={workout}
               onDeleteWorkout={onDeleteWorkout}
@@ -20,10 +25,10 @@ export default function WorkoutList({
               setWorkouts={setWorkouts}
               user={user}
             />
-          </li>
+          </Grid>
         ))}
-      </ul>
-    </>
+      </Grid>
+    </Container>
   )
 }
 

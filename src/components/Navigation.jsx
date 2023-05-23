@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link as RouterLink, useLocation, useNavigate } from 'react-router-dom'
+import ThemeSwitch from './ThemeSwitch'
 import {
-  Typography,
   Button,
   Box,
   AppBar,
@@ -68,7 +68,10 @@ export default function Nav({ user, setUser, setMessage }) {
         {user && (
           <>
             <AppBar position="static">
-              <Toolbar>
+              <ThemeSwitch />
+              <Toolbar
+                sx={{ display: 'flex', justifyContent: 'space-between' }}
+              >
                 <Button
                   component={RouterLink}
                   to="/workouts"

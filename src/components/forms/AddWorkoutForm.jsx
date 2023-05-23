@@ -1,15 +1,13 @@
 import { useState } from 'react'
 import { PropTypes } from 'prop-types'
-import { Box, Button, Typography } from '@mui/material'
+import { Box, Button, Typography, TextField } from '@mui/material'
 import { LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker'
-import { addDays } from 'date-fns'
 import { formatISO } from 'date-fns'
 
 export default function AddWorkoutForm({ onAddWorkout }) {
-  const [date, setDate] = useState(new Date())
-  const maxDate = addDays(new Date(), 0)
+  const [date, setDate] = useState(null)
 
   function handleAddWorkout(e) {
     e.preventDefault()
@@ -20,12 +18,14 @@ export default function AddWorkoutForm({ onAddWorkout }) {
     }
 
     onAddWorkout(newWorkout)
-    setDate(new Date())
+    setDate(null)
   }
 
   function handleDateChange(newDate) {
     setDate(newDate)
   }
+
+  const isButtonDisabled = date === null
 
   return (
     <form onSubmit={handleAddWorkout}>
@@ -35,14 +35,19 @@ export default function AddWorkoutForm({ onAddWorkout }) {
         </Typography>
         <LocalizationProvider dateAdapter={AdapterDateFns}>
           <DatePicker
-            label="Date"
+            label="Select workout day"
             value={date}
             format="dd.MM.yyyy"
-            maxDate={maxDate}
+            disableFuture={true}
             onChange={handleDateChange}
           />
         </LocalizationProvider>
-        <Button variant="contained" type="submit" sx={{ mt: 2 }}>
+        <Button
+          variant="contained"
+          type="submit"
+          sx={{ mt: 2, mb: 2 }}
+          disabled={isButtonDisabled}
+        >
           Add Workout
         </Button>
       </Box>

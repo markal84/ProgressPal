@@ -1,5 +1,12 @@
 import { useState } from 'react'
-import { Paper, Box, IconButton, Typography, Collapse } from '@mui/material'
+import {
+  Paper,
+  Box,
+  IconButton,
+  Typography,
+  Collapse,
+  Container
+} from '@mui/material'
 import ExpandLessIcon from '@mui/icons-material/ExpandLess'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import { Delete } from '@mui/icons-material'
@@ -44,28 +51,18 @@ export default function Workout({
   }
 
   return (
-    <Paper sx={{ marginBottom: 4, padding: 2 }}>
-      <Typography variant="h5" component="h2" gutterBottom>
-        {workout.day} - {formattedDate}
-      </Typography>
-
-      <Box
-        sx={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between'
-        }}
-      >
-        <div>
-          <IconButton
-            color="secondary"
-            onClick={handleDeleteClick}
-            aria-label="delete workout"
-          >
-            <Delete />
-          </IconButton>
-        </div>
-
+    <Paper elevation={1}>
+      <Box>
+        <Typography variant="h6" gutterBottom>
+          {workout.day} - {formattedDate}
+        </Typography>
+        <IconButton
+          color="secondary"
+          onClick={handleDeleteClick}
+          aria-label="delete workout"
+        >
+          <Delete />
+        </IconButton>
         <UpdateWorkoutForm
           workout={workout}
           onUpdateWorkout={onUpdateWorkout}
