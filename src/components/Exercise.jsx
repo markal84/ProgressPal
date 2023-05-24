@@ -7,18 +7,6 @@ import { styled } from '@mui/system'
 import { Delete as DeleteIcon } from '@mui/icons-material'
 import { PropTypes } from 'prop-types'
 
-const ExerciseContainer = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'flex-start',
-  padding: theme.spacing(2),
-  marginBottom: theme.spacing(2),
-  [theme.breakpoints.down('sm')]: {
-    flexDirection: 'column',
-    alignItems: 'center'
-  }
-}))
-
 const DeleteButton = styled(Button)(({ theme }) => ({
   marginTop: theme.spacing(1),
   alignSelf: 'flex-end'
@@ -46,7 +34,7 @@ export default function Exercise({
   }
 
   return (
-    <ExerciseContainer>
+    <Box>
       <Paper>
         <Typography variant="body1" gutterBottom>
           Name: {exercise.name}
@@ -78,7 +66,7 @@ export default function Exercise({
         onCancel={handleDeleteCancel}
         onConfirm={handleDeleteConfirmation}
       />
-    </ExerciseContainer>
+    </Box>
   )
 }
 

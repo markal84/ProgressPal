@@ -44,7 +44,14 @@ export default function Workout({
   }
 
   return (
-    <Paper elevation={1} sx={{ padding: '1.25rem' }}>
+    <Paper
+      elevation={0}
+      sx={{
+        padding: '1.25rem',
+        borderBottom: '1px solid #eee',
+        borderRadius: '0'
+      }}
+    >
       <Box
         sx={{
           display: 'flex',

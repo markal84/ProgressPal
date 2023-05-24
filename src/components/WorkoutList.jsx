@@ -17,7 +17,7 @@ export default function WorkoutList({
         columns={{ xs: 4, sm: 8, md: 12 }}
       >
         {workouts.map((workout) => (
-          <Grid item xs={12} sm={8} md={6} key={workout.id}>
+          <Grid key={workout.id} item xs={12} sm={8} md={6} mt={1} mb={1}>
             <Workout
               workout={workout}
               onDeleteWorkout={onDeleteWorkout}
