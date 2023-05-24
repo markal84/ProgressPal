@@ -1,7 +1,8 @@
 import { useState, forwardRef, useImperativeHandle } from 'react'
 import { PropTypes } from 'prop-types'
-import { Box, Button, IconButton, Dialog } from '@mui/material'
+import { Box, IconButton, Dialog } from '@mui/material'
 import { Edit } from '@mui/icons-material'
+import AddBoxIcon from '@mui/icons-material/AddBox'
 
 const Togglable = forwardRef((props, ref) => {
   const [open, setOpen] = useState(false)
@@ -21,9 +22,9 @@ const Togglable = forwardRef((props, ref) => {
           <Edit />
         </IconButton>
       ) : (
-        <Button variant="outlined" onClick={toggleOpen}>
-          {props.buttonLabel}
-        </Button>
+        <IconButton color="primary" onClick={toggleOpen}>
+          <AddBoxIcon fontSize="large" />
+        </IconButton>
       )}
 
       <Dialog open={open} onClose={toggleOpen}>

@@ -2,15 +2,9 @@
 import { useState } from 'react'
 import UpdateExerciseForm from './forms/UpdateExerciseForm'
 import PromptDialog from './PromptDialog'
-import { Box, Button, Typography, Paper } from '@mui/material'
-import { styled } from '@mui/system'
+import { Box, Typography, Button } from '@mui/material'
 import { Delete as DeleteIcon } from '@mui/icons-material'
 import { PropTypes } from 'prop-types'
-
-const DeleteButton = styled(Button)(({ theme }) => ({
-  marginTop: theme.spacing(1),
-  alignSelf: 'flex-end'
-}))
 
 export default function Exercise({
   workout,
@@ -33,32 +27,47 @@ export default function Exercise({
     setDeleteConfirmationOpen(false)
   }
 
+  const names = ['weight', 'series', 'repetitions']
+  const displayNames = {
+    repetitions: 'reps'
+  }
+
+  const exerciseInfo = names.map((name) => {
+    if (name === 'weight' && !exercise.weight) {
+      return null
+    }
+
+    const displayName = displayNames[name] || name
+
+    return (
+      <Typography key={name} variant="caption" gutterBottom>
+        {displayName}:
+        <Typography variant="subtitle1" sx={{ fontWeight: '600' }}>
+          {exercise[name]}
+          {name === 'weight' ? 'kg' : ''}
+        </Typography>
+      </Typography>
+    )
+  })
+
   return (
-    <Box>
-      <Paper>
-        <Typography variant="body1" gutterBottom>
-          Name: {exercise.name}
+    <Box component="section" sx={{ borderBottom: '1px solid #eee' }}>
+      <Box display="flex" alignItems="center" sx={{ padding: '10px' }}>
+        <Typography variant="h6" align="left" gutterBottom>
+          {exercise.name}
         </Typography>
-        {exercise.weight && (
-          <Typography variant="body1" gutterBottom>
-            Weight: {exercise.weight}kg
-          </Typography>
-        )}
-        <Typography variant="body1" gutterBottom>
-          Series: {exercise.series}
-        </Typography>
-        <Typography variant="body1" gutterBottom>
-          Repetitions: {exercise.repetitions}
-        </Typography>
-        <DeleteButton onClick={handleDeleteExercise} color="secondary">
+        <Button onClick={handleDeleteExercise} color="secondary">
           <DeleteIcon />
-        </DeleteButton>
+        </Button>
         <UpdateExerciseForm
           onUpdateExercise={onUpdateExercise}
           exercise={exercise}
           workout={workout}
         />
-      </Paper>
+      </Box>
+      <Box display="flex" gap={2} alignItems="center" ml={1} mt={1} mb={1}>
+        {exerciseInfo}
+      </Box>
       <PromptDialog
         open={deleteConfirmationOpen}
         title="Confirm Delete"

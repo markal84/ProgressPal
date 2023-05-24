@@ -75,15 +75,22 @@ export default function Workout({
           <Delete />
         </IconButton>
       </Box>
-      <Typography
-        variant="body1"
-        onClick={handleToggleExerciseList}
-        sx={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}
-      >
-        {showExerciseList ? <ExpandLessIcon /> : <ExpandMoreIcon />}
-        Number of exercises: {totalExercises}
-      </Typography>
-
+      <Box sx={{ cursor: 'pointer' }}>
+        <Typography
+          variant="body1"
+          onClick={handleToggleExerciseList}
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            paddingTop: '0.75rem',
+            paddingBottom: '0.75rem'
+          }}
+        >
+          <span>{`Number of exercises: ${totalExercises}`}</span>
+          {showExerciseList ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+        </Typography>
+      </Box>
       <Collapse in={showExerciseList}>
         <ExerciseList workout={workout} setWorkouts={setWorkouts} user={user} />
         <Typography
@@ -91,7 +98,11 @@ export default function Workout({
           onClick={handleCollapseClose}
           sx={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}
         >
-          <ExpandLessIcon />
+          <span style={{ marginLeft: 'auto' }}>
+            <ExpandLessIcon
+              sx={{ marginTop: '0.5rem', marginBottom: '0.5rem' }}
+            />
+          </span>
         </Typography>
       </Collapse>
 

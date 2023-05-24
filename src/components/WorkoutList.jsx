@@ -1,5 +1,5 @@
 import Workout from './Workout'
-import { Container, Grid, List, ListItem } from '@mui/material'
+import { Container, Grid } from '@mui/material'
 import { PropTypes } from 'prop-types'
 
 export default function WorkoutList({

@@ -3,6 +3,7 @@ import exerciseService from '../services/exercises'
 import workoutService from '../services/workouts'
 import Exercise from './Exercise'
 import AddExerciseForm from './forms/AddExerciseForm'
+import { Box, Grid } from '@mui/material'
 import Togglable from './Togglable'
 import { PropTypes } from 'prop-types'
 
@@ -12,7 +13,7 @@ export default function ExerciseList({ workout, setWorkouts, user }) {
   const exerciseFormRef = useRef()
 
   function handleAddExercise(newExercise) {
-    exerciseFormRef.current.toggleVisibility()
+    exerciseFormRef.current.open()
     exerciseService
       .create(newExercise, workout.id)
       .then((createdExercise) => {
@@ -67,24 +68,32 @@ export default function ExerciseList({ workout, setWorkouts, user }) {
     )
   }
 
+  const exercisesList = exercises.map((exercise) => {
+    return (
+      <Grid item key={exercise.id} xs={12} sm={8} md={6}>
+        <Exercise
+          exercise={exercise}
+          workout={workout}
+          onDeleteExercise={handleDeleteExercise}
+          onUpdateExercise={handleUpdateExercise}
+        />
+      </Grid>
+    )
+  })
+
   return (
-    <>
-      <ul>
-        {addExerciseForm()}
-        {exercises.map((exercise) => {
-          return (
-            <li key={exercise.id} style={{ listStyle: 'none' }}>
-              <Exercise
-                exercise={exercise}
-                workout={workout}
-                onDeleteExercise={handleDeleteExercise}
-                onUpdateExercise={handleUpdateExercise}
-              />
-            </li>
-          )
-        })}
-      </ul>
-    </>
+    <Grid
+      container
+      spacing={{ xs: 2, md: 3 }}
+      columns={{ xs: 4, sm: 8, md: 12 }}
+    >
+      <Grid item xs={12}>
+        <Box display="flex" alignItems="flex-start" justifyContent="flex-start">
+          {addExerciseForm()}
+        </Box>
+      </Grid>
+      {exercisesList}
+    </Grid>
   )
 }
 
