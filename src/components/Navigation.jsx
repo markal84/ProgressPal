@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 import { Link as RouterLink, useLocation, useNavigate } from 'react-router-dom'
-import ThemeSwitch from './ThemeSwitch'
 import {
   Button,
   Box,
@@ -9,11 +8,13 @@ import {
   IconButton,
   Menu,
   MenuItem,
+  ListItemText,
   Divider
 } from '@mui/material'
 import { useTheme } from '@mui/material'
 import AccountCircle from '@mui/icons-material/AccountCircle'
 import { PropTypes } from 'prop-types'
+import ThemeSwitch from './ThemeSwitch'
 
 export default function Nav({ user, setUser, setMessage }) {
   const [anchorEl, setAnchorEl] = useState(null)
@@ -69,7 +70,6 @@ export default function Nav({ user, setUser, setMessage }) {
         {user && (
           <>
             <AppBar position="static">
-              <ThemeSwitch />
               <Toolbar
                 sx={{ display: 'flex', justifyContent: 'space-between' }}
               >
@@ -84,7 +84,7 @@ export default function Nav({ user, setUser, setMessage }) {
                 >
                   Workouts
                 </Button>
-                <div>
+                <Box component="nav" display="flex">
                   <IconButton
                     size="large"
                     aria-label="account of current user"
@@ -110,13 +110,22 @@ export default function Nav({ user, setUser, setMessage }) {
                     open={Boolean(anchorEl)}
                     onClose={handleClose}
                   >
-                    <MenuItem component={RouterLink} to="/account">
-                      Account
+                    <MenuItem>
+                      <ThemeSwitch />
                     </MenuItem>
                     <Divider />
-                    <MenuItem onClick={handleLogout}>Logout</MenuItem>
+                    <MenuItem component={RouterLink} to="/account">
+                      <ListItemText style={{ textAlign: 'center' }}>
+                        Account
+                      </ListItemText>
+                    </MenuItem>
+                    <MenuItem onClick={handleLogout}>
+                      <ListItemText style={{ textAlign: 'center' }}>
+                        Logout
+                      </ListItemText>
+                    </MenuItem>
                   </Menu>
-                </div>
+                </Box>
               </Toolbar>
             </AppBar>
           </>

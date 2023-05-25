@@ -1,4 +1,4 @@
-import ThemeSwitch from '../components/ThemeSwitch'
+import SettingsDrawer from './SettingsDrawer'
 import { Typography, useMediaQuery, Box, useTheme } from '@mui/material'
 
 export default function Header() {
@@ -7,7 +7,7 @@ export default function Header() {
 
   return (
     <Box>
-      <ThemeSwitch />
+      <SettingsDrawer />
       <Typography align="center" variant={isMobile ? 'h3' : 'h1'} gutterBottom>
         ProgressPal
       </Typography>
