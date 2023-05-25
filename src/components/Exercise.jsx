@@ -51,19 +51,26 @@ export default function Exercise({
   })
 
   return (
-    <Box component="section" sx={{ borderBottom: '1px solid #eee' }}>
-      <Box display="flex" alignItems="center" sx={{ padding: '10px' }}>
-        <Typography variant="h6" align="left" gutterBottom>
+    <Box component="section">
+      <Box
+        display="flex"
+        alignItems="center"
+        justifyContent="space-between"
+        sx={{ padding: '10px' }}
+      >
+        <Typography variant="body1" align="left">
           {exercise.name}
         </Typography>
-        <Button onClick={handleDeleteExercise} color="secondary">
-          <DeleteIcon />
-        </Button>
-        <UpdateExerciseForm
-          onUpdateExercise={onUpdateExercise}
-          exercise={exercise}
-          workout={workout}
-        />
+        <Box display="flex">
+          <UpdateExerciseForm
+            onUpdateExercise={onUpdateExercise}
+            exercise={exercise}
+            workout={workout}
+          />
+          <Button onClick={handleDeleteExercise} color="secondary">
+            <DeleteIcon fontSize="small" />
+          </Button>
+        </Box>
       </Box>
       <Box display="flex" gap={2} alignItems="center" ml={1} mt={1} mb={1}>
         {exerciseInfo}

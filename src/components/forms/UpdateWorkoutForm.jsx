@@ -37,9 +37,11 @@ export default function UpdateWorkoutForm({ workout, onUpdateWorkout }) {
     return (
       <Togglable mode="edit" ref={updateWorkoutFormRef}>
         <form onSubmit={handleUpdate}>
-          <Typography variant="h5" component="p" gutterBottom>
-            Edit Workout
-          </Typography>
+          <Box sx={{ marginBottom: 2 }}>
+            <Typography variant="h6" gutterBottom>
+              Edit Workout
+            </Typography>
+          </Box>
           <FormGroup>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DatePicker

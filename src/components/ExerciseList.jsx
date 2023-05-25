@@ -3,7 +3,7 @@ import exerciseService from '../services/exercises'
 import workoutService from '../services/workouts'
 import Exercise from './Exercise'
 import AddExerciseForm from './forms/AddExerciseForm'
-import { Box, Grid } from '@mui/material'
+import { Box, Divider, Grid } from '@mui/material'
 import Togglable from './Togglable'
 import { PropTypes } from 'prop-types'
 
@@ -59,7 +59,7 @@ export default function ExerciseList({ workout, setWorkouts, user }) {
 
   const addExerciseForm = () => {
     return (
-      <Togglable buttonLabel="add exercise" ref={exerciseFormRef}>
+      <Togglable ref={exerciseFormRef}>
         <AddExerciseForm
           onAddExercise={handleAddExercise}
           workoutId={workout.id}
@@ -70,29 +70,26 @@ export default function ExerciseList({ workout, setWorkouts, user }) {
 
   const exercisesList = exercises.map((exercise) => {
     return (
-      <Grid item key={exercise.id} xs={12} sm={8} md={6}>
+      <Grid item key={exercise.id}>
         <Exercise
           exercise={exercise}
           workout={workout}
           onDeleteExercise={handleDeleteExercise}
           onUpdateExercise={handleUpdateExercise}
         />
+        <Divider />
       </Grid>
     )
   })
 
   return (
-    <Grid
-      container
-      spacing={{ xs: 2, md: 3 }}
-      columns={{ xs: 4, sm: 8, md: 12 }}
-    >
-      <Grid item xs={12}>
+    <Grid container display="block">
+      <Grid item>
         <Box display="flex" alignItems="flex-start" justifyContent="flex-start">
           {addExerciseForm()}
         </Box>
       </Grid>
-      {exercisesList}
+      <Box>{exercisesList}</Box>
     </Grid>
   )
 }

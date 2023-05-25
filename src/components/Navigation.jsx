@@ -8,7 +8,8 @@ import {
   Toolbar,
   IconButton,
   Menu,
-  MenuItem
+  MenuItem,
+  Divider
 } from '@mui/material'
 import { useTheme } from '@mui/material'
 import AccountCircle from '@mui/icons-material/AccountCircle'
@@ -112,6 +113,7 @@ export default function Nav({ user, setUser, setMessage }) {
                     <MenuItem component={RouterLink} to="/account">
                       Account
                     </MenuItem>
+                    <Divider />
                     <MenuItem onClick={handleLogout}>Logout</MenuItem>
                   </Menu>
                 </div>

@@ -1,7 +1,6 @@
-//import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { PropTypes } from 'prop-types'
-import { Box, Button, TextField } from '@mui/material'
+import { Box, Button, TextField, Typography } from '@mui/material'
 
 export default function AddExerciseForm({ onAddExercise, workoutId }) {
   const {
@@ -22,6 +21,12 @@ export default function AddExerciseForm({ onAddExercise, workoutId }) {
       onSubmit={handleSubmit(onSubmit)}
       sx={{ marginTop: 2 }}
     >
+      <Box sx={{ marginBottom: 2 }}>
+        <Typography variant="h6" gutterBottom>
+          Add Exercise
+        </Typography>
+      </Box>
+
       <TextField
         label="Name*"
         type="text"
@@ -74,9 +79,17 @@ export default function AddExerciseForm({ onAddExercise, workoutId }) {
         error={!!errors.repetitions}
         helperText={errors.repetitions ? errors.repetitions.message : ''}
       />
-      <Button type="submit" variant="contained" color="primary">
-        Save
-      </Button>
+
+      <Box
+        display="flex"
+        alignItems="center"
+        justifyContent="space-between"
+        mt={2}
+      >
+        <Button type="submit" variant="contained" color="primary">
+          Save
+        </Button>
+      </Box>
     </Box>
   )
 }

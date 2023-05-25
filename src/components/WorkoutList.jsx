@@ -11,11 +11,7 @@ export default function WorkoutList({
 }) {
   return (
     <Container maxWidth="xl">
-      <Grid
-        container
-        spacing={{ xs: 2, md: 3 }}
-        columns={{ xs: 4, sm: 8, md: 12 }}
-      >
+      <Grid container>
         {workouts.map((workout) => (
           <Grid key={workout.id} item xs={12} sm={8} md={6} mt={1} mb={1}>
             <Workout

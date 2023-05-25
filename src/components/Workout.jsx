@@ -1,5 +1,6 @@
+/* eslint-disable indent */
 import { useState } from 'react'
-import { Paper, Box, IconButton, Typography, Collapse } from '@mui/material'
+import { Box, IconButton, Typography, Collapse, Divider } from '@mui/material'
 import ExpandLessIcon from '@mui/icons-material/ExpandLess'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import { Delete } from '@mui/icons-material'
@@ -44,76 +45,91 @@ export default function Workout({
   }
 
   return (
-    <Paper
-      elevation={0}
-      sx={{
-        padding: '1.25rem',
-        borderBottom: '1px solid #eee',
-        borderRadius: '0'
-      }}
-    >
+    <>
       <Box
+        component="section"
         sx={{
-          display: 'flex',
-          alignItems: 'baseline',
-          justifyContent: 'space-between',
-          marginBottom: '1rem'
+          padding: '1rem'
         }}
       >
-        <Typography variant="h6" gutterBottom>
-          {workout.day} - {formattedDate}
-        </Typography>
-        <UpdateWorkoutForm
-          workout={workout}
-          onUpdateWorkout={onUpdateWorkout}
-        />
-        <IconButton
-          color="secondary"
-          onClick={handleDeleteClick}
-          aria-label="delete workout"
-        >
-          <Delete />
-        </IconButton>
-      </Box>
-      <Box sx={{ cursor: 'pointer' }}>
-        <Typography
-          variant="body1"
-          onClick={handleToggleExerciseList}
+        <Box
           sx={{
             display: 'flex',
-            alignItems: 'center',
             justifyContent: 'space-between',
-            paddingTop: '0.75rem',
-            paddingBottom: '0.75rem'
+            marginBottom: '1rem'
           }}
         >
-          <span>{`Number of exercises: ${totalExercises}`}</span>
-          {showExerciseList ? <ExpandLessIcon /> : <ExpandMoreIcon />}
-        </Typography>
-      </Box>
-      <Collapse in={showExerciseList}>
-        <ExerciseList workout={workout} setWorkouts={setWorkouts} user={user} />
-        <Typography
-          variant="body1"
-          onClick={handleCollapseClose}
-          sx={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}
-        >
-          <span style={{ marginLeft: 'auto' }}>
-            <ExpandLessIcon
-              sx={{ marginTop: '0.5rem', marginBottom: '0.5rem' }}
+          <Typography variant="h6">
+            <span style={{ fontSize: '0.9rem' }}>{workout.day}</span>
+            <br />
+            <span>{formattedDate}</span>
+          </Typography>
+          <Box display="flex">
+            <UpdateWorkoutForm
+              workout={workout}
+              onUpdateWorkout={onUpdateWorkout}
             />
-          </span>
-        </Typography>
-      </Collapse>
+            <IconButton
+              color="secondary"
+              onClick={handleDeleteClick}
+              aria-label="delete workout"
+              sx={{ marginLeft: '0.8rem' }}
+            >
+              <Delete />
+            </IconButton>
+          </Box>
+        </Box>
+        <Box sx={{ cursor: 'pointer' }}>
+          <Typography
+            variant="body1"
+            onClick={handleToggleExerciseList}
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              paddingTop: '0.75rem',
+              paddingBottom: '0.75rem'
+            }}
+          >
+            <span>
+              {totalExercises === 0
+                ? 'No exercises'
+                : `${totalExercises} ${
+                    totalExercises === 1 ? 'exercise' : 'exercises'
+                  }`}
+            </span>
+            {showExerciseList ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+          </Typography>
+        </Box>
+        <Collapse in={showExerciseList}>
+          <ExerciseList
+            workout={workout}
+            setWorkouts={setWorkouts}
+            user={user}
+          />
+          <Typography
+            variant="body1"
+            onClick={handleCollapseClose}
+            sx={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}
+          >
+            <span style={{ marginLeft: 'auto' }}>
+              <ExpandLessIcon
+                sx={{ marginTop: '1rem', marginBottom: '1rem' }}
+              />
+            </span>
+          </Typography>
+        </Collapse>
 
-      <PromptDialog
-        open={deleteConfirmationOpen}
-        title="Confirm Delete"
-        message="Are you sure you want to delete this workout?"
-        onCancel={handleDeleteCancel}
-        onConfirm={handleDeleteConfirmation}
-      />
-    </Paper>
+        <PromptDialog
+          open={deleteConfirmationOpen}
+          title="Confirm Delete"
+          message="Are you sure you want to delete this workout?"
+          onCancel={handleDeleteCancel}
+          onConfirm={handleDeleteConfirmation}
+        />
+      </Box>
+      <Divider />
+    </>
   )
 }
 

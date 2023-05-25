@@ -2,7 +2,7 @@ import { useRef } from 'react'
 import { useForm } from 'react-hook-form'
 import { PropTypes } from 'prop-types'
 import Togglable from '../Togglable'
-import { Box, Button, TextField } from '@mui/material'
+import { Box, Button, TextField, Typography } from '@mui/material'
 
 export default function UpdateExerciseForm({
   workout,
@@ -20,14 +20,23 @@ export default function UpdateExerciseForm({
   const updateExerciseFormRef = useRef()
 
   function handleUpdate(data) {
-    updateExerciseFormRef.current.toggleVisibility()
+    updateExerciseFormRef.current.open()
     onUpdateExercise(workout.id, exercise.id, data)
+  }
+
+  const toggleOpen = () => {
+    updateExerciseFormRef.current.open()
   }
 
   const updateExerciseForm = () => {
     return (
       <Togglable mode="edit" ref={updateExerciseFormRef}>
         <Box component="form" onSubmit={handleSubmit(handleUpdate)}>
+          <Box sx={{ marginBottom: 2 }}>
+            <Typography variant="h6" gutterBottom>
+              Edit Exercise
+            </Typography>
+          </Box>
           <TextField
             label="Name"
             name="name"
@@ -89,9 +98,19 @@ export default function UpdateExerciseForm({
             helperText={errors.repetitions ? errors.repetitions.message : ''}
           />
 
-          <Button type="submit" variant="contained">
-            Update
-          </Button>
+          <Box
+            display="flex"
+            alignItems="center"
+            justifyContent="space-between"
+            mt={2}
+          >
+            <Button variant="contained" type="submit">
+              Update
+            </Button>
+            <Button variant="outlined" onClick={toggleOpen}>
+              Cancel
+            </Button>
+          </Box>
         </Box>
       </Togglable>
     )

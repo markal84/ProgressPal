@@ -1,6 +1,8 @@
 import { useContext, useEffect, useState } from 'react'
-import { Switch, Box, FormGroup, FormControlLabel } from '@mui/material'
+import { Box, IconButton } from '@mui/material'
 import { ThemeContext } from './ThemeContext'
+import Brightness4Icon from '@mui/icons-material/Brightness4'
+import Brightness7Icon from '@mui/icons-material/Brightness7'
 
 export default function ThemeSwitch() {
   const { theme, toggleTheme } = useContext(ThemeContext)
@@ -24,20 +26,11 @@ export default function ThemeSwitch() {
   }, [theme])
 
   return (
-    <Box display="flex" justifyContent="flex-end">
-      <FormGroup>
-        <FormControlLabel
-          control={
-            <Switch
-              checked={isDarkMode}
-              onChange={handleSwitchChange}
-              color="primary"
-              aria-label="theme switch"
-            />
-          }
-          label={isDarkMode ? 'Dark mode' : 'Light mode'}
-        />
-      </FormGroup>
+    <Box display="flex" justifyContent="flex-end" alignItems="center">
+      {theme.palette.mode} mode
+      <IconButton sx={{ ml: 1 }} onClick={handleSwitchChange} color="inherit">
+        {isDarkMode ? <Brightness7Icon /> : <Brightness4Icon />}
+      </IconButton>
     </Box>
   )
 }

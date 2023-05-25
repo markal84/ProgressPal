@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { PropTypes } from 'prop-types'
 import { useNavigate } from 'react-router-dom'
-import { Box } from '@mui/material'
+import { Box, Container } from '@mui/material'
 import LoginForm from '../components/forms/LoginForm'
 import UserRegisterForm from '../components/forms/AddUserForm'
 import NavHomePage from '../components/NavHomePage'
@@ -83,12 +83,14 @@ export default function Home({ setUser, setMessage }) {
   }
 
   return (
-    <Box>
+    <Container sx={{ height: '100vh' }}>
       <Header />
-      <NavHomePage activeForm={activeForm} setActiveForm={setActiveForm} />
-      {activeForm === 'login' && loginForm()}
-      {activeForm === 'register' && registerForm()}
-    </Box>
+      <Box>
+        <NavHomePage activeForm={activeForm} setActiveForm={setActiveForm} />
+        {activeForm === 'login' && loginForm()}
+        {activeForm === 'register' && registerForm()}
+      </Box>
+    </Container>
   )
 }
 
