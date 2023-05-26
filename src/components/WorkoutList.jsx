@@ -1,30 +1,37 @@
 import Workout from './Workout'
+import { Container, Grid } from '@mui/material'
 import { PropTypes } from 'prop-types'
 
 export default function WorkoutList({
   workouts,
   onDeleteWorkout,
-  onUpdateWorkout
+  onUpdateWorkout,
+  setWorkouts,
+  user
 }) {
   return (
-    <>
-      <div></div>
-      <div>
+    <Container maxWidth="xl">
+      <Grid container>
         {workouts.map((workout) => (
-          <Workout
-            key={workout.id}
-            workout={workout}
-            onDeleteWorkout={onDeleteWorkout}
-            onUpdateWorkout={onUpdateWorkout}
-          />
+          <Grid key={workout.id} item xs={12} sm={8} md={6} mt={1} mb={1}>
+            <Workout
+              workout={workout}
+              onDeleteWorkout={onDeleteWorkout}
+              onUpdateWorkout={onUpdateWorkout}
+              setWorkouts={setWorkouts}
+              user={user}
+            />
+          </Grid>
         ))}
-      </div>
-    </>
+      </Grid>
+    </Container>
   )
 }
 
 WorkoutList.propTypes = {
   workouts: PropTypes.array.isRequired,
   onDeleteWorkout: PropTypes.func.isRequired,
-  onUpdateWorkout: PropTypes.func.isRequired
+  onUpdateWorkout: PropTypes.func.isRequired,
+  setWorkouts: PropTypes.func.isRequired,
+  user: PropTypes.object
 }

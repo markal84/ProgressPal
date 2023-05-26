@@ -1,4 +1,4 @@
-import { vi } from 'vitest'
+import { vi, it, expect } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import Workout from '../components/Workout'
 import userEvent from '@testing-library/user-event'
@@ -22,12 +22,12 @@ const mockExercises = [
 
 const mockWorkout = {
   id: 1,
-  day: 'Saturday',
-  date: '2023-05-06',
+  day: 'Wednesday',
+  date: '2023-05-17',
   exercises: mockExercises
 }
 
-test('renders workout and exercises component correctly', () => {
+it('renders workout and exercises component correctly', () => {
   const onDeleteWorkout = vi.fn()
   const onUpdateWorkout = vi.fn()
 
@@ -39,11 +39,10 @@ test('renders workout and exercises component correctly', () => {
     />
   )
 
-  expect(screen.getByText(/Day: Saturday/i)).toBeInTheDocument()
-  expect(screen.getByText('Exercises:')).toBeInTheDocument()
+  expect(screen.getByText(/Wednesday/i)).toBeInTheDocument()
 })
 
-test('clicking the button delete calls event handler once', async () => {
+test('click delete button calls event handler once', async () => {
   const mockWorkout = {
     id: 1,
     day: 'Saturday',
@@ -53,17 +52,19 @@ test('clicking the button delete calls event handler once', async () => {
 
   const mockHandler = vi.fn()
   const onUpdateWorkout = vi.fn()
+  const setWorkouts = vi.fn()
 
   render(
     <Workout
       workout={mockWorkout}
       onDeleteWorkout={mockHandler}
       onUpdateWorkout={onUpdateWorkout}
+      setWorkouts={setWorkouts}
     />
   )
 
   const user = userEvent.setup()
-  const button = screen.getByText('Delete')
+  const button = screen.getByLabelText('delete workout')
   await user.click(button)
 
   expect(mockHandler.mock.calls).toHaveLength(1)

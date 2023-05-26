@@ -1,4 +1,9 @@
+/* eslint-disable indent */
+import { useState } from 'react'
 import UpdateExerciseForm from './forms/UpdateExerciseForm'
+import PromptDialog from './PromptDialog'
+import { Box, Typography, Button } from '@mui/material'
+import { Delete as DeleteIcon } from '@mui/icons-material'
 import { PropTypes } from 'prop-types'
 
 export default function Exercise({
@@ -7,27 +12,77 @@ export default function Exercise({
   onDeleteExercise,
   onUpdateExercise
 }) {
-  function deleteExercise() {
-    onDeleteExercise(exercise.id)
+  const [deleteConfirmationOpen, setDeleteConfirmationOpen] = useState(false)
+
+  function handleDeleteExercise() {
+    setDeleteConfirmationOpen(true)
   }
 
+  function handleDeleteConfirmation() {
+    onDeleteExercise(exercise.id)
+    setDeleteConfirmationOpen(false)
+  }
+
+  function handleDeleteCancel() {
+    setDeleteConfirmationOpen(false)
+  }
+
+  const names = ['weight', 'series', 'repetitions']
+  const displayNames = {
+    repetitions: 'reps'
+  }
+
+  const exerciseInfo = names.map((name) => {
+    if (name === 'weight' && !exercise.weight) {
+      return null
+    }
+
+    const displayName = displayNames[name] || name
+
+    return (
+      <Typography key={name} variant="caption" gutterBottom>
+        {displayName}:
+        <Typography variant="subtitle1" sx={{ fontWeight: '600' }}>
+          {exercise[name]}
+          {name === 'weight' ? 'kg' : ''}
+        </Typography>
+      </Typography>
+    )
+  })
+
   return (
-    <>
-      <li>
-        <p>Name: {exercise.name}</p>
-        {exercise.weight !== undefined &&
-          exercise.weight !== 0 &&
-          exercise.weight !== null && <p>Weight: {exercise.weight}kg</p>}
-        <p>Series: {exercise.series}</p>
-        <p>Repetitions: {exercise.repetitions}</p>
-        <button onClick={deleteExercise}>Delete</button>
-        <UpdateExerciseForm
-          onUpdateExercise={onUpdateExercise}
-          exercise={exercise}
-          workout={workout}
-        />
-      </li>
-    </>
+    <Box component="section">
+      <Box
+        display="flex"
+        alignItems="center"
+        justifyContent="space-between"
+        sx={{ padding: '10px' }}
+      >
+        <Typography variant="body1" align="left">
+          {exercise.name}
+        </Typography>
+        <Box display="flex">
+          <UpdateExerciseForm
+            onUpdateExercise={onUpdateExercise}
+            exercise={exercise}
+            workout={workout}
+          />
+          <Button onClick={handleDeleteExercise} color="secondary">
+            <DeleteIcon fontSize="small" />
+          </Button>
+        </Box>
+      </Box>
+      <Box display="flex" gap={2} alignItems="center" ml={1} mt={1} mb={1}>
+        {exerciseInfo}
+      </Box>
+      <PromptDialog
+        open={deleteConfirmationOpen}
+        title="Confirm Delete"
+        message="Are you sure you want to delete this exercise?"
+        onCancel={handleDeleteCancel}
+        onConfirm={handleDeleteConfirmation}
+      />
+    </Box>
   )
 }
 

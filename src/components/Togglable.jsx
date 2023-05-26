@@ -1,38 +1,43 @@
 import { useState, forwardRef, useImperativeHandle } from 'react'
 import { PropTypes } from 'prop-types'
+import { Box, IconButton, Dialog } from '@mui/material'
+import { Edit } from '@mui/icons-material'
+import AddBoxIcon from '@mui/icons-material/AddBox'
 
-const Togglable = forwardRef((props, refs) => {
-  const [visible, setVisible] = useState(false)
+const Togglable = forwardRef((props, ref) => {
+  const [open, setOpen] = useState(false)
 
-  const hideWhenVisible = { display: visible ? 'none' : '' }
-  const showWhenVisible = { display: visible ? '' : 'none' }
-
-  function toggleVisibility() {
-    setVisible(!visible)
+  function toggleOpen() {
+    setOpen(!open)
   }
 
-  useImperativeHandle(refs, () => {
-    return {
-      toggleVisibility
-    }
-  })
+  useImperativeHandle(ref, () => ({
+    open: toggleOpen
+  }))
 
   return (
-    <div>
-      <div style={hideWhenVisible}>
-        <button onClick={toggleVisibility}>{props.buttonLabel}</button>
-      </div>
-      <div style={showWhenVisible}>
-        {props.children}
-        <button onClick={toggleVisibility}>cancel</button>
-      </div>
-    </div>
+    <Box display="flex" alignItems="center">
+      {props.mode === 'edit' ? (
+        <IconButton color="primary" onClick={toggleOpen}>
+          <Edit />
+        </IconButton>
+      ) : (
+        <IconButton color="primary" onClick={toggleOpen}>
+          <AddBoxIcon fontSize="large" />
+        </IconButton>
+      )}
+
+      <Dialog open={open} onClose={toggleOpen}>
+        <Box sx={{ padding: '1rem' }}>{props.children}</Box>
+      </Dialog>
+    </Box>
   )
 })
 
 Togglable.displayName = 'Togglable'
 Togglable.propTypes = {
-  buttonLabel: PropTypes.string.isRequired,
+  buttonLabel: PropTypes.string,
+  mode: PropTypes.string,
   children: PropTypes.node
 }
 

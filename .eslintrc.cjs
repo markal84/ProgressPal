@@ -14,6 +14,7 @@ module.exports = {
     'react-refresh/only-export-components': 'warn',
     'react/prop-types': 'warn',
     'no-unused-vars': 'warn',
+    'node/no-unsupported-features/es-syntax': 'off',
     quotes: ['error', 'single'],
     semi: ['error', 'never'],
     eqeqeq: 'error',

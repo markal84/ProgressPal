@@ -1,80 +1,122 @@
-import { useState } from 'react'
+import { useRef } from 'react'
+import { useForm } from 'react-hook-form'
 import { PropTypes } from 'prop-types'
+import Togglable from '../Togglable'
+import { Box, Button, TextField, Typography } from '@mui/material'
 
 export default function UpdateExerciseForm({
   workout,
   exercise,
   onUpdateExercise
 }) {
-  const [editMode, setEditMode] = useState(false)
-  const [editedExercise, setEditedExercise] = useState(exercise)
+  const {
+    register,
+    handleSubmit,
+    formState: { errors }
+  } = useForm({
+    defaultValues: exercise
+  })
 
-  function handleUpdate(e) {
-    e.preventDefault()
-    onUpdateExercise(workout.id, exercise.id, editedExercise)
-    setEditMode(false)
+  const updateExerciseFormRef = useRef()
+
+  function handleUpdate(data) {
+    updateExerciseFormRef.current.open()
+    onUpdateExercise(workout.id, exercise.id, data)
   }
 
-  function handleUpdateInputChange(e) {
-    const { name, value } = e.target
-    setEditedExercise((prevState) => ({
-      ...prevState,
-      [name]: value
-    }))
+  const toggleOpen = () => {
+    updateExerciseFormRef.current.open()
   }
 
-  return (
-    <>
-      <button onClick={() => setEditMode(!editMode)}>
-        {editMode ? 'Cancel' : 'Edit'}
-      </button>
-      {editMode && (
-        <div>
-          <form>
-            <label htmlFor="name">
-              Name:
-              <input
-                type="text"
-                name="name"
-                defaultValue={editedExercise.name}
-                onChange={handleUpdateInputChange}
-              />
-            </label>
-            <label htmlFor="weight">
-              Weight:
-              <input
-                type="number"
-                name="weight"
-                defaultValue={editedExercise.weight}
-                onChange={handleUpdateInputChange}
-              />
-            </label>
-            <label htmlFor="series">
-              Series
-              <input
-                type="number"
-                name="series"
-                defaultValue={editedExercise.series}
-                onChange={handleUpdateInputChange}
-              />
-            </label>
-            <label htmlFor="repetitions">
-              Repetitions
-              <input
-                type="number"
-                name="repetitions"
-                defaultValue={editedExercise.repetitions}
-                onChange={handleUpdateInputChange}
-              />
-            </label>
-            <button type="submit" onClick={handleUpdate}>
+  const updateExerciseForm = () => {
+    return (
+      <Togglable mode="edit" ref={updateExerciseFormRef}>
+        <Box component="form" onSubmit={handleSubmit(handleUpdate)}>
+          <Box sx={{ marginBottom: 2 }}>
+            <Typography variant="h6" gutterBottom>
+              Edit Exercise
+            </Typography>
+          </Box>
+          <TextField
+            label="Name"
+            name="name"
+            {...register('name', {
+              required: 'Name is required',
+              pattern: {
+                value: /^[A-Za-z\s-]+$/,
+                message: 'Name must contain only letters, spaces, and hyphens'
+              }
+            })}
+            fullWidth
+            margin="normal"
+            error={!!errors.name}
+            helperText={errors.name ? errors.name.message : ''}
+          />
+
+          <TextField
+            label="Weight"
+            name="weight"
+            type="number"
+            {...register('weight')}
+            fullWidth
+            margin="normal"
+            error={!!errors.weight}
+            helperText={errors.weight ? errors.weight.message : ''}
+          />
+
+          <TextField
+            label="Series"
+            name="series"
+            type="number"
+            {...register('series', {
+              required: 'Please put at least 1',
+              pattern: {
+                value: /^[1-9][0-9]*$/,
+                message: 'Must be at least 1 series'
+              }
+            })}
+            fullWidth
+            margin="normal"
+            error={!!errors.series}
+            helperText={errors.series ? errors.series.message : ''}
+          />
+
+          <TextField
+            label="Repetitions"
+            name="repetitions"
+            type="number"
+            {...register('repetitions', {
+              required: 'Please put at least 1',
+              pattern: {
+                value: /^[1-9][0-9]*$/,
+                message: 'Must be at least 1 repetition'
+              }
+            })}
+            fullWidth
+            margin="normal"
+            error={!!errors.repetitions}
+            helperText={errors.repetitions ? errors.repetitions.message : ''}
+          />
+
+          <Box
+            display="flex"
+            alignItems="center"
+            justifyContent="space-between"
+            mt={2}
+          >
+            <Button variant="contained" type="submit">
               Update
-            </button>
-          </form>
-        </div>
-      )}
-    </>
-  )
+            </Button>
+            <Button variant="outlined" onClick={toggleOpen}>
+              Cancel
+            </Button>
+          </Box>
+        </Box>
+      </Togglable>
+    )
+  }
+
+  return <>{updateExerciseForm()}</>
 }
 
 UpdateExerciseForm.propTypes = {

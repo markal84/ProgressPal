@@ -1,25 +1,32 @@
 import { useState, useEffect } from 'react'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import User from './pages/user'
+import Workouts from './pages/workouts'
+import Home from './pages/home'
+import Register from './pages/register'
 import workoutService from './services/workouts'
-import loginService from './services/login'
-import WorkoutList from './components/WorkoutList'
-import AddWorkoutForm from './components/forms/AddWorkoutForm'
 import Notification from './components/Notification'
-import LoginForm from './components/forms/LoginForm'
-import Togglable from './components/Togglable'
 
 function App() {
   const [workouts, setWorkouts] = useState([])
-  const [isLoading, setIsLoading] = useState(false)
   const [message, setMessage] = useState(null)
   const [user, setUser] = useState(null)
+  const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
     setIsLoading(true)
-    workoutService.getAll().then((initialWorkoutss) => {
-      setWorkouts(initialWorkoutss)
-      setIsLoading(false)
-    })
-  }, [])
+
+    if (user) {
+      workoutService
+        .getAll(user)
+        .then((initialWorkouts) => {
+          setWorkouts(initialWorkouts)
+        })
+        .finally(() => {
+          setIsLoading(false)
+        })
+    }
+  }, [user])
 
   useEffect(() => {
     const loggedUserData = window.localStorage.getItem('loggedWorkoutAppUser')
@@ -30,125 +37,50 @@ function App() {
     }
   }, [])
 
-  async function handleLogin(username, password) {
-    try {
-      const user = await loginService.login({
-        username,
-        password
-      })
-
-      window.localStorage.setItem('loggedWorkoutAppUser', JSON.stringify(user))
-
-      workoutService.setToken(user.token)
-      setUser(user)
-    } catch (error) {
-      setMessage('Wrong credentials')
-      setTimeout(() => {
-        setMessage(null)
-      }, 5000)
-    }
-  }
-
-  function handleLogout() {
-    try {
-      window.localStorage.removeItem('loggedWorkoutAppUser')
-      setUser(null)
-      setMessage('Logged out')
-      setTimeout(() => {
-        setMessage(null)
-      }, 2000)
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  function handleAddWorkout(newWorkout) {
-    workoutService
-      .create(newWorkout)
-      .then((returnedWorkout) => {
-        setWorkouts([...workouts, returnedWorkout])
-        setMessage('workout added')
-        setTimeout(() => {
-          setMessage(null)
-        }, 3500)
-      })
-      .then(() => {
-        workoutService.getAll().then((updatedWorkouts) => {
-          setWorkouts(updatedWorkouts)
-        })
-      })
-      .catch((error) => {
-        console.log(error)
-      })
-  }
-
-  function handleUpdateWorkout(id, updatedWorkout) {
-    workoutService
-      .update(id, updatedWorkout)
-      .then((returnedWorkout) => {
-        setWorkouts(workouts.map((w) => (w.id !== id ? w : returnedWorkout)))
-        setMessage('workout updated')
-        setTimeout(() => {
-          setMessage(null)
-        }, 3500)
-      })
-      .catch((error) => console.log(error))
-  }
-
-  function handleDeleteWorkout(id) {
-    workoutService
-      .remove(id)
-      .then(() => {
-        setWorkouts(workouts.filter((w) => w.id !== id))
-        setMessage('workout deleted')
-        setTimeout(() => {
-          setMessage(null)
-        }, 3500)
-      })
-      .catch((error) => console.log(error))
-  }
-
-  const loginForm = () => {
-    return (
-      <Togglable buttonLabel="log in">
-        <LoginForm handleLogin={handleLogin} />
-      </Togglable>
-    )
-  }
-
-  const loggedUser = () => {
-    return (
-      <div>
-        <p>{user.name}: logged</p>
-        <button
-          type="button"
-          onClick={() => handleLogout()}
-          style={{ marginBottom: '2rem' }}
-        >
-          Logout
-        </button>
-        <AddWorkoutForm onAddWorkout={handleAddWorkout} />
-      </div>
-    )
-  }
-
   return (
-    <div>
-      <h1>Gym progress app</h1>
+    <Router>
       <Notification message={message} />
-
-      {!user && loginForm()}
-      {user && loggedUser()}
-
-      {isLoading && <p>Loading data...</p>}
-      {!isLoading && (
-        <WorkoutList
-          workouts={workouts}
-          onDeleteWorkout={handleDeleteWorkout}
-          onUpdateWorkout={handleUpdateWorkout}
+      <Routes>
+        <Route
+          path="/workouts"
+          element={
+            <Workouts
+              workouts={workouts}
+              user={user}
+              setMessage={setMessage}
+              setWorkouts={setWorkouts}
+              setUser={setUser}
+              isLoading={isLoading}
+            />
+          }
         />
-      )}
-    </div>
+        <Route
+          path="/account"
+          element={
+            <User
+              user={user}
+              setUser={setUser}
+              setMessage={setMessage}
+              workouts={workouts}
+            />
+          }
+        />
+        <Route
+          path="/"
+          element={
+            <Home setUser={setUser} user={user} setMessage={setMessage} />
+          }
+        />
+        <Route
+          path="/login"
+          element={<Home setUser={setUser} setMessage={setMessage} />}
+        />
+        <Route
+          path="/register"
+          element={<Register setMessage={setMessage} />}
+        />
+      </Routes>
+    </Router>
   )
 }
 
