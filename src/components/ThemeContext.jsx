@@ -29,14 +29,10 @@ const darkTheme = createTheme({
 })
 
 const ThemeProviderWrapper = ({ children }) => {
-  const [theme, setTheme] = useState(darkTheme)
-
-  useEffect(() => {
-    const storedTheme = localStorage.getItem('theme')
-    if (storedTheme) {
-      setTheme(storedTheme === 'dark' ? darkTheme : lightTheme)
-    }
-  }, [])
+  const storedTheme = localStorage.getItem('theme')
+  const [theme, setTheme] = useState(
+    storedTheme === 'dark' ? darkTheme : lightTheme
+  )
 
   const toggleTheme = () => {
     setTheme((prevTheme) => (prevTheme === lightTheme ? darkTheme : lightTheme))

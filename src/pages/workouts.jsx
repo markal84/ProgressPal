@@ -1,7 +1,8 @@
+import { useState, useEffect } from 'react'
 import workoutService from '../services/workouts'
 import WorkoutList from '../components/WorkoutList'
 import AddWorkoutForm from '../components/forms/AddWorkoutForm'
-import { Box } from '@mui/material'
+import { Box, Typography } from '@mui/material'
 import Nav from '../components/Navigation'
 import { PropTypes } from 'prop-types'
 
@@ -12,6 +13,19 @@ export default function Workouts({
   user,
   setUser
 }) {
+  const [isLoading, setIsLoading] = useState(false)
+
+  useEffect(() => {
+    setIsLoading(true)
+
+    if (user) {
+      workoutService.getAll(user).then((initialWorkouts) => {
+        setWorkouts(initialWorkouts)
+        setIsLoading(false)
+      })
+    }
+  }, [user, setWorkouts])
+
   function handleAddWorkout(newWorkout) {
     workoutService
       .create(newWorkout)
@@ -64,13 +78,19 @@ export default function Workouts({
           <Nav user={user} setMessage={setMessage} setUser={setUser} />
           <Box>
             <AddWorkoutForm onAddWorkout={handleAddWorkout} />
-            <WorkoutList
-              workouts={workouts}
-              onDeleteWorkout={handleDeleteWorkout}
-              onUpdateWorkout={handleUpdateWorkout}
-              setWorkouts={setWorkouts}
-              user={user}
-            />
+            {isLoading ? (
+              <Typography variant="body1" gutterBottom>
+                Loading data...
+              </Typography>
+            ) : (
+              <WorkoutList
+                workouts={workouts}
+                onDeleteWorkout={handleDeleteWorkout}
+                onUpdateWorkout={handleUpdateWorkout}
+                setWorkouts={setWorkouts}
+                user={user}
+              />
+            )}
           </Box>
         </Box>
       )}

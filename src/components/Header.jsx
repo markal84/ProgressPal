@@ -8,7 +8,12 @@ export default function Header() {
   return (
     <Box>
       <SettingsDrawer />
-      <Typography align="center" variant={isMobile ? 'h3' : 'h1'} gutterBottom>
+      <Typography
+        align="center"
+        variant={isMobile ? 'h3' : 'h1'}
+        component="h1"
+        gutterBottom
+      >
         ProgressPal
       </Typography>
     </Box>
