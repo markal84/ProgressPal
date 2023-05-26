@@ -1,7 +1,7 @@
 import workoutService from '../services/workouts'
 import WorkoutList from '../components/WorkoutList'
 import AddWorkoutForm from '../components/forms/AddWorkoutForm'
-import { Box, Typography } from '@mui/material'
+import { Box, Typography, CircularProgress } from '@mui/material'
 import Nav from '../components/Navigation'
 import { PropTypes } from 'prop-types'
 
@@ -66,9 +66,14 @@ export default function Workouts({
           <Box>
             <AddWorkoutForm onAddWorkout={handleAddWorkout} />
             {isLoading ? (
-              <Typography variant="body1" gutterBottom>
-                Loading data...
-              </Typography>
+              <Box
+                display="flex"
+                justifyContent="center"
+                alignItems="center"
+                sx={{ height: '50vh' }}
+              >
+                <CircularProgress color="inherit" />
+              </Box>
             ) : (
               <WorkoutList
                 workouts={workouts}
