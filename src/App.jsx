@@ -11,6 +11,22 @@ function App() {
   const [workouts, setWorkouts] = useState([])
   const [message, setMessage] = useState(null)
   const [user, setUser] = useState(null)
+  const [isLoading, setIsLoading] = useState(false)
+
+  useEffect(() => {
+    setIsLoading(true)
+
+    if (user) {
+      workoutService
+        .getAll(user)
+        .then((initialWorkouts) => {
+          setWorkouts(initialWorkouts)
+        })
+        .finally(() => {
+          setIsLoading(false)
+        })
+    }
+  }, [user])
 
   useEffect(() => {
     const loggedUserData = window.localStorage.getItem('loggedWorkoutAppUser')
@@ -34,6 +50,7 @@ function App() {
               setMessage={setMessage}
               setWorkouts={setWorkouts}
               setUser={setUser}
+              isLoading={isLoading}
             />
           }
         />

@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react'
 import workoutService from '../services/workouts'
 import WorkoutList from '../components/WorkoutList'
 import AddWorkoutForm from '../components/forms/AddWorkoutForm'
@@ -11,21 +10,9 @@ export default function Workouts({
   setWorkouts,
   setMessage,
   user,
-  setUser
+  setUser,
+  isLoading
 }) {
-  const [isLoading, setIsLoading] = useState(false)
-
-  useEffect(() => {
-    setIsLoading(true)
-
-    if (user) {
-      workoutService.getAll(user).then((initialWorkouts) => {
-        setWorkouts(initialWorkouts)
-        setIsLoading(false)
-      })
-    }
-  }, [user, setWorkouts])
-
   function handleAddWorkout(newWorkout) {
     workoutService
       .create(newWorkout)
@@ -103,5 +90,6 @@ Workouts.propTypes = {
   user: PropTypes.object,
   setWorkouts: PropTypes.func.isRequired,
   setMessage: PropTypes.func.isRequired,
-  setUser: PropTypes.func.isRequired
+  setUser: PropTypes.func.isRequired,
+  isLoading: PropTypes.bool
 }
