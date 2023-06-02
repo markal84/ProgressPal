@@ -7,16 +7,19 @@ export default defineConfig({
   server: {
     proxy: {
       '/api/workouts': {
-        target: 'http://localhost:3001',
-        secure: false
+        target: 'https://gymapp-backend-52y9.onrender.com',
+        secure: true,
+        changeOrigin: true
       },
       '/api/login': {
-        target: 'http://localhost:3001',
-        secure: false
+        target: 'https://gymapp-backend-52y9.onrender.com',
+        secure: true,
+        changeOrigin: true
       },
       '/api/users': {
-        target: 'http://localhost:3001',
-        secure: false
+        target: 'https://gymapp-backend-52y9.onrender.com',
+        secure: true,
+        changeOrigin: true
       }
     }
   },
@@ -32,3 +35,36 @@ export default defineConfig({
     globals: true
   }
 })
+
+/*
+      '/api/workouts': {
+        target: 'https://gymapp-backend-52y9.onrender.com',
+        secure: true,
+        changeOrigin: true
+      },
+      '/api/login': {
+        target: 'https://gymapp-backend-52y9.onrender.com',
+        secure: true,
+        changeOrigin: true
+      },
+      '/api/users': {
+        target: 'https://gymapp-backend-52y9.onrender.com',
+        secure: true,
+        changeOrigin: true
+      }
+*/
+
+/*
+ '/api/workouts': {
+        target: 'http://localhost:3001',
+        secure: false
+      },
+      '/api/login': {
+        target: 'http://localhost:3001',
+        secure: false
+      },
+      '/api/users': {
+        target: 'http://localhost:3001',
+        secure: false
+      }
+*/

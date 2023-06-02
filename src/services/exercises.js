@@ -1,15 +1,15 @@
 import axios from 'axios'
-const API_URL = 'http://localhost:3001/api/workouts'
+import { WORKOUTS } from '../config'
 
 async function create(newObject, workoutId) {
-  const req = axios.post(`${API_URL}/${workoutId}/exercises`, newObject)
+  const req = axios.post(`${WORKOUTS}/${workoutId}/exercises`, newObject)
   const res = await req
   return res.data
 }
 
 async function update(workoutId, exerciseId, updatedExercise) {
   const req = axios.put(
-    `${API_URL}/${workoutId}/exercises/${exerciseId}`,
+    `${WORKOUTS}/${workoutId}/exercises/${exerciseId}`,
     updatedExercise
   )
   const res = await req
@@ -17,7 +17,7 @@ async function update(workoutId, exerciseId, updatedExercise) {
 }
 
 async function remove(workoutId, exerciseId) {
-  const req = axios.delete(`${API_URL}/${workoutId}/exercises/${exerciseId}`)
+  const req = axios.delete(`${WORKOUTS}/${workoutId}/exercises/${exerciseId}`)
   const res = await req
   return res.data
 }

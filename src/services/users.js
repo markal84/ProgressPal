@@ -1,14 +1,14 @@
 import axios from 'axios'
-const USERS_URL = 'api/users'
+import { USERS } from '../config'
 
 async function create(newUser) {
-  const req = axios.post(USERS_URL, newUser)
+  const req = axios.post(USERS, newUser)
   const res = await req
   return res.data
 }
 
 async function remove(id) {
-  const req = axios.delete(`${USERS_URL}/${id}`)
+  const req = axios.delete(`${USERS}/${id}`)
   const res = await req
   return res.data
 }

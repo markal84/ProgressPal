@@ -19,9 +19,9 @@ export default function SettingsDrawer() {
 
   return (
     <Box display="flex" justifyContent="flex-end" alignItems="center" mt={2}>
-      <SettingsIcon onClick={toggleDrawer(true)} />
+      <SettingsIcon onClick={toggleDrawer(true)} sx={{ cursor: 'pointer' }} />
       <Drawer anchor="right" open={open} onClose={toggleDrawer(false)}>
-        <List>
+        <List sx={{ minWidth: '200px' }}>
           <ListItem></ListItem>
           <ListItem>
             <ThemeSwitch />

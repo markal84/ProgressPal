@@ -1,7 +1,7 @@
 import workoutService from '../services/workouts'
 import WorkoutList from '../components/WorkoutList'
 import AddWorkoutForm from '../components/forms/AddWorkoutForm'
-import { Box, Typography, CircularProgress } from '@mui/material'
+import { Box, CircularProgress } from '@mui/material'
 import Nav from '../components/Navigation'
 import { PropTypes } from 'prop-types'
 

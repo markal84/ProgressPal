@@ -71,14 +71,6 @@ function App() {
             <Home setUser={setUser} user={user} setMessage={setMessage} />
           }
         />
-        <Route
-          path="/login"
-          element={<Home setUser={setUser} setMessage={setMessage} />}
-        />
-        <Route
-          path="/register"
-          element={<Register setMessage={setMessage} />}
-        />
       </Routes>
     </Router>
   )
