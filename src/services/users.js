@@ -1,5 +1,6 @@
 import axios from 'axios'
-import { USERS } from '../config'
+//import { USERS } from '../config'
+const USERS = 'https://gymapp-backend-52y9.onrender.com/api/users'
 
 async function create(newUser) {
   const req = axios.post(USERS, newUser)

@@ -1,9 +1,16 @@
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { PropTypes } from 'prop-types'
-import { Box, Paper, Button, TextField, Typography } from '@mui/material'
+import {
+  Box,
+  Paper,
+  Button,
+  TextField,
+  Typography,
+  CircularProgress
+} from '@mui/material'
 
-const LoginForm = ({ handleLogin, handleDemoLogin }) => {
+const LoginForm = ({ handleLogin, handleDemoLogin, isLoading }) => {
   const [errorMessage, setErrorMessage] = useState('')
 
   const {
@@ -70,8 +77,18 @@ const LoginForm = ({ handleLogin, handleDemoLogin }) => {
           helperText={errors.password ? errors.password.message : ''}
         />
         <Box sx={{ marginTop: 4 }}>
-          <Button type="submit" variant="contained" color="primary" fullWidth>
-            Login
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            fullWidth
+            disabled={isLoading}
+          >
+            {isLoading ? (
+              <CircularProgress size={25} color="inherit" />
+            ) : (
+              'Login'
+            )}
           </Button>
         </Box>
       </form>
@@ -82,8 +99,13 @@ const LoginForm = ({ handleLogin, handleDemoLogin }) => {
           color="primary"
           fullWidth
           onClick={handleDemoClick}
+          disabled={isLoading}
         >
-          Demo User Login
+          {isLoading ? (
+            <CircularProgress size={25} color="inherit" />
+          ) : (
+            'Demo User Login'
+          )}
         </Button>
       </Box>
     </Paper>
@@ -92,7 +114,8 @@ const LoginForm = ({ handleLogin, handleDemoLogin }) => {
 
 LoginForm.propTypes = {
   handleLogin: PropTypes.func.isRequired,
-  handleDemoLogin: PropTypes.func
+  handleDemoLogin: PropTypes.func,
+  isLoading: PropTypes.bool
 }
 
 export default LoginForm

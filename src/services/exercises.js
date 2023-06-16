@@ -1,5 +1,6 @@
 import axios from 'axios'
-import { WORKOUTS } from '../config'
+//import { WORKOUTS } from '../config'
+const WORKOUTS = 'https://gymapp-backend-52y9.onrender.com/api/workouts'
 
 async function create(newObject, workoutId) {
   const req = axios.post(`${WORKOUTS}/${workoutId}/exercises`, newObject)

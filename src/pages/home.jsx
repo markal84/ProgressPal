@@ -12,10 +12,14 @@ import workoutService from '../services/workouts'
 import { DEMO_PASSWORD } from '../config'
 
 export default function Home({ setUser, setMessage }) {
+  const [isLoadingLogin, setIsLoadingLogin] = useState(false)
   const navigate = useNavigate()
   const [activeForm, setActiveForm] = useState('login')
 
   async function handleLogin(username, password) {
+    setIsLoadingLogin(true)
+    console.log('isLoading is now: ', isLoadingLogin)
+
     try {
       const user = await loginService.login({
         username,
@@ -26,12 +30,16 @@ export default function Home({ setUser, setMessage }) {
 
       workoutService.setToken(user.token)
       setUser(user)
+      setIsLoadingLogin(false)
+      console.log('isLoading is now: ', isLoadingLogin)
       navigate('/workouts')
     } catch (error) {
       if (error.response && error.response.status === 401) {
         setMessage('Invalid username or password')
+        setIsLoadingLogin(false)
       } else {
         setMessage('An error occurred. Please try again.')
+        setIsLoadingLogin(false)
       }
       setTimeout(() => {
         setMessage(null)
@@ -69,6 +77,7 @@ export default function Home({ setUser, setMessage }) {
         handleLogin={handleLogin}
         handleDemoLogin={handleDemoLogin}
         visible={activeForm === 'login'}
+        isLoading={isLoadingLogin}
       />
     )
   }
@@ -97,5 +106,7 @@ export default function Home({ setUser, setMessage }) {
 Home.propTypes = {
   setUser: PropTypes.func.isRequired,
   setMessage: PropTypes.func.isRequired,
+  setIsLoading: PropTypes.func,
+  isLoading: PropTypes.bool,
   user: PropTypes.object
 }

@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import User from './pages/user'
 import Workouts from './pages/workouts'
 import Home from './pages/home'
-import Register from './pages/register'
 import workoutService from './services/workouts'
 import Notification from './components/Notification'
 
