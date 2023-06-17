@@ -89,7 +89,7 @@ export default function ExerciseList({ workout, setWorkouts, user }) {
           {addExerciseForm()}
         </Box>
       </Grid>
-      <Box>{exercisesList}</Box>
+      {exercisesList}
     </Grid>
   )
 }

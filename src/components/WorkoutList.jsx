@@ -10,10 +10,10 @@ export default function WorkoutList({
   user
 }) {
   return (
-    <Container maxWidth="xl">
-      <Grid container>
+    <Container maxWidth="lg">
+      <Grid container rowSpacing={1} columnSpacing={{ md: 6 }}>
         {workouts.map((workout) => (
-          <Grid key={workout.id} item xs={12} sm={8} md={6} mt={1} mb={1}>
+          <Grid key={workout.id} item xs={12} md={6} mt={1} mb={1}>
             <Workout
               workout={workout}
               onDeleteWorkout={onDeleteWorkout}

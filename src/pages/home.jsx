@@ -18,7 +18,6 @@ export default function Home({ setUser, setMessage }) {
 
   async function handleLogin(username, password) {
     setIsLoadingLogin(true)
-    console.log('isLoading is now: ', isLoadingLogin)
 
     try {
       const user = await loginService.login({
@@ -31,7 +30,6 @@ export default function Home({ setUser, setMessage }) {
       workoutService.setToken(user.token)
       setUser(user)
       setIsLoadingLogin(false)
-      console.log('isLoading is now: ', isLoadingLogin)
       navigate('/workouts')
     } catch (error) {
       if (error.response && error.response.status === 401) {
