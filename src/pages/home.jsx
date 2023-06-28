@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { PropTypes } from 'prop-types'
 import { useNavigate } from 'react-router-dom'
 import { Box, Container } from '@mui/material'
@@ -15,6 +15,13 @@ export default function Home({ setUser, setMessage }) {
   const [isLoadingLogin, setIsLoadingLogin] = useState(false)
   const navigate = useNavigate()
   const [activeForm, setActiveForm] = useState('login')
+
+  useEffect(() => {
+    const loggedUserData = window.localStorage.getItem('loggedWorkoutAppUser')
+    if (loggedUserData) {
+      navigate('/workouts')
+    }
+  }, [navigate])
 
   async function handleLogin(username, password) {
     setIsLoadingLogin(true)

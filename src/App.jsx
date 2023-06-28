@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import User from './pages/user'
 import Workouts from './pages/workouts'
 import Home from './pages/home'
+import PageNotFound from './pages/pageNotFound'
 import workoutService from './services/workouts'
 import Notification from './components/Notification'
 
@@ -70,6 +71,7 @@ function App() {
             <Home setUser={setUser} user={user} setMessage={setMessage} />
           }
         />
+        <Route path="/*" element={<PageNotFound />} />
       </Routes>
     </Router>
   )
