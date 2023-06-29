@@ -6,7 +6,7 @@ export default function Header() {
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
 
   return (
-    <Box mt={3}>
+    <Box mt={4}>
       <Typography
         align="center"
         variant={isMobile ? 'h3' : 'h1'}

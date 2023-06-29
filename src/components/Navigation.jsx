@@ -14,7 +14,7 @@ import {
 import { useTheme } from '@mui/material'
 import AccountCircle from '@mui/icons-material/AccountCircle'
 import { PropTypes } from 'prop-types'
-import ThemeSwitch from './ThemeSwitch'
+//import ThemeSwitch from './ThemeSwitch'
 
 export default function Nav({ user, setUser, setMessage }) {
   const [anchorEl, setAnchorEl] = useState(null)
@@ -110,9 +110,6 @@ export default function Nav({ user, setUser, setMessage }) {
                     open={Boolean(anchorEl)}
                     onClose={handleClose}
                   >
-                    <MenuItem>
-                      <ThemeSwitch />
-                    </MenuItem>
                     <Divider />
                     <MenuItem component={RouterLink} to="/account">
                       <ListItemText style={{ textAlign: 'center' }}>
