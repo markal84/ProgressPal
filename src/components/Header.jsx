@@ -1,4 +1,4 @@
-import SettingsDrawer from './SettingsDrawer'
+//import SettingsDrawer from './SettingsDrawer'
 import { Typography, useMediaQuery, Box, useTheme } from '@mui/material'
 
 export default function Header() {
@@ -6,8 +6,7 @@ export default function Header() {
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
 
   return (
-    <Box>
-      <SettingsDrawer />
+    <Box mt={3}>
       <Typography
         align="center"
         variant={isMobile ? 'h3' : 'h1'}
