@@ -11,6 +11,7 @@ export default function ThemeSwitch() {
 
   const handleSwitchChange = () => {
     toggleTheme()
+    console.log('changing theme to', theme)
   }
 
   useEffect(() => {

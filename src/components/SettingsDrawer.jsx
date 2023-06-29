@@ -15,6 +15,7 @@ export default function SettingsDrawer() {
     }
 
     setOpen(isOpen)
+    console.log('opening setting drawer')
   }
 
   return (
