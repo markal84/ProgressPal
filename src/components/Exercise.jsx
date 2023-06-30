@@ -2,7 +2,7 @@
 import { useState } from 'react'
 import UpdateExerciseForm from './forms/UpdateExerciseForm'
 import PromptDialog from './PromptDialog'
-import { Box, Typography, Button } from '@mui/material'
+import { Box, Typography, Button, useTheme } from '@mui/material'
 import { Delete as DeleteIcon } from '@mui/icons-material'
 import { PropTypes } from 'prop-types'
 
@@ -13,6 +13,7 @@ export default function Exercise({
   onUpdateExercise
 }) {
   const [deleteConfirmationOpen, setDeleteConfirmationOpen] = useState(false)
+  const theme = useTheme()
 
   function handleDeleteExercise() {
     setDeleteConfirmationOpen(true)
@@ -51,25 +52,35 @@ export default function Exercise({
   })
 
   return (
-    <Box component="section">
+    <Box
+      component="article"
+      sx={{
+        backgroundColor: theme.palette.mode === 'dark' ? '#555' : '#f9f9f9',
+        padding: '12px'
+      }}
+    >
       <Box
         display="flex"
         alignItems="center"
         justifyContent="space-between"
-        sx={{ padding: '10px' }}
+        sx={{
+          padding: '10px'
+        }}
       >
         <Typography variant="body1" align="left">
           {exercise.name}
         </Typography>
-        <Box display="flex">
-          <UpdateExerciseForm
-            onUpdateExercise={onUpdateExercise}
-            exercise={exercise}
-            workout={workout}
-          />
-          <Button onClick={handleDeleteExercise} color="secondary">
-            <DeleteIcon fontSize="small" />
-          </Button>
+        <Box>
+          <Box display="flex">
+            <UpdateExerciseForm
+              onUpdateExercise={onUpdateExercise}
+              exercise={exercise}
+              workout={workout}
+            />
+            <Button onClick={handleDeleteExercise} color="secondary">
+              <DeleteIcon fontSize="small" />
+            </Button>
+          </Box>
         </Box>
       </Box>
       <Box display="flex" gap={2} alignItems="center" ml={1} mt={1} mb={1}>

@@ -1,7 +1,9 @@
 import workoutService from '../services/workouts'
+import { useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import WorkoutList from '../components/WorkoutList'
 import AddWorkoutForm from '../components/forms/AddWorkoutForm'
-import { Box, Typography, CircularProgress } from '@mui/material'
+import { Box, CircularProgress } from '@mui/material'
 import Nav from '../components/Navigation'
 import { PropTypes } from 'prop-types'
 
@@ -13,6 +15,15 @@ export default function Workouts({
   setUser,
   isLoading
 }) {
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    const loggedUserData = window.localStorage.getItem('loggedWorkoutAppUser')
+    if (!loggedUserData) {
+      navigate('/')
+    }
+  }, [navigate])
+
   function handleAddWorkout(newWorkout) {
     workoutService
       .create(newWorkout)

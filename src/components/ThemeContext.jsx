@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect } from 'react'
+import { createContext, useState } from 'react'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 import { PropTypes } from 'prop-types'
 
@@ -29,21 +29,23 @@ const darkTheme = createTheme({
 })
 
 const ThemeProviderWrapper = ({ children }) => {
-  const storedTheme = localStorage.getItem('theme')
-  const [theme, setTheme] = useState(
-    storedTheme === 'dark' ? darkTheme : lightTheme
-  )
+  //const storedTheme = localStorage.getItem('theme')
+  const [theme, setTheme] = useState(darkTheme)
 
+  /*
   const toggleTheme = () => {
     setTheme((prevTheme) => (prevTheme === lightTheme ? darkTheme : lightTheme))
   }
+  */
 
+  /*
   useEffect(() => {
     localStorage.setItem('theme', theme === darkTheme ? 'dark' : 'light')
   }, [theme])
+  */
 
   return (
-    <ThemeContext.Provider value={{ theme, toggleTheme }}>
+    <ThemeContext.Provider value={{ theme }}>
       <ThemeProvider theme={theme}>{children}</ThemeProvider>
     </ThemeContext.Provider>
   )
