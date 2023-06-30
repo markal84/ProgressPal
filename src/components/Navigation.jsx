@@ -110,13 +110,30 @@ export default function Nav({ user, setUser, setMessage }) {
                     open={Boolean(anchorEl)}
                     onClose={handleClose}
                   >
-                    <MenuItem component={RouterLink} to="/account">
+                    <MenuItem
+                      component={RouterLink}
+                      to="/account"
+                      sx={{ padding: '0.5rem 1rem' }}
+                    >
                       <ListItemText style={{ textAlign: 'center' }}>
                         Account
                       </ListItemText>
                     </MenuItem>
                     <Divider />
-                    <MenuItem onClick={handleLogout}>
+                    <MenuItem
+                      component={RouterLink}
+                      to="/workouts"
+                      sx={{ padding: '0.5rem 1rem' }}
+                    >
+                      <ListItemText style={{ textAlign: 'center' }}>
+                        Workouts
+                      </ListItemText>
+                    </MenuItem>
+                    <Divider />
+                    <MenuItem
+                      onClick={handleLogout}
+                      sx={{ padding: '0.5rem 1 rem' }}
+                    >
                       <ListItemText style={{ textAlign: 'center' }}>
                         Logout
                       </ListItemText>
