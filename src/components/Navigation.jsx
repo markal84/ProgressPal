@@ -14,7 +14,7 @@ import {
 import { useTheme } from '@mui/material'
 import AccountCircle from '@mui/icons-material/AccountCircle'
 import { PropTypes } from 'prop-types'
-import ThemeSwitch from './ThemeSwitch'
+//import ThemeSwitch from './ThemeSwitch'
 
 export default function Nav({ user, setUser, setMessage }) {
   const [anchorEl, setAnchorEl] = useState(null)
@@ -110,16 +110,30 @@ export default function Nav({ user, setUser, setMessage }) {
                     open={Boolean(anchorEl)}
                     onClose={handleClose}
                   >
-                    <MenuItem>
-                      <ThemeSwitch />
-                    </MenuItem>
-                    <Divider />
-                    <MenuItem component={RouterLink} to="/account">
+                    <MenuItem
+                      component={RouterLink}
+                      to="/account"
+                      sx={{ padding: '0.5rem 1rem' }}
+                    >
                       <ListItemText style={{ textAlign: 'center' }}>
                         Account
                       </ListItemText>
                     </MenuItem>
-                    <MenuItem onClick={handleLogout}>
+                    <Divider />
+                    <MenuItem
+                      component={RouterLink}
+                      to="/workouts"
+                      sx={{ padding: '0.5rem 1rem' }}
+                    >
+                      <ListItemText style={{ textAlign: 'center' }}>
+                        Workouts
+                      </ListItemText>
+                    </MenuItem>
+                    <Divider />
+                    <MenuItem
+                      onClick={handleLogout}
+                      sx={{ padding: '0.5rem 1 rem' }}
+                    >
                       <ListItemText style={{ textAlign: 'center' }}>
                         Logout
                       </ListItemText>

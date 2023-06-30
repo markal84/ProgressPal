@@ -1,5 +1,13 @@
+import { useState } from 'react'
 import Workout from './Workout'
-import { Container, Grid } from '@mui/material'
+import {
+  Container,
+  Grid,
+  Box,
+  Pagination,
+  PaginationItem,
+  Link
+} from '@mui/material'
 import { PropTypes } from 'prop-types'
 
 export default function WorkoutList({
@@ -9,11 +17,23 @@ export default function WorkoutList({
   setWorkouts,
   user
 }) {
+  const [currentPage, setCurrentPage] = useState(1)
+
+  const workoutsPerPage = 6
+  const totalPages = Math.ceil(workouts.length / workoutsPerPage)
+  const startIndex = (currentPage - 1) * workoutsPerPage
+  const endIndex = startIndex + workoutsPerPage
+  const displayedWorkouts = workouts.slice(startIndex, endIndex)
+
+  function handlePageChange(event, page) {
+    setCurrentPage(page)
+  }
+
   return (
-    <Container maxWidth="xl">
-      <Grid container>
-        {workouts.map((workout) => (
-          <Grid key={workout.id} item xs={12} sm={8} md={6} mt={1} mb={1}>
+    <Container maxWidth="lg">
+      <Grid container rowSpacing={1} columnSpacing={{ md: 6 }}>
+        {displayedWorkouts.map((workout) => (
+          <Grid key={workout.id} item xs={12} md={6} mt={1} mb={1}>
             <Workout
               workout={workout}
               onDeleteWorkout={onDeleteWorkout}
@@ -24,6 +44,26 @@ export default function WorkoutList({
           </Grid>
         ))}
       </Grid>
+      <Box
+        display="flex"
+        justifyContent="center"
+        mt={2}
+        mb={2}
+        sx={{ width: '100%' }}
+      >
+        <Pagination
+          count={totalPages}
+          page={currentPage}
+          onChange={handlePageChange}
+          renderItem={(item) => (
+            <PaginationItem
+              component={Link}
+              to={`/blogs?page=${item.page}`}
+              {...item}
+            />
+          )}
+        />
+      </Box>
     </Container>
   )
 }

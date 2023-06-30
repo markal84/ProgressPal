@@ -1,6 +1,6 @@
 /* eslint-disable indent */
 import { useState } from 'react'
-import { Box, IconButton, Typography, Collapse, Divider } from '@mui/material'
+import { Box, IconButton, Typography, Collapse, useTheme } from '@mui/material'
 import ExpandLessIcon from '@mui/icons-material/ExpandLess'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import { Delete } from '@mui/icons-material'
@@ -19,6 +19,7 @@ export default function Workout({
 }) {
   const [showExerciseList, setShowExerciseList] = useState(false)
   const [deleteConfirmationOpen, setDeleteConfirmationOpen] = useState(false)
+  const theme = useTheme()
 
   const formattedDate = formatDate(workout.date)
   const totalExercises = workout.exercises.length
@@ -47,9 +48,10 @@ export default function Workout({
   return (
     <>
       <Box
-        component="section"
+        component="article"
         sx={{
-          padding: '1rem'
+          padding: '1rem',
+          backgroundColor: theme.palette.mode === 'dark' ? '#444' : '#f5f5f5'
         }}
       >
         <Box
@@ -64,19 +66,21 @@ export default function Workout({
             <br />
             <span>{formattedDate}</span>
           </Typography>
-          <Box display="flex">
-            <UpdateWorkoutForm
-              workout={workout}
-              onUpdateWorkout={onUpdateWorkout}
-            />
-            <IconButton
-              color="secondary"
-              onClick={handleDeleteClick}
-              aria-label="delete workout"
-              sx={{ marginLeft: '0.8rem' }}
-            >
-              <Delete />
-            </IconButton>
+          <Box>
+            <Box display="flex">
+              <UpdateWorkoutForm
+                workout={workout}
+                onUpdateWorkout={onUpdateWorkout}
+              />
+              <IconButton
+                color="secondary"
+                onClick={handleDeleteClick}
+                aria-label="delete workout"
+                sx={{ marginLeft: '0.8rem' }}
+              >
+                <Delete />
+              </IconButton>
+            </Box>
           </Box>
         </Box>
         <Box sx={{ cursor: 'pointer' }}>
@@ -128,7 +132,6 @@ export default function Workout({
           onConfirm={handleDeleteConfirmation}
         />
       </Box>
-      <Divider />
     </>
   )
 }
