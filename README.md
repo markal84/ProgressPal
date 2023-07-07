@@ -6,12 +6,49 @@
 [![LinkedIn][linkedin-shield]][linkedin-url]
 
 <br />
-
 <div align="center">
 
-<h3 align="center">ProgressPal</h3>
+<h3 align="center">ProjectPal</h3>
 
-ProgressPal is a frontend web application designed to help users track their workouts and exercises. It allows users to create accounts, log in securely, and access personalized workout tracking features. The application is actively developed, with regular updates and new features being added.
+  <p align="center">
+    ProgressPal is a frontend web application designed to help users track their workouts and exercises. It allows users to create accounts, log in securely, and access personalized workout tracking features. The application is actively developed, with regular updates and new features being added.
+    <br />
+    <a href="https://github.com/markal84/ProgressPall"><strong>Explore the docs »</strong></a>
+    <br />
+    <br />
+    <a href="https://github.com/markal84/ProgressPall">View Demo</a>
+    ·
+    <a href="https://github.com/markal84/ProgressPall/issues">Report Bug</a>
+    ·
+    <a href="https://github.com/markal84/ProgressPall/issues">Request Feature</a>
+  </p>
+</div>
+
+  <ol>
+    <li>
+      <a href="#about-the-project">About The Project</a>
+      <ul>
+        <li><a href="#built-with">Built With</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#getting-started">Getting Started</a>
+      <ul>
+        <li><a href="#prerequisites">Prerequisites</a></li>
+        <li><a href="#installation">Installation</a></li>
+      </ul>
+    </li>
+    <li><a href="#usage">Usage</a></li>
+    <li><a href="#roadmap">Roadmap</a></li>
+    <li><a href="#contributing">Contributing</a></li>
+    <li><a href="#license">License</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="#acknowledgments">Acknowledgments</a></li>
+  </ol>
+
+## About The Project
+
+[![Product Name Screen Shot][product-screenshot]](https://gymapp-markal84.vercel.app/)
 
 ## Key Features
 
@@ -20,6 +57,8 @@ ProgressPal is a frontend web application designed to help users track their wor
 - **Exercise Tracking:** With ProgressPal, users can easily track their exercises. They can add exercises to their workouts and specify details such as the exercise name, sets, reps, and weights. This feature allows users to keep a record of their progress and monitor their performance over time.
 
 - **Data Persistence:** All workout and exercise data entered by users is securely stored in a MongoDB Atlas cloud database. This ensures data integrity and availability, allowing users to access their data from anywhere with an internet connection.
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### Built With
 
@@ -53,7 +92,7 @@ npm install
 4. Run the application:
 
 ```shell
-`npm start`
+npm start
 ```
 
 5. Access the application in your web browser at the localhost address.
