@@ -11,46 +11,7 @@
 
 <h3 align="center">ProgressPal</h3>
 
-  <p align="center">
-    ProgressPal is a frontend web application designed to help users track their workouts and exercises. It allows users to create accounts, log in securely, and access personalized workout tracking features. The application is actively developed, with regular updates and new features being added.
-    <br />
-    <a href="https://github.com/markal84/ProgressPall"><strong>Explore the docs »</strong></a>
-    <br />
-    <br />
-    <a href="https://gymapp-markal84.vercel.app/">View Demo</a>
-    ·
-    <a href="https://github.com/markal84/ProgressPall/issues">Report Bug</a>
-    ·
-    <a href="https://github.com/markal84/ProgressPall/issues">Request Feature</a>
-  </p>
-</div>
-
-  <ol>
-    <li>
-      <a href="#about-the-project">About The Project</a>
-      <ul>
-        <li><a href="#built-with">Built With</a></li>
-      </ul>
-    </li>
-    <li>
-      <a href="#getting-started">Getting Started</a>
-      <ul>
-        <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#installation">Installation</a></li>
-      </ul>
-    </li>
-    <li><a href="#usage">Usage</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
-    <li><a href="#contributing">Contributing</a></li>
-    <li><a href="#license">License</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ol>
-
-## About The Project
-
-[![Product Name Screen Shot][product-screenshot]](https://gymapp-markal84.vercel.app/)
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+ProgressPal is a frontend web application designed to help users track their workouts and exercises. It allows users to create accounts, log in securely, and access personalized workout tracking features. The application is actively developed, with regular updates and new features being added.
 
 ## Key Features
 
