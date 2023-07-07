@@ -8,7 +8,7 @@
 <br />
 <div align="center">
 
-<h3 align="center">ProjectPal</h3>
+<h3 align="center">ProgressPal</h3>
 
   <p align="center">
     ProgressPal is a frontend web application designed to help users track their workouts and exercises. It allows users to create accounts, log in securely, and access personalized workout tracking features. The application is actively developed, with regular updates and new features being added.
