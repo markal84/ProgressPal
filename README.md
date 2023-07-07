@@ -16,7 +16,7 @@
     <a href="https://github.com/markal84/ProgressPall"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/markal84/ProgressPall">View Demo</a>
+    <a href="https://gymapp-markal84.vercel.app/">View Demo</a>
     ·
     <a href="https://github.com/markal84/ProgressPall/issues">Report Bug</a>
     ·
