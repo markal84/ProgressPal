@@ -79,7 +79,7 @@ To get started with ProgressPal locally, follow these steps:
 1. Clone the repository:
 
 ```shell
-git clone https://github.com/markal84/gymApp.git
+git clone https://github.com/markal84/ProgressPall.git
 ```
 
 2. Install dependencies:
