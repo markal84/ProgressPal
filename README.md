@@ -79,7 +79,7 @@ To get started with ProgressPal locally, follow these steps:
 1. Clone the repository:
 
 ```shell
-git clone https://github.com/markal84/ProgressPall.git
+git clone https://github.com/markal84/ProgressPal.git
 ```
 
 2. Install dependencies:
